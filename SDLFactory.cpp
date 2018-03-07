@@ -14,6 +14,7 @@
 #include "SDLInputHandler.h"
 #include "Types.h"
 #include "SDLPacman.h"
+#include "SDLWall.h"
 #include <iostream>
 
 using namespace std;
@@ -60,6 +61,10 @@ Ghost* SDLFactory::createGhost(int x, int y, int w, int h, int posX, int posY) {
 Pacman* SDLFactory::createPacman(int posX, int posY) {
 	//return new SDLPacman(PACMAN.x, PACMAN.y, PACMAN.w, PACMAN.h, gRenderer, spriteSheet, posX, posY);
 	return new SDLPacman(0,70 ,24 ,24 , gRenderer, spriteSheet, posX, posY);
+}
+
+Wall* SDLFactory::createWall(int posX, int posY, int type) {
+	return new SDLWall(gRenderer, spriteSheet, posX, posY,type);
 }
 
 /**

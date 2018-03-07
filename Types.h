@@ -34,12 +34,29 @@ enum PacmanSprites {
 	P_CLOSED
 };
 
+enum pacmanObjects {
+	PACMAN,
+	HWALL,
+	VWALL,
+	LBCORNER,
+	RBCORNER,
+	RUCORNER,
+	LUCORNER,
+	RGHOST,
+	OGHOST,
+	PGHOST,
+	BHOST,
+	DOTS
+
+};
+
 struct PACMAN {
 			int x = 0;
 			int y = 288;
 			int w = 95;
 			int h = 95;
 };
+
 
 
 

@@ -23,6 +23,7 @@ public:
 	Ghost* createGhost(int x, int y, int w, int h, int posX, int posY) override;
 	Pacman* createPacman(int posX, int posY) override;
 	Timer* createTimer() override;
+	Wall* createWall(int posX, int posY, int type) override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);

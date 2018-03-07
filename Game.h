@@ -10,6 +10,8 @@
 
 
 #include "AbstractFactory.h"
+#include "Wall.h"
+#include <vector>
 
 class Game {
 public:
@@ -25,9 +27,11 @@ private:
 	Ghost* orangeGhost;
 	Ghost* pinkGhost;
 	Pacman* pacman;
+	vector<Wall*> walls;
 	int countedFrames; //used to calculate fps
 	//default constructor shouldn't be used --> private
 	Game();
+	void loadMap();
 
 
 };

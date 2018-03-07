@@ -9,6 +9,8 @@
 #include "AbstractFactory.h"
 #include "Types.h"
 #include "InputHandler.h"
+#include "Map.h"
+#include <vector>
 
 #include <iostream>
 using namespace std;
@@ -30,9 +32,22 @@ Game::Game(AbstractFactory *F): F(F) {
 Game::~Game() {
 	// TODO Auto-generated destructor stub
 }
+void Game::loadMap() {
+	Map mapController;
+	//TODO parametrise the for loop
+			for(int k = 0;k<20;k++) {
+				for(int l = 0;l<26;l++) {
+					int object = mapController.getValue(k,l);
+					if(object <= LUCORNER && object >= HWALL)
+						walls.push_back(F->createWall(l*24,k*24,object));
+				}
+			}
 
+}
 void Game::start() {
 	//creates the needed instrument using factory
+
+	//delete map;
 	Timer* capTimer = F->createTimer();
 	Timer* FPSTimer = F->createTimer();
 	InputHandler* iHandler = F->createInputHandler(pacman);
@@ -48,6 +63,7 @@ void Game::start() {
 	//used to make the ghosts move
 	int i = 0;
 	int j = 0;
+	loadMap();
 
 	//GAME LOOP
 	while( !quit ) {
@@ -55,10 +71,15 @@ void Game::start() {
 		capTimer->startTimer();
 		//calculate fps
 		FPS =  countedFrames / (FPSTimer->getTimePassed()/ 1000. );
-		cout << "FPS: " << FPS << endl;
+		//cout << "FPS: " << FPS << endl;
+		///RENDER WALLS
+
 
 		/////////////// VISUAL ASPECTS
 		F->clearScreen();
+		for(Wall* wall : walls) {
+			wall->visualize();
+		}
 		pacman->visualize();
 		ghost->visualize();
 		redGhost->visualize();
@@ -86,7 +107,7 @@ void Game::start() {
 		//if the fps is too high and needs to be capped--> not very precise --> last resort stop
 		if(capTimer->getTimePassed() < SCREEN_TICKS_PER_FRAME ) {
 			//wait the duration of the extra time
-			cout << "ticks per frame: "<<SCREEN_TICKS_PER_FRAME - capTimer->getTimePassed() << endl;
+			//cout << "ticks per frame: "<<SCREEN_TICKS_PER_FRAME - capTimer->getTimePassed() << endl;
 
 			capTimer->Delay(SCREEN_TICKS_PER_FRAME - capTimer->getTimePassed());
 		}

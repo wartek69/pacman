@@ -17,7 +17,7 @@ public:
 	SDLPacman(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLPacman();
 	void move(int direction, int velocity) override;
-	void loadSprites() override;
+	void loadSprites();
 	void visualize() override;
 private:
 	//9 sprites needed t animate and move the pacman

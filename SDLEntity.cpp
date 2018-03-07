@@ -29,7 +29,9 @@ SDLEntity::~SDLEntity() {
 }
 
 void SDLEntity::visualize(int posX, int posY) {
+	//SDL_RenderSetScale(gRenderer,1.5,1.5);
 	//Set rendering space and render to screen
+
 	SDL_Rect renderQuad = {posX, posY, currentSprite.w, currentSprite.h};
 	SDL_RenderCopy(gRenderer, spriteSheet, &currentSprite, &renderQuad);
 }
