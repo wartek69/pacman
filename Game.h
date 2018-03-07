@@ -28,6 +28,8 @@ private:
 	Ghost* pinkGhost;
 	Pacman* pacman;
 	vector<Wall*> walls;
+	vector<Entity*> mEntities;
+	InputHandler* iHandler;
 	int countedFrames; //used to calculate fps
 	//default constructor shouldn't be used --> private
 	Game();

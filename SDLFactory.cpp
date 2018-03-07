@@ -53,9 +53,22 @@ SDLFactory::~SDLFactory() {
 	close();
 }
 
-Ghost* SDLFactory::createGhost(int x, int y, int w, int h, int posX, int posY) {
+Ghost* SDLFactory::createGhost(int posX, int posY, int type) {
 	//TODO MEMORY LEAK?
-	return new SDLGhost(x, y, w, h, gRenderer, spriteSheet, posX, posY);
+	switch(type) {
+	case RGHOST:
+		return new SDLGhost(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+	break;
+	case BGHOST:
+		return new SDLGhost(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
+	break;
+	case OGHOST:
+		return new SDLGhost(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY);
+	break;
+	case PGHOST:
+		return new SDLGhost(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+	break;
+	}
 }
 
 Pacman* SDLFactory::createPacman(int posX, int posY) {

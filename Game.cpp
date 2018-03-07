@@ -17,16 +17,6 @@ using namespace std;
 
 
 Game::Game(AbstractFactory *F): F(F) {
-	/*ghost = F->createGhost(864,768,95,95,300,300);
-	redGhost = F->createGhost(0,575,95,95,100,100);
-	orangeGhost = F->createGhost(0,864,95,95,400,300);
-	pinkGhost = F->createGhost(0,768,95,95,200,200);
-	pacman = F->createPacman(275,275);*/
-	ghost = F->createGhost(191,192,24,24,300,300);
-	redGhost = F->createGhost(0,143,24,24,100,100);
-	orangeGhost = F->createGhost(0,216,24,24,400,300);
-	pinkGhost = F->createGhost(0,192,24,24,200,200);
-	pacman = F->createPacman(250,250);
 	countedFrames = 0; //used to calculate fps
 }
 Game::~Game() {
@@ -34,15 +24,25 @@ Game::~Game() {
 }
 void Game::loadMap() {
 	Map mapController;
-	//TODO parametrise the for loop
-			for(int k = 0;k<20;k++) {
-				for(int l = 0;l<26;l++) {
-					int object = mapController.getValue(k,l);
-					if(object <= LUCORNER && object >= HWALL)
-						walls.push_back(F->createWall(l*24,k*24,object));
-				}
-			}
+	//TODO parameterize the for loop
+		for(int k = 0;k<20;k++) {
+			for(int l = 0;l<26;l++) {
+				int object = mapController.getValue(k,l);
+				if(object <= LUCORNER && object >= HWALL)
+					walls.push_back(F->createWall(l*24,k*24,object));
+				else if(object == PACMAN) {
+					pacman = F->createPacman(l*24,k*24);
+					//bind inputhandler to pacman
+					iHandler = F->createInputHandler(pacman);
+					mEntities.push_back(pacman);
+				} else if (object >= RGHOST && object <= BGHOST) {
+					mEntities.push_back(F->createGhost(l*24, k*24, object));
+					//TODO make ghost adressable
 
+				}
+
+			}
+		}
 }
 void Game::start() {
 	//creates the needed instrument using factory
@@ -50,7 +50,6 @@ void Game::start() {
 	//delete map;
 	Timer* capTimer = F->createTimer();
 	Timer* FPSTimer = F->createTimer();
-	InputHandler* iHandler = F->createInputHandler(pacman);
 	//starts up timer
 	FPSTimer->startTimer();
 	float FPS;
@@ -80,21 +79,23 @@ void Game::start() {
 		for(Wall* wall : walls) {
 			wall->visualize();
 		}
-		pacman->visualize();
-		ghost->visualize();
-		redGhost->visualize();
-		orangeGhost->visualize();
-		pinkGhost->visualize();
+		for(Entity* entity : mEntities) {
+			entity->visualize();
+		}
+		//ghost->visualize();
+		//redGhost->visualize();
+		//orangeGhost->visualize();
+		//pinkGhost->visualize();
 		F->showScreen();
 		iHandler->handleInput(quit,direction, velocity);
 
 		pacman->move(direction, velocity);
 		////////////// GAME LOGIC
 		if(i<100) {
-			ghost->move(FORWARD-j,1);
-			redGhost->move(RIGHT+j,1);
-			orangeGhost->move(FORWARD-j,2);
-			pinkGhost->move(FORWARD-j,2);
+			//ghost->move(FORWARD-j,1);
+			//redGhost->move(RIGHT+j,1);
+			//orangeGhost->move(FORWARD-j,2);
+			//pinkGhost->move(FORWARD-j,2);
 			i = i+1;
 		} else {
 			i = 0;

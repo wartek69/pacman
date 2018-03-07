@@ -19,7 +19,7 @@ public:
 	AbstractFactory();
 	virtual ~AbstractFactory();
 	//pure virtual declaration
-	virtual Ghost* createGhost(int x, int y, int w, int h, int posX, int posY) = 0;
+	virtual Ghost* createGhost(int posX, int posY, int type) = 0;
 	virtual Pacman* createPacman(int posX, int posY) = 0;
 	virtual Wall* createWall(int posX, int posY, int type) = 0;
 	virtual void clearScreen() = 0;
