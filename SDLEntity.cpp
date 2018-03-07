@@ -25,7 +25,7 @@ SDLEntity::SDLEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* g
 }
 
 SDLEntity::~SDLEntity() {
-	// TODO Auto-generated destructor stub
+	// TODO
 }
 
 void SDLEntity::visualize(int posX, int posY) {
