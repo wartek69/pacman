@@ -18,6 +18,7 @@ using namespace std;
 
 Game::Game(AbstractFactory *F): F(F) {
 	countedFrames = 0; //used to calculate fps
+	loadMap();
 }
 Game::~Game() {
 	// TODO Auto-generated destructor stub
@@ -36,9 +37,17 @@ void Game::loadMap() {
 					iHandler = F->createInputHandler(pacman);
 					mEntities.push_back(pacman);
 				} else if (object >= RGHOST && object <= BGHOST) {
-					mEntities.push_back(F->createGhost(l*24, k*24, object));
-					//TODO make ghost adressable
-
+					Ghost* tempGhost = F->createGhost(l*24, k*24, object);
+					if(object == RGHOST) {
+						redGhost = tempGhost;
+					} else if( object == BGHOST) {
+						blueGhost = tempGhost;
+					} else if( object == OGHOST ) {
+						orangeGhost = tempGhost;
+					} else if( object == PGHOST) {
+						pinkGhost = tempGhost;
+					}
+					mEntities.push_back(tempGhost);
 				}
 
 			}
@@ -57,12 +66,11 @@ void Game::start() {
 	bool quit = false;
 	//variables to control movement
 	int direction = 1;
-	int velocity = -1;
+	int velocity = 0;
 
 	//used to make the ghosts move
 	int i = 0;
 	int j = 0;
-	loadMap();
 
 	//GAME LOOP
 	while( !quit ) {
@@ -82,20 +90,45 @@ void Game::start() {
 		for(Entity* entity : mEntities) {
 			entity->visualize();
 		}
-		//ghost->visualize();
-		//redGhost->visualize();
-		//orangeGhost->visualize();
-		//pinkGhost->visualize();
 		F->showScreen();
-		iHandler->handleInput(quit,direction, velocity);
-
-		pacman->move(direction, velocity);
+		//checks if there was a pacman created
+		if(pacman != NULL) {
+			int previousDirection = direction;
+			iHandler->handleInput(quit,direction, velocity);
+			//moves pacman
+			pacman->move(direction, velocity);
+			//checks collision with walls
+			for(Wall* wall : walls) {
+				if(pacman->checkCollision(wall)) {
+					//if a collision happends put pacman back in its first position
+					if(previousDirection == direction) {
+						pacman->move(direction, -velocity);
+						//stop the moving of pacman
+						pacman->move(direction, 0);
+						cout << "testtt" << endl;
+					} else {
+						pacman->move(direction, -velocity);
+						direction = previousDirection;
+						pacman->move(previousDirection, velocity);
+						cout << "test" << endl;
+						cout << direction << endl;
+						cout << previousDirection << endl;
+						//TODO fix no clipping + fix da je nie in een directie kan gaan die nie mogelijk is
+					}
+					break;
+				}
+			}
+		}
 		////////////// GAME LOGIC
 		if(i<100) {
-			//ghost->move(FORWARD-j,1);
-			//redGhost->move(RIGHT+j,1);
-			//orangeGhost->move(FORWARD-j,2);
-			//pinkGhost->move(FORWARD-j,2);
+			//checks if there was a ghost created
+			if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
+				blueGhost->move(FORWARD-j,1);
+				redGhost->move(RIGHT+j,1);
+				orangeGhost->move(FORWARD-j,2);
+				pinkGhost->move(FORWARD-j,2);
+			}
+
 			i = i+1;
 		} else {
 			i = 0;

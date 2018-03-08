@@ -15,6 +15,7 @@ public:
 	MovingEntity(int posX, int posY);
 	virtual ~MovingEntity();
 	virtual void move(int direction, int velocity);
+	virtual bool checkCollision(Entity* collisionPartner);
 };
 
 #endif /* MOVINGENTITY_H_ */

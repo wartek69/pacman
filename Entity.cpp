@@ -16,3 +16,18 @@ Entity::~Entity() {
 	// TODO Auto-generated destructor stub
 }
 
+int Entity::getHeight() {
+	return collisionHeight;
+}
+
+int Entity::getWidth() {
+	return collisionWidth;
+}
+
+int Entity::getPositionX() {
+	return position.x;
+}
+
+int Entity::getPositionY() {
+	return position.y;
+}

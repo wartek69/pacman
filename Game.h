@@ -22,7 +22,7 @@ private:
 	const int DELAY = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000/DELAY;
 	AbstractFactory *F;
-	Ghost* ghost;
+	Ghost* blueGhost;
 	Ghost* redGhost;
 	Ghost* orangeGhost;
 	Ghost* pinkGhost;

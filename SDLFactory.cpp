@@ -57,10 +57,10 @@ Ghost* SDLFactory::createGhost(int posX, int posY, int type) {
 	//TODO MEMORY LEAK?
 	switch(type) {
 	case RGHOST:
-		return new SDLGhost(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return new SDLGhost(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case BGHOST:
-		return new SDLGhost(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return new SDLGhost(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case OGHOST:
 		return new SDLGhost(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY);

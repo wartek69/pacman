@@ -22,6 +22,7 @@ public:
 	void loadSprites();
 private:
 	SDL_Rect sprites[8];
+	// j is used to swap animations
 	int frameCounter, j;
 };
 

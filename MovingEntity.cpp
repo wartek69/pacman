@@ -37,3 +37,40 @@ void MovingEntity::move(int direction, int velocity) {
 		break;
 	}
 }
+
+bool MovingEntity::checkCollision(Entity* collisionPartner) {
+	 //The sides of the rectangles
+	    int leftA, leftB;
+	    int rightA, rightB;
+	    int topA, topB;
+	    int bottomA, bottomB;
+
+	    //Calculate the sides of rect A
+	    leftA = position.x;
+	    rightA = position.x + collisionWidth;
+	    topA = position.y;
+	    bottomA = position.y + collisionHeight;
+
+	    //Calculate the sides of rect B
+	    leftB = collisionPartner->getPositionX();
+	    rightB = collisionPartner->getPositionX() + collisionPartner->getWidth();
+	    topB = collisionPartner->getPositionY();
+	    bottomB = collisionPartner->getPositionY() + collisionPartner->getHeight();
+
+	    //If any of the sides from A are outside of B
+	        if( bottomA <= topB ) {
+	            return false;
+	        }
+	        if( topA >= bottomB ) {
+	            return false;
+	        }
+	        if( rightA <= leftB ) {
+	            return false;
+	        }
+	        if( leftA >= rightB ) {
+	            return false;
+	        }
+	        //If none of the sides from A are outside B
+	        return true;
+}
+
