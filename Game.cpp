@@ -105,14 +105,10 @@ void Game::start() {
 						pacman->move(direction, -velocity);
 						//stop the moving of pacman
 						pacman->move(direction, 0);
-						cout << "testtt" << endl;
 					} else {
 						pacman->move(direction, -velocity);
 						direction = previousDirection;
 						pacman->move(previousDirection, velocity);
-						cout << "test" << endl;
-						cout << direction << endl;
-						cout << previousDirection << endl;
 						//TODO fix no clipping + fix da je nie in een directie kan gaan die nie mogelijk is
 					}
 					break;
