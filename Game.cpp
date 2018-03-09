@@ -53,9 +53,26 @@ void Game::loadMap() {
 			}
 		}
 }
+/**
+ * This functions checks collision for pacman
+ * if no collision occurs the pacman gets moved
+ */
+bool Game::pacCollision(int inputBuffer, int velocity) {
+	pacman->move(inputBuffer, velocity, false);
+	//checks collision with walls
+	for(Wall* wall : walls) {
+		if(pacman->checkCollision(wall)) {
+			//if there is a collision move the pacman back to it's initial position
+			pacman->move(inputBuffer, -velocity, false);
+			return true;
+		}
+	}
+	pacman->move(inputBuffer, -velocity, false);
+	pacman->move(inputBuffer, velocity, true);
+	return false;
+}
 void Game::start() {
 	//creates the needed instrument using factory
-
 	//delete map;
 	Timer* capTimer = F->createTimer();
 	Timer* FPSTimer = F->createTimer();
@@ -65,7 +82,10 @@ void Game::start() {
 	//Main loop flag
 	bool quit = false;
 	//variables to control movement
+	//direction that the player has chosen for pacman
 	int direction = 1;
+	//the direction the player has chosen prior the direction
+	int previousDirection = direction;
 	int velocity = 0;
 
 	//used to make the ghosts move
@@ -79,7 +99,6 @@ void Game::start() {
 		//calculate fps
 		FPS =  countedFrames / (FPSTimer->getTimePassed()/ 1000. );
 		//cout << "FPS: " << FPS << endl;
-		///RENDER WALLS
 
 
 		/////////////// VISUAL ASPECTS
@@ -91,38 +110,34 @@ void Game::start() {
 			entity->visualize();
 		}
 		F->showScreen();
+
+		////////////////COLLISION DETECTION FOR PACMAN
+
 		//checks if there was a pacman created
 		if(pacman != NULL) {
-			int previousDirection = direction;
+			int temp = direction;
 			iHandler->handleInput(quit,direction, velocity);
-			//moves pacman
-			pacman->move(direction, velocity);
-			//checks collision with walls
-			for(Wall* wall : walls) {
-				if(pacman->checkCollision(wall)) {
-					//if a collision happends put pacman back in its first position
-					if(previousDirection == direction) {
-						pacman->move(direction, -velocity);
-						//stop the moving of pacman
-						pacman->move(direction, 0);
-					} else {
-						pacman->move(direction, -velocity);
-						direction = previousDirection;
-						pacman->move(previousDirection, velocity);
-						//TODO fix no clipping + fix da je nie in een directie kan gaan die nie mogelijk is
+			//the user input changed the direction, so there is another previous direction now
+			if(temp != direction)
+				previousDirection = temp;
+			//collision algorithm takes previous direction if given direction isn't possible
+			if(pacCollision(direction, velocity)) {
+					if(pacCollision(previousDirection, velocity)) {
+						//stop
+						pacman->move(previousDirection, 0, true);
+						//previousDirection = direction;
 					}
-					break;
-				}
 			}
 		}
+
 		////////////// GAME LOGIC
 		if(i<100) {
 			//checks if there was a ghost created
 			if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
-				blueGhost->move(FORWARD-j,1);
-				redGhost->move(RIGHT+j,1);
-				orangeGhost->move(FORWARD-j,2);
-				pinkGhost->move(FORWARD-j,2);
+				blueGhost->move(FORWARD-j,1, true);
+				redGhost->move(RIGHT+j,1, true);
+				orangeGhost->move(FORWARD-j,2, true);
+				pinkGhost->move(FORWARD-j,2, true);
 			}
 
 			i = i+1;

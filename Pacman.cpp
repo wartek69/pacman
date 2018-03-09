@@ -8,7 +8,7 @@
 #include "Pacman.h"
 #include "MovingEntity.h"
 
-Pacman::Pacman(int posX,int posY): MovingEntity(posX, posY) {
+Pacman::Pacman(int posX,int posY): MovingEntity(posX, posY, 24, 24) {
 	// TODO Auto-generated constructor stub
 
 }

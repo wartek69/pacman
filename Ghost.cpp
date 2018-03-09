@@ -13,7 +13,7 @@
 using namespace std;
 
 
-Ghost::Ghost(int posX, int posY): MovingEntity(posX, posY) {
+Ghost::Ghost(int posX, int posY): MovingEntity(posX, posY, 24, 24) {
 
 }
 

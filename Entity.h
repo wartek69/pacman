@@ -10,7 +10,7 @@
 
 class Entity {
 public:
-	Entity(int posX, int posY);
+	Entity(int posX, int posY, int collisionWidth, int collisionHeight);
 	virtual ~Entity();
 	virtual void visualize() = 0;
 	virtual int getPositionX();
@@ -23,8 +23,8 @@ protected:
 			int y;
 		};
 	coordinates position;
-	int collisionWidth = 24;
-	int collisionHeight = 24;
+	int collisionWidth;
+	int collisionHeight;
 };
 
 #endif /* ENTITY_H_ */

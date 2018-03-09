@@ -12,7 +12,8 @@
 
 using namespace std;
 
-MovingEntity::MovingEntity(int posX, int posY): Entity(posX, posY) {
+MovingEntity::MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight)
+: Entity(posX, posY, collisionWidth, collisionHeight) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -21,7 +22,7 @@ MovingEntity::~MovingEntity() {
 	// TODO Auto-generated destructor stub
 }
 
-void MovingEntity::move(int direction, int velocity) {
+void MovingEntity::move(int direction, int velocity, bool animation) {
 	switch(direction) {
 	case FORWARD:
 		position.y = position.y - velocity;

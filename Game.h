@@ -30,6 +30,7 @@ private:
 	vector<Wall*> walls;
 	vector<Entity*> mEntities;
 	InputHandler* iHandler;
+	bool pacCollision(int inputBuffer, int velocity);
 	int countedFrames; //used to calculate fps
 	//default constructor shouldn't be used --> private
 	Game();

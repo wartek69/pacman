@@ -16,7 +16,7 @@ public:
 	virtual ~SDLInputHandler();
 	void handleInput(bool& quit, int& direction,int& velocity);
 private:
-	int lastInput;
+
 };
 
 #endif /* SDLINPUTHANDLER_H_ */

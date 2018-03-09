@@ -43,13 +43,13 @@ void SDLPacman::loadSprites() {
 	currentSprite = sprites[7];
 
 }
-void SDLPacman::move(int direction, int velocity) {
+void SDLPacman::move(int direction, int velocity, bool animation) {
 	//call base class move
 	if(velocity != 0)
-		MovingEntity::move(direction, velocity);
+		MovingEntity::move(direction, velocity, animation);
 	//animations
 	int temp;
-	int multiplyFactor = 8;
+	int multiplyFactor = 16;
 
 	switch(direction) {
 		case FORWARD:
@@ -67,26 +67,27 @@ void SDLPacman::move(int direction, int velocity) {
 	}
 
 	//next part of code switches the picture every multiplyFactor of frames
-
-	if(velocity == 0) {
-		//the pacman isn't moving, --> mouth is half open
-		currentSprite = sprites[temp+2];
-	} else {
-		if(frameCounter>3*(multiplyFactor/velocity)) {
-			j = 2;
-			frameCounter = 0;
-		} else if(frameCounter>2*(multiplyFactor/velocity)) {
-			j = 1;
-		} else if(frameCounter > (multiplyFactor/velocity)) {
-			j = 0;
-		}
-
-		if(j == 1) {
+	if(animation) {
+		if(velocity == 0) {
+			//the pacman isn't moving, --> mouth is half open
 			currentSprite = sprites[temp+2];
-		} else if(j == 2) {
-			currentSprite = sprites[8];
 		} else {
-			currentSprite = sprites[temp];
+			if(frameCounter>3*(multiplyFactor/velocity)) {
+				j = 2;
+				frameCounter = 0;
+			} else if(frameCounter>2*(multiplyFactor/velocity)) {
+				j = 1;
+			} else if(frameCounter > (multiplyFactor/velocity)) {
+				j = 0;
+			}
+
+			if(j == 1) {
+				currentSprite = sprites[temp+2];
+			} else if(j == 2) {
+				currentSprite = sprites[8];
+			} else {
+				currentSprite = sprites[temp];
+			}
 		}
 	}
 	frameCounter++;

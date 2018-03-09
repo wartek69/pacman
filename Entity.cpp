@@ -7,9 +7,11 @@
 
 #include "Entity.h"
 
-Entity::Entity(int posX, int posY) {
+Entity::Entity(int posX, int posY, int collisionWidth, int collisionHeight) {
 	position.x = posX;
 	position.y = posY;
+	this->collisionWidth = collisionWidth;
+	this->collisionHeight = collisionHeight;
 }
 
 Entity::~Entity() {
