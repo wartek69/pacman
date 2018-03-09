@@ -85,7 +85,7 @@ void Game::start() {
 	//direction that the player has chosen for pacman
 	int direction = 1;
 	//the direction the player has chosen prior the direction
-	int previousDirection = direction;
+	int previousDirection = direction+1;
 	int velocity = 0;
 
 	//used to make the ghosts move
@@ -118,7 +118,8 @@ void Game::start() {
 			int temp = direction;
 			iHandler->handleInput(quit,direction, velocity);
 			//the user input changed the direction, so there is another previous direction now
-			if(temp != direction)
+			//the modulo 2 operator checks that the prev direction ain't the opposite of the direction
+			if(temp != direction && (temp+direction)%2 != 0)
 				previousDirection = temp;
 			//collision algorithm takes previous direction if given direction isn't possible
 			if(pacCollision(direction, velocity)) {
@@ -128,6 +129,8 @@ void Game::start() {
 						//previousDirection = direction;
 					}
 			}
+			cout << "direction" << direction << endl;
+			cout << "prevDir" << previousDirection << endl;
 		}
 
 		////////////// GAME LOGIC
