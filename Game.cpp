@@ -8,9 +8,12 @@
 #include "Game.h"
 #include "AbstractFactory.h"
 #include "Types.h"
+#include "Ghost.h"
 #include "InputHandler.h"
 #include "Map.h"
 #include <vector>
+#include <typeinfo>
+
 
 #include <iostream>
 using namespace std;
@@ -48,6 +51,8 @@ void Game::loadMap() {
 						pinkGhost = tempGhost;
 					}
 					mEntities.push_back(tempGhost);
+				} else if (object == DOT) {
+					mEntities.push_back(F->createDot(l*24+5, k*24+5));
 				}
 
 			}
@@ -84,7 +89,8 @@ void Game::start() {
 	//variables to control movement
 	//direction that the player has chosen for pacman
 	int direction = 1;
-	//the direction the player has chosen prior the direction
+	//the direction the player has chosen prior the direction, init value is +1 of direction
+	//else wise the pacman will get stuck when pressing for and then back at the start of the game
 	int previousDirection = direction+1;
 	int velocity = 0;
 
@@ -126,12 +132,24 @@ void Game::start() {
 					if(pacCollision(previousDirection, velocity)) {
 						//stop
 						pacman->move(previousDirection, 0, true);
-						//previousDirection = direction;
 					}
 			}
-			cout << "direction" << direction << endl;
-			cout << "prevDir" << previousDirection << endl;
+
+			//////COLLISION DETECTION ON DOTS AND GHOSTS
+			for(vector<Entity*>::iterator it = mEntities.begin(); it != mEntities.end();) {
+				if(pacman->checkCollision(*it) && *it != pacman) {
+					//Deze delete doet het programma crashen wanneer je een geest aanraakt--> logischhh
+					// is het nu een goed idee om dynamic cast toe te passen en zo te checken of de entity een geest is of niet
+					//of een type veld in elke entity zetten
+					// of een array met geesten apart maken zodat ze niet bij deze entetites zitten--> liijkt me het slechtse
+					//delete *it;
+					it = mEntities.erase(it);
+					//TODO reallocate the memory!!
+				} else
+					it++;
+			}
 		}
+
 
 		////////////// GAME LOGIC
 		if(i<100) {

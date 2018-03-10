@@ -46,7 +46,7 @@ enum pacmanObjects {
 	OGHOST,
 	PGHOST,
 	BGHOST,
-	DOTS
+	DOT
 
 };
 

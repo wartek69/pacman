@@ -12,6 +12,7 @@
 #include "Pacman.h"
 #include "InputHandler.h"
 #include "Wall.h"
+#include "Dot.h"
 
 
 class AbstractFactory {
@@ -22,6 +23,7 @@ public:
 	virtual Ghost* createGhost(int posX, int posY, int type) = 0;
 	virtual Pacman* createPacman(int posX, int posY) = 0;
 	virtual Wall* createWall(int posX, int posY, int type) = 0;
+	virtual Dot* createDot(int posX, int posY) = 0;
 	virtual void clearScreen() = 0;
 	virtual void showScreen() = 0;
 	virtual Timer* createTimer() = 0;

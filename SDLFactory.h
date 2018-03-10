@@ -24,6 +24,7 @@ public:
 	Pacman* createPacman(int posX, int posY) override;
 	Timer* createTimer() override;
 	Wall* createWall(int posX, int posY, int type) override;
+	Dot* createDot(int posX, int posY) override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);

@@ -13,8 +13,8 @@
 #include <iostream>
 using namespace std;
 
-SDLPacman::SDLPacman(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Pacman(posX, posY), SDLEntity(x, y, w, h, gRenderer, spriteSheet) {
+SDLPacman::SDLPacman(int rectX, int rectY, int rectW, int rectH,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
+Pacman(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
 	loadSprites();
 	frameCounter = 0;
 	j = 0;

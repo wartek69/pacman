@@ -15,7 +15,9 @@
 #include "Types.h"
 #include "SDLPacman.h"
 #include "SDLWall.h"
+#include "SDLDot.h"
 #include <iostream>
+
 
 using namespace std;
 
@@ -69,15 +71,21 @@ Ghost* SDLFactory::createGhost(int posX, int posY, int type) {
 		return new SDLGhost(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	}
+	//if no type is given up
+	return NULL;
 }
 
 Pacman* SDLFactory::createPacman(int posX, int posY) {
 	//return new SDLPacman(PACMAN.x, PACMAN.y, PACMAN.w, PACMAN.h, gRenderer, spriteSheet, posX, posY);
-	return new SDLPacman(0,70 ,24 ,24 , gRenderer, spriteSheet, posX, posY);
+	return new SDLPacman(0, 70, 24, 24, gRenderer, spriteSheet, posX, posY);
 }
 
 Wall* SDLFactory::createWall(int posX, int posY, int type) {
 	return new SDLWall(gRenderer, spriteSheet, posX, posY,type);
+}
+
+Dot* SDLFactory::createDot(int posX, int posY) {
+	return new SDLDot(gRenderer, spriteSheet, posX, posY);
 }
 
 /**
