@@ -7,17 +7,20 @@
 //============================================================================
 
 #include <iostream>
-using namespace std;
+#include <memory>
 
 #include "AbstractFactory.h"
 #include "SDLFactory.h"
 #include "Game.h"
+using namespace std;
 
 
 int main( int argc, char* args[] ) {
-	AbstractFactory *F = new SDLFactory();
+	//AbstractFactory *F = new SDLFactory();
+	shared_ptr<AbstractFactory> F = make_shared<SDLFactory>();
 
-	Game *game = new Game(F);
+	//Game *game = new Game(F);
+	unique_ptr<Game> game = make_unique<Game>(F);
 
 	game->start();
 	return 0;

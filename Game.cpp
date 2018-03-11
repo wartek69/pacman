@@ -19,7 +19,7 @@
 using namespace std;
 
 
-Game::Game(AbstractFactory *F): F(F) {
+Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 	countedFrames = 0; //used to calculate fps
 	loadMap();
 }

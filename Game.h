@@ -12,16 +12,17 @@
 #include "AbstractFactory.h"
 #include "Wall.h"
 #include <vector>
+#include <memory>
 
 class Game {
 public:
-	Game(AbstractFactory *F);
+	Game(shared_ptr<AbstractFactory> F);
 	virtual ~Game();
 	void start();
 private:
 	const int DELAY = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000/DELAY;
-	AbstractFactory *F;
+	shared_ptr<AbstractFactory> F;
 	Ghost* blueGhost;
 	Ghost* redGhost;
 	Ghost* orangeGhost;
