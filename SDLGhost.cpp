@@ -49,11 +49,11 @@ void SDLGhost::visualize() {
 	SDLEntity::visualize(position.x,position.y);
 }
 
-void SDLGhost::move(int direction, int velocity, bool animation) {
+void SDLGhost::move(int direction, int velocity) {
 	int temp = 0;
 	int multiplyFactor = 10;
 
-	Ghost::move(direction, velocity, animation);
+	Ghost::move(direction, velocity);
 	switch(direction) {
 	case FORWARD:
 		temp = FORWARD;

@@ -63,17 +63,18 @@ void Game::loadMap() {
  * if no collision occurs the pacman gets moved
  */
 bool Game::pacCollision(int inputBuffer, int velocity) {
-	pacman->move(inputBuffer, velocity, false);
+	pacman->MovingEntity::move(inputBuffer, velocity);
 	//checks collision with walls
 	for(Wall* wall : walls) {
 		if(pacman->checkCollision(wall)) {
 			//if there is a collision move the pacman back to it's initial position
-			pacman->move(inputBuffer, -velocity, false);
+			//use the base class for this so that the animations stay correct
+			pacman->MovingEntity::move(inputBuffer, -velocity);
 			return true;
 		}
 	}
-	pacman->move(inputBuffer, -velocity, false);
-	pacman->move(inputBuffer, velocity, true);
+	pacman->MovingEntity::move(inputBuffer, -velocity);
+	pacman->move(inputBuffer, velocity);
 	return false;
 }
 void Game::start() {
@@ -104,7 +105,7 @@ void Game::start() {
 		capTimer->startTimer();
 		//calculate fps
 		FPS =  countedFrames / (FPSTimer->getTimePassed()/ 1000. );
-		//cout << "FPS: " << FPS << endl;
+		cout << "FPS: " << FPS << endl;
 
 
 		/////////////// VISUAL ASPECTS
@@ -116,6 +117,7 @@ void Game::start() {
 			entity->visualize();
 		}
 		F->showScreen();
+		cout << direction << endl;
 
 		////////////////COLLISION DETECTION FOR PACMAN
 
@@ -131,8 +133,10 @@ void Game::start() {
 			if(pacCollision(direction, velocity)) {
 					if(pacCollision(previousDirection, velocity)) {
 						//stop
-						pacman->move(previousDirection, 0, true);
+						pacman->move(previousDirection, 0);
 					}
+			} else {
+				previousDirection = direction;
 			}
 
 			//////COLLISION DETECTION ON DOTS AND GHOSTS
@@ -155,10 +159,10 @@ void Game::start() {
 		if(i<100) {
 			//checks if there was a ghost created
 			if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
-				blueGhost->move(FORWARD-j,1, true);
-				redGhost->move(RIGHT+j,1, true);
-				orangeGhost->move(FORWARD-j,2, true);
-				pinkGhost->move(FORWARD-j,2, true);
+				blueGhost->move(FORWARD-j,1);
+				redGhost->move(RIGHT+j,1);
+				orangeGhost->move(FORWARD-j,2);
+				pinkGhost->move(FORWARD-j,2);
 			}
 
 			i = i+1;

@@ -14,7 +14,7 @@ class MovingEntity:public Entity {
 public:
 	MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight);
 	virtual ~MovingEntity();
-	virtual void move(int direction, int velocity, bool animation);
+	virtual void move(int direction, int velocity);
 	virtual bool checkCollision(Entity* collisionPartner);
 };
 

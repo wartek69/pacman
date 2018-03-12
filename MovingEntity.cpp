@@ -22,7 +22,7 @@ MovingEntity::~MovingEntity() {
 	// TODO Auto-generated destructor stub
 }
 
-void MovingEntity::move(int direction, int velocity, bool animation) {
+void MovingEntity::move(int direction, int velocity) {
 	switch(direction) {
 	case FORWARD:
 		position.y = position.y - velocity;

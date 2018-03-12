@@ -50,7 +50,7 @@ void SDLInputHandler::handleInput(bool& quit,int& direction, int& velocity) {
 			direction = RIGHT;
 			break;
 		}
-	velocity = 1;
+	velocity = 2;
 	}
 
 }

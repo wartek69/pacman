@@ -17,7 +17,7 @@ class SDLGhost: public Ghost, public SDLEntity {
 public:
 	SDLGhost(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLGhost();
-	void move(int direction, int velocity, bool animation) override;
+	void move(int direction, int velocity) override;
 	void visualize() override;
 	void loadSprites();
 private:
