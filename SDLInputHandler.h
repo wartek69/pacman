@@ -9,10 +9,11 @@
 #define SDLINPUTHANDLER_H_
 
 #include "InputHandler.h"
+#include <memory>
 
 class SDLInputHandler: public InputHandler {
 public:
-	SDLInputHandler(Pacman* handleObject);
+	SDLInputHandler(std::shared_ptr<Pacman> handleObject);
 	virtual ~SDLInputHandler();
 	void handleInput(bool& quit, int& direction,int& velocity);
 private:

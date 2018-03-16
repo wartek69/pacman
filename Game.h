@@ -23,14 +23,14 @@ private:
 	const int DELAY = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000/DELAY;
 	shared_ptr<AbstractFactory> F;
-	Ghost* blueGhost;
-	Ghost* redGhost;
-	Ghost* orangeGhost;
-	Ghost* pinkGhost;
-	Pacman* pacman;
-	vector<Wall*> walls;
-	vector<Entity*> mEntities;
-	InputHandler* iHandler;
+	shared_ptr<Ghost> blueGhost;
+	shared_ptr<Ghost> redGhost;
+	shared_ptr<Ghost> orangeGhost;
+	shared_ptr<Ghost> pinkGhost;
+	shared_ptr<Pacman> pacman;
+	vector<shared_ptr<Wall>> walls;
+	vector<shared_ptr<Entity>> mEntities;
+	unique_ptr<InputHandler> iHandler;
 	bool pacCollision(int inputBuffer, int velocity);
 	int countedFrames; //used to calculate fps
 	//default constructor shouldn't be used --> private

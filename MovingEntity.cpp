@@ -39,7 +39,7 @@ void MovingEntity::move(int direction, int velocity) {
 	}
 }
 
-bool MovingEntity::checkCollision(Entity* collisionPartner) {
+bool MovingEntity::checkCollision(shared_ptr<Entity> collisionPartner) {
 	 //The sides of the rectangles
 	    int leftA, leftB;
 	    int rightA, rightB;

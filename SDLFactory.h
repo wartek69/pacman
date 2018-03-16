@@ -14,24 +14,25 @@
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 #include "Timer.h"
+#include <memory>
 
 
 class SDLFactory: public AbstractFactory {
 public:
 	SDLFactory();
 	virtual ~SDLFactory();
-	Ghost* createGhost(int posX, int posY, int type) override;
-	Pacman* createPacman(int posX, int posY) override;
-	Timer* createTimer() override;
-	Wall* createWall(int posX, int posY, int type) override;
-	Dot* createDot(int posX, int posY) override;
+	shared_ptr<Ghost> createGhost(int posX, int posY, int type) override;
+	shared_ptr<Pacman> createPacman(int posX, int posY) override;
+	unique_ptr<Timer> createTimer() override;
+	shared_ptr<Wall> createWall(int posX, int posY, int type) override;
+	shared_ptr<Dot> createDot(int posX, int posY) override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);
 	void close();
 	void clearScreen() override;
 	void showScreen() override;
-	InputHandler* createInputHandler(Pacman* handleObject) override;
+	unique_ptr<InputHandler> createInputHandler(shared_ptr<Pacman> handleObject) override;
 
 private:
 	bool init();

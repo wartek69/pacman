@@ -17,6 +17,7 @@
 #include "SDLWall.h"
 #include "SDLDot.h"
 #include <iostream>
+#include <memory>
 
 
 using namespace std;
@@ -55,37 +56,37 @@ SDLFactory::~SDLFactory() {
 	close();
 }
 
-Ghost* SDLFactory::createGhost(int posX, int posY, int type) {
+shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type) {
 	//TODO MEMORY LEAK?
 	switch(type) {
 	case RGHOST:
-		return new SDLGhost(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDLGhost>(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case BGHOST:
-		return new SDLGhost(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDLGhost>(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case OGHOST:
-		return new SDLGhost(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDLGhost>(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case PGHOST:
-		return new SDLGhost(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDLGhost>(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	}
 	//if no type is given up
 	return NULL;
 }
 
-Pacman* SDLFactory::createPacman(int posX, int posY) {
+shared_ptr<Pacman> SDLFactory::createPacman(int posX, int posY) {
 	//return new SDLPacman(PACMAN.x, PACMAN.y, PACMAN.w, PACMAN.h, gRenderer, spriteSheet, posX, posY);
-	return new SDLPacman(0, 70, 24, 24, gRenderer, spriteSheet, posX, posY);
+	return make_shared<SDLPacman>(0, 70, 24, 24, gRenderer, spriteSheet, posX, posY);
 }
 
-Wall* SDLFactory::createWall(int posX, int posY, int type) {
-	return new SDLWall(gRenderer, spriteSheet, posX, posY,type);
+shared_ptr<Wall> SDLFactory::createWall(int posX, int posY, int type) {
+	return make_shared<SDLWall>(gRenderer, spriteSheet, posX, posY,type);
 }
 
-Dot* SDLFactory::createDot(int posX, int posY) {
-	return new SDLDot(gRenderer, spriteSheet, posX, posY);
+shared_ptr<Dot> SDLFactory::createDot(int posX, int posY) {
+	return make_shared<SDLDot>(gRenderer, spriteSheet, posX, posY);
 }
 
 /**
@@ -201,14 +202,14 @@ void SDLFactory::close() {
 	SDL_Quit();
 }
 
-Timer* SDLFactory::createTimer() {
+unique_ptr<Timer> SDLFactory::createTimer() {
 	//TODO MEMORY LEAK?
-	return new SDLTimer();
+	return make_unique<SDLTimer>();
 }
 
-InputHandler* SDLFactory::createInputHandler(Pacman* handleObject) {
+unique_ptr<InputHandler> SDLFactory::createInputHandler(shared_ptr<Pacman> handleObject) {
 	//TODO MEMORY LEAK?
-	return new SDLInputHandler(handleObject);
+	return make_unique<SDLInputHandler>(handleObject);
 }
 
 

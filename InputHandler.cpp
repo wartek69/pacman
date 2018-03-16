@@ -7,8 +7,9 @@
 
 #include "InputHandler.h"
 #include "Pacman.h"
+#include <memory>
 
-InputHandler::InputHandler(Pacman* handleObject):handleObject(handleObject) {
+InputHandler::InputHandler(std::shared_ptr<Pacman> handleObject):handleObject(handleObject) {
 	// TODO Auto-generated constructor stub
 
 }

@@ -9,13 +9,14 @@
 #define MOVINGENTITY_H_
 
 #include "Entity.h"
+#include <memory>
 
 class MovingEntity:public Entity {
 public:
 	MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight);
 	virtual ~MovingEntity();
 	virtual void move(int direction, int velocity);
-	virtual bool checkCollision(Entity* collisionPartner);
+	virtual bool checkCollision(std::shared_ptr<Entity> collisionPartner);
 };
 
 #endif /* MOVINGENTITY_H_ */

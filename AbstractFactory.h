@@ -13,6 +13,7 @@
 #include "InputHandler.h"
 #include "Wall.h"
 #include "Dot.h"
+#include <memory>
 
 
 class AbstractFactory {
@@ -20,14 +21,14 @@ public:
 	AbstractFactory();
 	virtual ~AbstractFactory();
 	//pure virtual declaration
-	virtual Ghost* createGhost(int posX, int posY, int type) = 0;
-	virtual Pacman* createPacman(int posX, int posY) = 0;
-	virtual Wall* createWall(int posX, int posY, int type) = 0;
-	virtual Dot* createDot(int posX, int posY) = 0;
+	virtual shared_ptr<Ghost> createGhost(int posX, int posY, int type) = 0;
+	virtual shared_ptr<Pacman> createPacman(int posX, int posY) = 0;
+	virtual shared_ptr<Wall> createWall(int posX, int posY, int type) = 0;
+	virtual shared_ptr<Dot> createDot(int posX, int posY) = 0;
 	virtual void clearScreen() = 0;
 	virtual void showScreen() = 0;
-	virtual Timer* createTimer() = 0;
-	virtual InputHandler* createInputHandler(Pacman* handleObject) = 0;
+	virtual unique_ptr<Timer> createTimer() = 0;
+	virtual unique_ptr<InputHandler> createInputHandler(shared_ptr<Pacman> handleObject) = 0;
 };
 
 #endif /* ABSTRACTFACTORY_H_ */

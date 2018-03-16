@@ -9,14 +9,15 @@
 #define INPUTHANDLER_H_
 
 #include "Pacman.h"
+#include <memory>
 
 class InputHandler {
 public:
-	InputHandler(Pacman* handleObject);
+	InputHandler(std::shared_ptr<Pacman> handleObject);
 	virtual ~InputHandler();
 	virtual void handleInput(bool& quit,int& direction, int& velocity) = 0;
 protected:
-	Pacman* handleObject;
+	std::shared_ptr<Pacman> handleObject;
 };
 
 #endif /* INPUTHANDLER_H_ */

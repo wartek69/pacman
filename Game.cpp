@@ -40,7 +40,7 @@ void Game::loadMap() {
 					iHandler = F->createInputHandler(pacman);
 					mEntities.push_back(pacman);
 				} else if (object >= RGHOST && object <= BGHOST) {
-					Ghost* tempGhost = F->createGhost(l*24, k*24, object);
+					shared_ptr<Ghost> tempGhost = F->createGhost(l*24, k*24, object);
 					if(object == RGHOST) {
 						redGhost = tempGhost;
 					} else if( object == BGHOST) {
@@ -65,7 +65,7 @@ void Game::loadMap() {
 bool Game::pacCollision(int inputBuffer, int velocity) {
 	pacman->MovingEntity::move(inputBuffer, velocity);
 	//checks collision with walls
-	for(Wall* wall : walls) {
+	for(shared_ptr<Wall> wall : walls) {
 		if(pacman->checkCollision(wall)) {
 			//if there is a collision move the pacman back to it's initial position
 			//use the base class for this so that the animations stay correct
@@ -80,8 +80,8 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 void Game::start() {
 	//creates the needed instrument using factory
 	//delete map;
-	Timer* capTimer = F->createTimer();
-	Timer* FPSTimer = F->createTimer();
+	unique_ptr<Timer> capTimer = F->createTimer();
+	unique_ptr<Timer> FPSTimer = F->createTimer();
 	//starts up timer
 	FPSTimer->startTimer();
 	float FPS;
@@ -110,10 +110,10 @@ void Game::start() {
 
 		/////////////// VISUAL ASPECTS
 		F->clearScreen();
-		for(Wall* wall : walls) {
+		for(shared_ptr<Wall> wall : walls) {
 			wall->visualize();
 		}
-		for(Entity* entity : mEntities) {
+		for(shared_ptr<Entity> entity : mEntities) {
 			entity->visualize();
 		}
 		F->showScreen();
@@ -140,7 +140,7 @@ void Game::start() {
 			}
 
 			//////COLLISION DETECTION ON DOTS AND GHOSTS
-			for(vector<Entity*>::iterator it = mEntities.begin(); it != mEntities.end();) {
+			for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
 				if(pacman->checkCollision(*it) && *it != pacman) {
 					//Deze delete doet het programma crashen wanneer je een geest aanraakt--> logischhh
 					// is het nu een goed idee om dynamic cast toe te passen en zo te checken of de entity een geest is of niet

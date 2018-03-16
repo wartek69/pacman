@@ -12,7 +12,7 @@
 using namespace std;
 
 
-SDLInputHandler::SDLInputHandler(Pacman* handleObject): InputHandler(handleObject) {
+SDLInputHandler::SDLInputHandler(shared_ptr<Pacman> handleObject): InputHandler(handleObject) {
 
 }
 
