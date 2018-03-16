@@ -8,6 +8,7 @@
 #ifndef MAP_H_
 #define MAP_H_
 #include <string>
+#include <vector>
 using namespace std;
 
 class Map {
@@ -20,8 +21,9 @@ public:
 private:
 	void loadMap(string fileName);
 	void printMap();
-	int map[20][26];			//20 rows, 26 columns
-
+	vector<vector<int>> map;			//20 rows, 26 columns
+	int rows;
+	int cols;
 
 };
 

@@ -9,9 +9,16 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <memory>
+#include <limits>
+#include <vector>
 using namespace std;
 
 Map::Map() {
+	//just max value, the value gets changed when loading in the map
+	cols = numeric_limits<int>::max();
+	rows = numeric_limits<int>::max();
+
 	cout << "map created" << endl;
 	loadMap("map.txt");
 	//printMap();
@@ -35,9 +42,13 @@ void Map::loadMap(string fileName) {
 	} else {
 		cout << "Opened file : " << fileName << " successfully." << endl;
 	}
+	stream >> cols;
+	stream >> rows;
+	map = vector<vector<int>>(rows,vector<int>(cols));
 	while(stream >> temp) {
-		if(i<20) {
-			if(j<26) {
+		cout << temp << endl;
+		if(i<rows) {
+			if(j<cols) {
 				map[i][j] = temp;
 				j++;
 			} else {
