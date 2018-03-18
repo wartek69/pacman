@@ -7,13 +7,9 @@
 
 #include "Menu.h"
 #include "Game.h"
-#include "AbstractFactory.h"
 #include <memory>
 
-namespace SDL {
-
-Menu::Menu() {
-	// TODO Auto-generated constructor stub
+Menu::Menu(shared_ptr<AbstractFactory> F): F(F) {
 
 }
 
@@ -21,9 +17,7 @@ Menu::~Menu() {
 	// TODO Auto-generated destructor stub
 }
 
-void Menu::startGame(shared_ptr<AbstractFactory> F) {
+void Menu::startGame() {
 	unique_ptr<Game> game = make_unique<Game>(F);
+	game->start();
 }
-
-
-} /* namespace SDL */

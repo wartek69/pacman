@@ -14,6 +14,7 @@
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 #include "Timer.h"
+//#include "Menu.h"
 #include <memory>
 
 
@@ -27,6 +28,7 @@ public:
 	shared_ptr<Wall> createWall(int posX, int posY, int type) override;
 	shared_ptr<Dot> createDot(int posX, int posY) override;
 	unique_ptr<ScoreHandler> createScoreHandler() override;
+	unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);

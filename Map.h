@@ -9,7 +9,6 @@
 #define MAP_H_
 #include <string>
 #include <vector>
-using namespace std;
 
 class Map {
 public:
@@ -19,9 +18,9 @@ public:
 	void setValue(int i, int j, int value);
 	int getValue(int i, int j);
 private:
-	void loadMap(string fileName);
+	void loadMap(std::string fileName);
 	void printMap();
-	vector<vector<int>> map;			//20 rows, 26 columns
+	std::vector<std::vector<int>> map;			//20 rows, 26 columns
 	int rows;
 	int cols;
 

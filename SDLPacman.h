@@ -12,6 +12,7 @@
 #include <SDL2\SDL.h>
 #include "SDLEntity.h"
 #include "Entity.h"
+
 class SDLPacman:public Pacman,public SDLEntity {
 public:
 	SDLPacman(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);

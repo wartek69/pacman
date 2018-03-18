@@ -50,11 +50,11 @@ enum pacmanObjects {
 
 };
 
-struct PACMAN {
-			int x = 0;
-			int y = 288;
-			int w = 95;
-			int h = 95;
+enum menu {
+	START,
+	LOAD,
+	CREDITS,
+	EXIT
 };
 
 

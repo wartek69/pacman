@@ -18,6 +18,8 @@
 #include "SDLWall.h"
 #include "SDLDot.h"
 #include "SDLScoreHandler.h"
+#include "SDLMenu.h"
+#include "Menu.h"
 #include <iostream>
 #include <memory>
 
@@ -222,4 +224,8 @@ unique_ptr<InputHandler> SDLFactory::createInputHandler(shared_ptr<Pacman> handl
 
 unique_ptr<ScoreHandler> SDLFactory::createScoreHandler() {
 	return make_unique<SDL::SDLScoreHandler>(gRenderer);
+}
+
+unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
+	return make_unique<SDL::SDLMenu>(gRenderer, F);
 }

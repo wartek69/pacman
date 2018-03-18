@@ -11,16 +11,20 @@
 #include "AbstractFactory.h"
 #include <memory>
 
-namespace SDL {
+//this is needed to break cyclic redundancy of header files
+// Menu needs abstractF and the latter needs the former
+class AbstractFactory;
+
 
 class Menu {
 public:
-	Menu();
+	Menu(shared_ptr<AbstractFactory> F);
 	virtual ~Menu();
-	virtual void startGame(shared_ptr<AbstractFactory> F);
-
+	void startGame();
+	virtual void interact(bool& quit) = 0;
+	virtual void visualize() = 0;
+protected:
+	shared_ptr<AbstractFactory> F;
 };
-
-} /* namespace SDL */
 
 #endif /* MENU_H_ */
