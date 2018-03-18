@@ -46,7 +46,6 @@ void Map::loadMap(string fileName) {
 	stream >> rows;
 	map = vector<vector<int>>(rows,vector<int>(cols));
 	while(stream >> temp) {
-		cout << temp << endl;
 		if(i<rows) {
 			if(j<cols) {
 				map[i][j] = temp;

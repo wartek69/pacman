@@ -10,12 +10,14 @@
 #include "SDLGhost.h"
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
+#include <SDL2\SDL_TTF.h>
 #include "SDLTimer.h"
 #include "SDLInputHandler.h"
 #include "Types.h"
 #include "SDLPacman.h"
 #include "SDLWall.h"
 #include "SDLDot.h"
+#include "SDLScoreHandler.h"
 #include <iostream>
 #include <memory>
 
@@ -129,6 +131,11 @@ bool SDLFactory::init() {
 					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 					success = false;
 				}
+				//Initialize SDL_ttf
+				if( TTF_Init() == -1 ) {
+				    printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+				    success = false;
+	            }
 			}
 		}
 	}
@@ -199,6 +206,7 @@ void SDLFactory::close() {
 
 	//Quit SDL subsystems
 	IMG_Quit();
+    TTF_Quit();
 	SDL_Quit();
 }
 
@@ -212,4 +220,6 @@ unique_ptr<InputHandler> SDLFactory::createInputHandler(shared_ptr<Pacman> handl
 	return make_unique<SDLInputHandler>(handleObject);
 }
 
-
+unique_ptr<ScoreHandler> SDLFactory::createScoreHandler() {
+	return make_unique<SDL::SDLScoreHandler>(gRenderer);
+}

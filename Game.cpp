@@ -21,6 +21,7 @@ using namespace std;
 
 Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 	countedFrames = 0; //used to calculate fps
+	score = F->createScoreHandler();
 	loadMap();
 }
 Game::~Game() {
@@ -105,7 +106,7 @@ void Game::start() {
 		capTimer->startTimer();
 		//calculate fps
 		FPS =  countedFrames / (FPSTimer->getTimePassed()/ 1000. );
-		cout << "FPS: " << FPS << endl;
+		//cout << "FPS: " << FPS << endl;
 
 
 		/////////////// VISUAL ASPECTS
@@ -116,8 +117,8 @@ void Game::start() {
 		for(shared_ptr<Entity> entity : mEntities) {
 			entity->visualize();
 		}
+		score->visualize();
 		F->showScreen();
-		cout << direction << endl;
 
 		////////////////COLLISION DETECTION FOR PACMAN
 
@@ -142,11 +143,7 @@ void Game::start() {
 			//////COLLISION DETECTION ON DOTS AND GHOSTS
 			for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
 				if(pacman->checkCollision(*it) && *it != pacman) {
-					//Deze delete doet het programma crashen wanneer je een geest aanraakt--> logischhh
-					// is het nu een goed idee om dynamic cast toe te passen en zo te checken of de entity een geest is of niet
-					//of een type veld in elke entity zetten
-					// of een array met geesten apart maken zodat ze niet bij deze entetites zitten--> liijkt me het slechtse
-					//delete *it;
+					score->addScore();
 					it = mEntities.erase(it);
 					//TODO reallocate the memory!!
 				} else

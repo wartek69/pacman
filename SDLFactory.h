@@ -26,6 +26,7 @@ public:
 	unique_ptr<Timer> createTimer() override;
 	shared_ptr<Wall> createWall(int posX, int posY, int type) override;
 	shared_ptr<Dot> createDot(int posX, int posY) override;
+	unique_ptr<ScoreHandler> createScoreHandler() override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);
@@ -40,7 +41,7 @@ private:
 	SDL_Surface* gScreenSurface;
 	SDL_Renderer* gRenderer;
 	const int SCREEN_WIDTH = 640;
-	const int SCREEN_HEIGHT = 480;
+	const int SCREEN_HEIGHT = 530;
 	//TODO
 	SDL_Texture* spriteSheet;
 };

@@ -13,6 +13,7 @@
 #include "InputHandler.h"
 #include "Wall.h"
 #include "Dot.h"
+#include "ScoreHandler.h"
 #include <memory>
 
 
@@ -29,6 +30,7 @@ public:
 	virtual void showScreen() = 0;
 	virtual unique_ptr<Timer> createTimer() = 0;
 	virtual unique_ptr<InputHandler> createInputHandler(shared_ptr<Pacman> handleObject) = 0;
+	virtual unique_ptr<ScoreHandler> createScoreHandler() = 0;
 };
 
 #endif /* ABSTRACTFACTORY_H_ */

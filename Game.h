@@ -13,6 +13,7 @@
 #include "Wall.h"
 #include <vector>
 #include <memory>
+#include "ScoreHandler.h"
 
 class Game {
 public:
@@ -31,6 +32,7 @@ private:
 	vector<shared_ptr<Wall>> walls;
 	vector<shared_ptr<Entity>> mEntities;
 	unique_ptr<InputHandler> iHandler;
+	unique_ptr<ScoreHandler> score;
 	bool pacCollision(int inputBuffer, int velocity);
 	int countedFrames; //used to calculate fps
 	//default constructor shouldn't be used --> private
