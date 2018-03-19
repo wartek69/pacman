@@ -14,7 +14,7 @@
 using namespace std;
 
 SDLPacman::SDLPacman(int rectX, int rectY, int rectW, int rectH,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Pacman(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+Pacman(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet, posX*24, posY*24) {
 	loadSprites();
 	frameCounter = 0;
 	j = 0;
@@ -44,12 +44,14 @@ void SDLPacman::loadSprites() {
 
 }
 void SDLPacman::move(int direction, int velocity) {
+	dir = direction;
+	vel = velocity;
 	//call base class move
 	if(velocity != 0)
 		MovingEntity::move(direction, velocity);
 	//animations
 	int temp;
-	int multiplyFactor = 16;
+	float multiplyFactor = 0.8f;
 
 	switch(direction) {
 		case FORWARD:
@@ -74,7 +76,7 @@ void SDLPacman::move(int direction, int velocity) {
 			if(frameCounter>3*(multiplyFactor/abs(velocity))) {
 				j = 2;
 				frameCounter = 0;
-			} else if(frameCounter>2*(multiplyFactor/abs(velocity))) {
+			} else if(frameCounter > 2*(multiplyFactor/abs(velocity))) {
 				j = 1;
 			} else if(frameCounter > (multiplyFactor/abs(velocity))) {
 				j = 0;
@@ -93,6 +95,23 @@ void SDLPacman::move(int direction, int velocity) {
 }
 
 void SDLPacman::visualize() {
-	SDLEntity::visualize(position.x, position.y);
+	switch (dir) {
+			case FORWARD:
+				SDLY = SDLY - 4*vel;
+			break;
+
+			case BACKWARD:
+				SDLY = SDLY + 4*vel;
+			break;
+
+			case RIGHT:
+				SDLX = SDLX + 4*vel;
+			break;
+
+			case LEFT:
+				SDLX = SDLX - 4*vel;
+			break;
+		}
+	SDLEntity::visualize();
 }
 

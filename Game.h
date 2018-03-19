@@ -21,6 +21,7 @@ public:
 	virtual ~Game();
 	void start();
 private:
+	int frames;
 	const int DELAY = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000/DELAY;
 	shared_ptr<AbstractFactory> F;
@@ -38,8 +39,6 @@ private:
 	//default constructor shouldn't be used --> private
 	Game();
 	void loadMap();
-
-
 };
 
 #endif /* GAME_H_ */

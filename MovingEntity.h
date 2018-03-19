@@ -17,6 +17,9 @@ public:
 	virtual ~MovingEntity();
 	virtual void move(int direction, int velocity);
 	virtual bool checkCollision(std::shared_ptr<Entity> collisionPartner);
+protected:
+	int dir = 100;
+	int vel = 0;
 };
 
 #endif /* MOVINGENTITY_H_ */

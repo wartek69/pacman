@@ -28,7 +28,7 @@ void SDLInputHandler::handleInput(bool& quit,int& direction, int& velocity) {
 	SDL_Event e;
 
 	//Handle events on queue
-	SDL_PollEvent( &e );
+	while(SDL_PollEvent( &e )!=0) {
 	//User requests quit
 	if( e.type == SDL_QUIT ) {
 		quit = true;
@@ -50,7 +50,8 @@ void SDLInputHandler::handleInput(bool& quit,int& direction, int& velocity) {
 			direction = RIGHT;
 			break;
 		}
-	velocity = 2;
+	velocity = 1;
+	}
 	}
 
 }

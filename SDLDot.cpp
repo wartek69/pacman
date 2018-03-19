@@ -6,11 +6,12 @@
  */
 
 #include "SDLDot.h"
-
+#include <iostream>
 #include "Dot.h"
 SDLDot::SDLDot(SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Dot(posX, posY), SDLEntity(216, 0, collisionWidth, collisionHeight, gRenderer, spriteSheet) {
-	// TODO Auto-generated constructor stub
+Dot(posX, posY), SDLEntity(216, 0, 10, 10, gRenderer, spriteSheet, posX*24+5, posY*24+5) {
+
+	// TODO config file
 
 }
 
@@ -19,5 +20,5 @@ SDLDot::~SDLDot() {
 }
 
 void SDLDot::visualize() {
-	SDLEntity::visualize(position.x, position.y);
+	SDLEntity::visualize();
 }

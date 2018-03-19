@@ -10,8 +10,8 @@
 Entity::Entity(int posX, int posY, int collisionWidth, int collisionHeight) {
 	position.x = posX;
 	position.y = posY;
-	this->collisionWidth = collisionWidth;
-	this->collisionHeight = collisionHeight;
+	this->collisionWidth = 1;
+	this->collisionHeight = 1;
 }
 
 Entity::~Entity() {

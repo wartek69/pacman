@@ -20,6 +20,7 @@ using namespace std;
 
 
 Game::Game(shared_ptr<AbstractFactory> F): F(F) {
+	frames = 0; 		//used to delay game loop
 	countedFrames = 0; //used to calculate fps
 	score = F->createScoreHandler();
 	loadMap();
@@ -34,14 +35,14 @@ void Game::loadMap() {
 			for(int l = 0;l<26;l++) {
 				int object = mapController.getValue(k,l);
 				if(object <= LUCORNER && object >= HWALL)
-					walls.push_back(F->createWall(l*24,k*24,object));
+					walls.push_back(F->createWall(l, k, object));
 				else if(object == PACMAN) {
-					pacman = F->createPacman(l*24,k*24);
+					pacman = F->createPacman(l, k);
 					//bind inputhandler to pacman
 					iHandler = F->createInputHandler(pacman);
 					mEntities.push_back(pacman);
 				} else if (object >= RGHOST && object <= BGHOST) {
-					shared_ptr<Ghost> tempGhost = F->createGhost(l*24, k*24, object);
+					shared_ptr<Ghost> tempGhost = F->createGhost(l, k, object);
 					if(object == RGHOST) {
 						redGhost = tempGhost;
 					} else if( object == BGHOST) {
@@ -53,7 +54,7 @@ void Game::loadMap() {
 					}
 					mEntities.push_back(tempGhost);
 				} else if (object == DOT) {
-					mEntities.push_back(F->createDot(l*24+5, k*24+5));
+					mEntities.push_back(F->createDot(l, k));
 				}
 
 			}
@@ -106,7 +107,7 @@ void Game::start() {
 		capTimer->startTimer();
 		//calculate fps
 		FPS =  countedFrames / (FPSTimer->getTimePassed()/ 1000. );
-		//cout << "FPS: " << FPS << endl;
+		cout << "FPS: " << FPS << endl;
 
 
 		/////////////// VISUAL ASPECTS
@@ -121,55 +122,58 @@ void Game::start() {
 		F->showScreen();
 
 		////////////////COLLISION DETECTION FOR PACMAN
-
+		if(frames == 6) {
+			frames = 0;
 		//checks if there was a pacman created
-		if(pacman != NULL) {
-			int temp = direction;
-			iHandler->handleInput(quit,direction, velocity);
-			//the user input changed the direction, so there is another previous direction now
-			//the modulo 2 operator checks that the prev direction ain't the opposite of the direction
-			if(temp != direction && (temp+direction)%2 != 0)
-				previousDirection = temp;
-			//collision algorithm takes previous direction if given direction isn't possible
-			if(pacCollision(direction, velocity)) {
-					if(pacCollision(previousDirection, velocity)) {
-						//stop
-						pacman->move(previousDirection, 0);
-					}
+			if(pacman != NULL) {
+				int temp = direction;
+				iHandler->handleInput(quit,direction, velocity);
+				//the user input changed the direction, so there is another previous direction now
+				//the modulo 2 operator checks that the prev direction ain't the opposite of the direction
+				if(temp != direction && (temp+direction)%2 != 0)
+					previousDirection = temp;
+				//collision algorithm takes previous direction if given direction isn't possible
+				if(pacCollision(direction, velocity)) {
+						if(pacCollision(previousDirection, velocity)) {
+							//stop
+							pacman->move(previousDirection, 0);
+						}
+				} else {
+					previousDirection = direction;
+				}
+
+				//////COLLISION DETECTION ON DOTS AND GHOSTS
+				for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
+					if(pacman->checkCollision(*it) && *it != pacman) {
+						score->addScore();
+						it = mEntities.erase(it);
+						//TODO reallocate the memory!!
+					} else
+						it++;
+				}
+			}
+
+
+			////////////// GAME LOGIC
+			if(i<100) {
+				//checks if there was a ghost created
+				if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
+					blueGhost->move(FORWARD-j,1);
+					redGhost->move(RIGHT+j,1);
+					orangeGhost->move(FORWARD-j,1);
+					pinkGhost->move(FORWARD-j,1);
+				}
+
+				i = i+1;
 			} else {
-				previousDirection = direction;
-			}
-
-			//////COLLISION DETECTION ON DOTS AND GHOSTS
-			for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
-				if(pacman->checkCollision(*it) && *it != pacman) {
-					score->addScore();
-					it = mEntities.erase(it);
-					//TODO reallocate the memory!!
-				} else
-					it++;
+				i = 0;
+				if(j<3)
+					j = j+1;
+				else
+					j = 0;
 			}
 		}
-
-
-		////////////// GAME LOGIC
-		if(i<100) {
-			//checks if there was a ghost created
-			if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
-				blueGhost->move(FORWARD-j,1);
-				redGhost->move(RIGHT+j,1);
-				orangeGhost->move(FORWARD-j,2);
-				pinkGhost->move(FORWARD-j,2);
-			}
-
-			i = i+1;
-		} else {
-			i = 0;
-			if(j<3)
-				j = j+1;
-			else
-				j = 0;
-		}
+		frames++;
 		countedFrames++;
 		//if the fps is too high and needs to be capped--> not very precise --> last resort stop
 		if(capTimer->getTimePassed() < SCREEN_TICKS_PER_FRAME ) {
