@@ -45,7 +45,7 @@ void SDLGhost::loadSprites() {
 	currentSprite = sprites[RIGHT];
 }
 
-void SDLGhost::visualize() {
+void SDLGhost::visualize(int frame) {
 	SDLEntity::visualize();
 }
 

@@ -14,6 +14,7 @@
 #include <vector>
 #include <memory>
 #include "ScoreHandler.h"
+#include "WorldObjects.h"
 
 class Game {
 public:
@@ -21,7 +22,7 @@ public:
 	virtual ~Game();
 	void start();
 private:
-	int frames;
+	unique_ptr<WorldObjects> world;
 	const int DELAY = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000/DELAY;
 	shared_ptr<AbstractFactory> F;

@@ -15,6 +15,7 @@
 #include "Wall.h"
 #include "Dot.h"
 #include "ScoreHandler.h"
+#include "WorldObjects.h"
 #include <memory>
 
 //needed to break cyclic redundancy
@@ -35,6 +36,7 @@ public:
 	virtual unique_ptr<InputHandler> createInputHandler(shared_ptr<Pacman> handleObject) = 0;
 	virtual unique_ptr<ScoreHandler> createScoreHandler() = 0;
 	virtual unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) = 0;
+	virtual unique_ptr<WorldObjects> createWorld() = 0;
 };
 
 #endif /* ABSTRACTFACTORY_H_ */

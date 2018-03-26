@@ -19,6 +19,6 @@ SDLDot::~SDLDot() {
 	// TODO Auto-generated destructor stub
 }
 
-void SDLDot::visualize() {
+void SDLDot::visualize(int frame) {
 	SDLEntity::visualize();
 }

@@ -18,6 +18,7 @@
 #include "SDLWall.h"
 #include "SDLDot.h"
 #include "SDLScoreHandler.h"
+#include "SDLWorldObjects.h"
 #include "SDLMenu.h"
 #include "Menu.h"
 #include <iostream>
@@ -228,4 +229,8 @@ unique_ptr<ScoreHandler> SDLFactory::createScoreHandler() {
 
 unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
 	return make_unique<SDL::SDLMenu>(gRenderer, F);
+}
+
+unique_ptr<WorldObjects> SDLFactory::createWorld() {
+	return make_unique<SDLWorldObjects>(gRenderer);
 }

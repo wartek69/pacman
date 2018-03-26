@@ -12,7 +12,8 @@ class Entity {
 public:
 	Entity(int posX, int posY, int collisionWidth, int collisionHeight);
 	virtual ~Entity();
-	virtual void visualize() = 0;
+	//virtual void visualize() = 0;
+	virtual void visualize(int frame) = 0;
 	virtual int getPositionX();
 	virtual int getPositionY();
 	virtual int getWidth();

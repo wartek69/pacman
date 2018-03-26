@@ -15,7 +15,7 @@ class SDLWall: public Wall, public SDLEntity {
 public:
 	SDLWall(SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, int type);
 	virtual ~SDLWall();
-	void visualize() override;
+	void visualize(int frame) override;
 private:
 	SDLWall();		//Default constructor shouldn't be used
 	//has to be static --> the variables need to have a value at compile time

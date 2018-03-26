@@ -19,7 +19,7 @@ public:
 	virtual ~SDLPacman();
 	void move(int direction, int velocity) override;
 	void loadSprites();
-	void visualize() override;
+	void visualize(int frame) override;
 private:
 	//9 sprites needed t animate and move the pacman
 	SDL_Rect sprites[9];

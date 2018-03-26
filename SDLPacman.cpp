@@ -94,24 +94,31 @@ void SDLPacman::move(int direction, int velocity) {
 	frameCounter++;
 }
 
-void SDLPacman::visualize() {
+void SDLPacman::visualize(int frame) {
+	int velFactor = 0;
+	if(vel == 0) {
+		velFactor = 1;
+		frame = frameDelay;
+	}
+	else
+		velFactor = vel;
 	switch (dir) {
-			case FORWARD:
-				SDLY = SDLY - 4*vel;
+		case FORWARD:
+			SDLY = position.y * currentSprite.h - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.h;
 			break;
 
-			case BACKWARD:
-				SDLY = SDLY + 4*vel;
+		case BACKWARD:
+			SDLY = position.y * currentSprite.h + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.h;
 			break;
 
-			case RIGHT:
-				SDLX = SDLX + 4*vel;
+		case RIGHT:
+			SDLX = position.x * currentSprite.w + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.w;
 			break;
 
-			case LEFT:
-				SDLX = SDLX - 4*vel;
+		case LEFT:
+			SDLX = position.x * currentSprite.w - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.w;
 			break;
-		}
+	}
 	SDLEntity::visualize();
 }
 

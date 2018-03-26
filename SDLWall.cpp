@@ -27,7 +27,7 @@ void SDLWall::setActiveSprite(int type) {
 	//do -1 because enum starts at 1
 	currentSprite = sprites[type-1];
 }
-void SDLWall::visualize() {
+void SDLWall::visualize(int frame) {
 	SDLEntity::visualize();
 }
 /**
