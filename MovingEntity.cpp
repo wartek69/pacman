@@ -23,6 +23,7 @@ MovingEntity::~MovingEntity() {
 }
 
 void MovingEntity::move(int direction, int velocity) {
+
 	switch(direction) {
 	case FORWARD:
 		position.y = position.y - velocity;

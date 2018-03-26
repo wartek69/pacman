@@ -18,7 +18,7 @@ public:
 	SDLGhost(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLGhost();
 	void move(int direction, int velocity) override;
-	void visualize() override;
+	void visualize(int frame) override;
 	void loadSprites();
 private:
 	SDL_Rect sprites[8];

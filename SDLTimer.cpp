@@ -12,7 +12,7 @@
 
 using namespace std;
 
-SDLTimer::SDLTimer(): startTime(0), isStarted(false) {
+SDLTimer::SDLTimer(): startTime(0), isStarted(false), passedTime(0), isPaused(false){
 }
 
 SDLTimer::~SDLTimer() {
@@ -30,9 +30,9 @@ void SDLTimer::stopTimer() {
 }
 
 int SDLTimer::getTimePassed() {
-	if(isStarted) {
+	if(isStarted ) {
 		return (SDL_GetTicks() - startTime);
-	} else {
+	}  else {
 		cout << "The timer wasn't running" << endl;
 		return -1;
 	}
@@ -42,3 +42,15 @@ void SDLTimer::Delay(int delay) {
 	SDL_Delay(delay);
 }
 
+void SDLTimer::pause() {
+	isPaused = true;
+	passedTime = SDL_GetTicks() - startTime;
+}
+
+void SDLTimer::resume() {
+	if(isPaused)
+		startTime = SDL_GetTicks() - passedTime;
+	else
+		cout << "can't resume, timer wasn't paused" << endl;
+	isPaused = false;
+}

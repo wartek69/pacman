@@ -9,7 +9,7 @@
 
 #include "Entity.h"
 
-Dot::Dot(int posX, int posY): Entity(posX, posY, 10, 10) {
+Dot::Dot(int posX, int posY): Entity(posX, posY, 1, 1) {
 	// TODO Auto-generated constructor stub
 
 }

@@ -11,7 +11,7 @@
 using namespace std;
 
 SDLWall::SDLWall( SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, int type) :
-Wall(posX,posY), SDLEntity(rectX ,rectY ,rectW, rectH, gRenderer, spriteSheet) {
+Wall(posX,posY), SDLEntity(rectX ,rectY ,rectW, rectH, gRenderer, spriteSheet, posX*24, posY*24) {
 	//loads all wall sprites
 	//cout << rectY << endl;
 	loadSprites();
@@ -27,8 +27,8 @@ void SDLWall::setActiveSprite(int type) {
 	//do -1 because enum starts at 1
 	currentSprite = sprites[type-1];
 }
-void SDLWall::visualize() {
-	SDLEntity::visualize(position.x,position.y);
+void SDLWall::visualize(int frame) {
+	SDLEntity::visualize();
 }
 /**
  * loads up all the sprites that are needed for the walls

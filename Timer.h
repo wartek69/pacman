@@ -16,6 +16,8 @@ public:
 	virtual int getTimePassed() = 0;
 	virtual void stopTimer() = 0;
 	virtual void Delay(int delay) = 0;
+	virtual void pause() = 0;
+	virtual void resume() = 0;
 };
 
 #endif /* TIMER_H_ */

@@ -29,6 +29,7 @@ public:
 	shared_ptr<Dot> createDot(int posX, int posY) override;
 	unique_ptr<ScoreHandler> createScoreHandler() override;
 	unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) override;
+	unique_ptr<WorldObjects> createWorld() override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);

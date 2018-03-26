@@ -20,8 +20,10 @@ using namespace std;
 
 
 Game::Game(shared_ptr<AbstractFactory> F): F(F) {
+
 	countedFrames = 0; //used to calculate fps
 	score = F->createScoreHandler();
+	world = F->createWorld();
 	loadMap();
 }
 Game::~Game() {
@@ -33,15 +35,18 @@ void Game::loadMap() {
 		for(int k = 0;k<20;k++) {
 			for(int l = 0;l<26;l++) {
 				int object = mapController.getValue(k,l);
-				if(object <= LUCORNER && object >= HWALL)
-					walls.push_back(F->createWall(l*24,k*24,object));
-				else if(object == PACMAN) {
-					pacman = F->createPacman(l*24,k*24);
+				if(object <= LUCORNER && object >= HWALL) {
+					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
+					walls.push_back(tempWall);
+					world->add(tempWall);
+				} else if(object == PACMAN) {
+					pacman = F->createPacman(l, k);
 					//bind inputhandler to pacman
 					iHandler = F->createInputHandler(pacman);
 					mEntities.push_back(pacman);
+					world->add(mEntities.back());
 				} else if (object >= RGHOST && object <= BGHOST) {
-					shared_ptr<Ghost> tempGhost = F->createGhost(l*24, k*24, object);
+					shared_ptr<Ghost> tempGhost = F->createGhost(l, k, object);
 					if(object == RGHOST) {
 						redGhost = tempGhost;
 					} else if( object == BGHOST) {
@@ -52,8 +57,10 @@ void Game::loadMap() {
 						pinkGhost = tempGhost;
 					}
 					mEntities.push_back(tempGhost);
+					world->add(tempGhost);
 				} else if (object == DOT) {
-					mEntities.push_back(F->createDot(l*24+5, k*24+5));
+					mEntities.push_back(F->createDot(l, k));
+					world->add(mEntities.back());
 				}
 
 			}
@@ -110,13 +117,12 @@ void Game::start() {
 
 
 		/////////////// VISUAL ASPECTS
-		F->clearScreen();
-		for(shared_ptr<Wall> wall : walls) {
-			wall->visualize();
-		}
-		for(shared_ptr<Entity> entity : mEntities) {
-			entity->visualize();
-		}
+		//F->clearScreen();
+		//pauses timer because world visualize slows down the loop
+		FPSTimer->pause();
+		world->visualize();
+		//resumes the timer
+		FPSTimer->resume();
 		score->visualize();
 		F->showScreen();
 
@@ -144,32 +150,34 @@ void Game::start() {
 			for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
 				if(pacman->checkCollision(*it) && *it != pacman) {
 					score->addScore();
+					world->remove(*it);
 					it = mEntities.erase(it);
 					//TODO reallocate the memory!!
 				} else
 					it++;
 			}
-		}
 
 
-		////////////// GAME LOGIC
-		if(i<100) {
-			//checks if there was a ghost created
-			if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
-				blueGhost->move(FORWARD-j,1);
-				redGhost->move(RIGHT+j,1);
-				orangeGhost->move(FORWARD-j,2);
-				pinkGhost->move(FORWARD-j,2);
+			////////////// GAME LOGIC
+			if(i<100) {
+				//checks if there was a ghost created
+				if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
+					blueGhost->move(FORWARD-j,1);
+					redGhost->move(RIGHT+j,1);
+					orangeGhost->move(FORWARD-j,1);
+					pinkGhost->move(FORWARD-j,1);
+				}
+
+				i = i+1;
+			} else {
+				i = 0;
+				if(j<3)
+					j = j+1;
+				else
+					j = 0;
 			}
-
-			i = i+1;
-		} else {
-			i = 0;
-			if(j<3)
-				j = j+1;
-			else
-				j = 0;
 		}
+
 		countedFrames++;
 		//if the fps is too high and needs to be capped--> not very precise --> last resort stop
 		if(capTimer->getTimePassed() < SCREEN_TICKS_PER_FRAME ) {

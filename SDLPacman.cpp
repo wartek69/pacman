@@ -14,7 +14,7 @@
 using namespace std;
 
 SDLPacman::SDLPacman(int rectX, int rectY, int rectW, int rectH,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Pacman(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+Pacman(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet, posX*24, posY*24) {
 	loadSprites();
 	frameCounter = 0;
 	j = 0;
@@ -44,12 +44,14 @@ void SDLPacman::loadSprites() {
 
 }
 void SDLPacman::move(int direction, int velocity) {
+	dir = direction;
+	vel = velocity;
 	//call base class move
 	if(velocity != 0)
 		MovingEntity::move(direction, velocity);
 	//animations
 	int temp;
-	int multiplyFactor = 16;
+	float multiplyFactor = 0.8f;
 
 	switch(direction) {
 		case FORWARD:
@@ -74,7 +76,7 @@ void SDLPacman::move(int direction, int velocity) {
 			if(frameCounter>3*(multiplyFactor/abs(velocity))) {
 				j = 2;
 				frameCounter = 0;
-			} else if(frameCounter>2*(multiplyFactor/abs(velocity))) {
+			} else if(frameCounter > 2*(multiplyFactor/abs(velocity))) {
 				j = 1;
 			} else if(frameCounter > (multiplyFactor/abs(velocity))) {
 				j = 0;
@@ -92,7 +94,31 @@ void SDLPacman::move(int direction, int velocity) {
 	frameCounter++;
 }
 
-void SDLPacman::visualize() {
-	SDLEntity::visualize(position.x, position.y);
+void SDLPacman::visualize(int frame) {
+	int velFactor = 0;
+	if(vel == 0) {
+		velFactor = 1;
+		frame = frameDelay;
+	}
+	else
+		velFactor = vel;
+	switch (dir) {
+		case FORWARD:
+			SDLY = position.y * currentSprite.h - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.h;
+			break;
+
+		case BACKWARD:
+			SDLY = position.y * currentSprite.h + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.h;
+			break;
+
+		case RIGHT:
+			SDLX = position.x * currentSprite.w + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.w;
+			break;
+
+		case LEFT:
+			SDLX = position.x * currentSprite.w - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.w;
+			break;
+	}
+	SDLEntity::visualize();
 }
 

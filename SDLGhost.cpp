@@ -14,7 +14,7 @@ using namespace std;
 
 
 SDLGhost::SDLGhost(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-		Ghost(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+		Ghost(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet, posX*24, posY*24) {
 		loadSprites();
 		frameCounter = 0;
 		j = 0;
@@ -45,13 +45,13 @@ void SDLGhost::loadSprites() {
 	currentSprite = sprites[RIGHT];
 }
 
-void SDLGhost::visualize() {
-	SDLEntity::visualize(position.x,position.y);
+void SDLGhost::visualize(int frame) {
+	SDLEntity::visualize();
 }
 
 void SDLGhost::move(int direction, int velocity) {
 	int temp = 0;
-	int multiplyFactor = 10;
+	int multiplyFactor = 1;
 
 	Ghost::move(direction, velocity);
 	switch(direction) {
