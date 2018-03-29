@@ -21,7 +21,6 @@ SDLMenu::SDLMenu(SDL_Renderer* gRenderer, shared_ptr<AbstractFactory> F): Menu(F
 }
 
 SDLMenu::~SDLMenu() {
-	// TODO Auto-generated destructor stub
 }
 
 void SDLMenu::loadFont() {

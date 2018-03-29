@@ -12,7 +12,7 @@ ScoreHandler::ScoreHandler() {
 }
 
 ScoreHandler::~ScoreHandler() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void ScoreHandler::addScore() {

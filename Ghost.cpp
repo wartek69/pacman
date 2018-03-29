@@ -18,7 +18,6 @@ Ghost::Ghost(int posX, int posY): MovingEntity(posX, posY, 24, 24) {
 }
 
 Ghost::~Ghost() {
-	// TODO Auto-generated destructor stub
 }
 
 

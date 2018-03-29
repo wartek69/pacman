@@ -27,13 +27,11 @@ Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 	loadMap();
 }
 Game::~Game() {
-	// TODO Auto-generated destructor stub
 }
 void Game::loadMap() {
 	Map mapController;
-	//TODO parameterize the for loop
-		for(int k = 0;k<20;k++) {
-			for(int l = 0;l<26;l++) {
+		for(int k = 0;k<mapController.getRows();k++) {
+			for(int l = 0;l<mapController.getCols();l++) {
 				int object = mapController.getValue(k,l);
 				if(object <= LUCORNER && object >= HWALL) {
 					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
@@ -57,7 +55,7 @@ void Game::loadMap() {
 						pinkGhost = tempGhost;
 					}
 					mEntities.push_back(tempGhost);
-					world->add(tempGhost);
+						world->add(tempGhost);
 				} else if (object == DOT) {
 					mEntities.push_back(F->createDot(l, k));
 					world->add(mEntities.back());
@@ -87,7 +85,6 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 }
 void Game::start() {
 	//creates the needed instrument using factory
-	//delete map;
 	unique_ptr<Timer> capTimer = F->createTimer();
 	unique_ptr<Timer> FPSTimer = F->createTimer();
 	//starts up timer
@@ -120,10 +117,11 @@ void Game::start() {
 		//F->clearScreen();
 		//pauses timer because world visualize slows down the loop
 		FPSTimer->pause();
-		world->visualize();
+		world->visualize(score);
 		//resumes the timer
 		FPSTimer->resume();
-		score->visualize();
+		//score->visualize();
+		//TODO fix fps
 		F->showScreen();
 
 		////////////////COLLISION DETECTION FOR PACMAN
@@ -152,30 +150,10 @@ void Game::start() {
 					score->addScore();
 					world->remove(*it);
 					it = mEntities.erase(it);
-					//TODO reallocate the memory!!
 				} else
 					it++;
 			}
-
-
-			////////////// GAME LOGIC
-			if(i<100) {
-				//checks if there was a ghost created
-				if(blueGhost != NULL && pinkGhost != NULL && orangeGhost != NULL && redGhost != NULL) {
-					blueGhost->move(FORWARD-j,1);
-					redGhost->move(RIGHT+j,1);
-					orangeGhost->move(FORWARD-j,1);
-					pinkGhost->move(FORWARD-j,1);
-				}
-
-				i = i+1;
-			} else {
-				i = 0;
-				if(j<3)
-					j = j+1;
-				else
-					j = 0;
-			}
+			/////GAME LOGIC
 		}
 
 		countedFrames++;

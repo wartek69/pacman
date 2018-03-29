@@ -14,14 +14,13 @@ using namespace std;
 
 
 SDLGhost::SDLGhost(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-		Ghost(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet, posX*24, posY*24) {
+		Ghost(posX, posY), SDLMovingEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
 		loadSprites();
 		frameCounter = 0;
 		j = 0;
 }
 
 SDLGhost::~SDLGhost() {
-	// TODO Auto-generated destructor stub
 }
 
 void SDLGhost::loadSprites() {
@@ -46,7 +45,7 @@ void SDLGhost::loadSprites() {
 }
 
 void SDLGhost::visualize(int frame) {
-	SDLEntity::visualize();
+	SDL::SDLMovingEntity::visualize(position.x, position.y, vel, dir, frame);
 }
 
 void SDLGhost::move(int direction, int velocity) {
@@ -54,7 +53,7 @@ void SDLGhost::move(int direction, int velocity) {
 	int multiplyFactor = 1;
 
 	Ghost::move(direction, velocity);
-	switch(direction) {
+	switch(dir) {
 	case FORWARD:
 		temp = FORWARD;
 		break;
@@ -71,10 +70,10 @@ void SDLGhost::move(int direction, int velocity) {
 
 	//switching sprites, every picture gets displayed for multiplyFactor frames
 
-	if(frameCounter > 2*(multiplyFactor/velocity)) {
+	if(frameCounter > 2*(multiplyFactor/vel)) {
 		j = 1;
 		frameCounter = 0;
-	} else if(frameCounter > multiplyFactor/velocity){
+	} else if(frameCounter > multiplyFactor/vel){
 		j = 0;
 	}
 

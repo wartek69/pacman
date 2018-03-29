@@ -14,28 +14,28 @@ using namespace std;
 
 MovingEntity::MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight)
 : Entity(posX, posY, collisionWidth, collisionHeight) {
-	// TODO Auto-generated constructor stub
 
 }
 
 MovingEntity::~MovingEntity() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void MovingEntity::move(int direction, int velocity) {
-
+	dir = direction;
+	vel = velocity;
 	switch(direction) {
-	case FORWARD:
-		position.y = position.y - velocity;
+		case FORWARD:
+			position.y = position.y - velocity;
 		break;
-	case BACKWARD:
-		position.y = position.y + velocity;
+		case BACKWARD:
+			position.y = position.y + velocity;
 		break;
-	case LEFT:
-		position.x = position.x - velocity;
+		case LEFT:
+			position.x = position.x - velocity;
 		break;
-	case RIGHT:
-		position.x = position.x + velocity;
+		case RIGHT:
+			position.x = position.x + velocity;
 		break;
 	}
 }

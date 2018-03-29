@@ -10,11 +10,10 @@
 #include <memory>
 
 InputHandler::InputHandler(std::shared_ptr<Pacman> handleObject):handleObject(handleObject) {
-	// TODO Auto-generated constructor stub
 
 }
 
 InputHandler::~InputHandler() {
-	// TODO Auto-generated destructor stub
+
 }
 

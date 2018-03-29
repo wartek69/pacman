@@ -214,12 +214,10 @@ void SDLFactory::close() {
 }
 
 unique_ptr<Timer> SDLFactory::createTimer() {
-	//TODO MEMORY LEAK?
 	return make_unique<SDLTimer>();
 }
 
 unique_ptr<InputHandler> SDLFactory::createInputHandler(shared_ptr<Pacman> handleObject) {
-	//TODO MEMORY LEAK?
 	return make_unique<SDLInputHandler>(handleObject);
 }
 

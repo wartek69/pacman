@@ -11,12 +11,13 @@
 #include <vector>
 #include <memory>
 #include "Entity.h"
+#include "ScoreHandler.h"
 
 class WorldObjects {
 public:
 	WorldObjects();
 	virtual ~WorldObjects();
-	virtual void visualize() = 0;
+	virtual void visualize(const std::unique_ptr<ScoreHandler>& score) = 0;
 	virtual void add(std::shared_ptr<Entity>);
 	virtual void remove(std::shared_ptr<Entity>);
 protected:

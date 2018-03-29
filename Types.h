@@ -8,13 +8,6 @@
 #ifndef TYPES_H_
 #define TYPES_H_
 
-/*enum GhostSprites{
-	    FORWARD,
-	    BACKWARD,
-	    LEFT,
-	    RIGHT
-};
-*/
 enum GhostSprites{
 	   	RIGHT,
 	    BACKWARD,
@@ -57,7 +50,7 @@ enum menu {
 	EXIT
 };
 
-const int frameDelay = 5;
+const int frameDelay = 6;
 
 
 

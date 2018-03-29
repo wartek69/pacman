@@ -16,7 +16,7 @@
  */
 class SDLEntity {
 public:
-	SDLEntity(int rectX, int rectY, int rectW, int rectH,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY) ;
+	SDLEntity(int rectX, int rectY, int rectW, int rectH,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet) ;
 	virtual ~SDLEntity();
 	//virtual void loadSprites() = 0;
 	void visualize();

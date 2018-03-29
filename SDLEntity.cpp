@@ -11,7 +11,7 @@
 #include "Types.h"
 using namespace std;
 
-SDLEntity::SDLEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY) {
+SDLEntity::SDLEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet) {
 	//gets the coordinates to get the right sprite from the spritesheet
 	SDL_Rect clip ;
 	clip.x = rectX;
@@ -19,8 +19,8 @@ SDLEntity::SDLEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* g
 	clip.w = rectW;
 	clip.h = rectH;
 
-	SDLX = posX;
-	SDLY = posY;
+	SDLX = 200;
+	SDLY = 200;
 	//initializes the renderer and sprite sheet
 	this->gRenderer = gRenderer;
 	this->spriteSheet = spriteSheet;
@@ -28,7 +28,6 @@ SDLEntity::SDLEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* g
 }
 
 SDLEntity::~SDLEntity() {
-	// TODO
 }
 
 void SDLEntity::visualize() {

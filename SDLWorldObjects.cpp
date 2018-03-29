@@ -16,10 +16,10 @@ SDLWorldObjects::SDLWorldObjects(SDL_Renderer* gRenderer) {
 }
 
 SDLWorldObjects::~SDLWorldObjects() {
-	// TODO Auto-generated destructor stub
+
 }
 
-void SDLWorldObjects::visualize() {
+void SDLWorldObjects::visualize(const unique_ptr<ScoreHandler>& score) {
 	frames = 0;
 	while (frames < frameDelay) {
 		frames++;
@@ -27,6 +27,7 @@ void SDLWorldObjects::visualize() {
 		for(shared_ptr<Entity> entity : objects) {
 			entity->visualize(frames);
 		}
+		score->visualize();
 		SDL_RenderPresent(gRenderer);
 	}
 }

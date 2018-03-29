@@ -17,6 +17,8 @@ public:
 	virtual ~Map();
 	void setValue(int i, int j, int value);
 	int getValue(int i, int j);
+	int getCols();
+	int getRows();
 private:
 	void loadMap(std::string fileName);
 	void printMap();

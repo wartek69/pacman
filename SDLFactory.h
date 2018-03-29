@@ -45,7 +45,6 @@ private:
 	SDL_Renderer* gRenderer;
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 530;
-	//TODO
 	SDL_Texture* spriteSheet;
 };
 

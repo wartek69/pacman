@@ -14,7 +14,7 @@
 using namespace std;
 
 SDLPacman::SDLPacman(int rectX, int rectY, int rectW, int rectH,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Pacman(posX, posY), SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet, posX*24, posY*24) {
+Pacman(posX, posY), SDLMovingEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
 	loadSprites();
 	frameCounter = 0;
 	j = 0;
@@ -44,16 +44,14 @@ void SDLPacman::loadSprites() {
 
 }
 void SDLPacman::move(int direction, int velocity) {
-	dir = direction;
-	vel = velocity;
 	//call base class move
-	if(velocity != 0)
+	//if(vel != 0)
 		MovingEntity::move(direction, velocity);
 	//animations
 	int temp;
 	float multiplyFactor = 0.8f;
 
-	switch(direction) {
+	switch(dir) {
 		case FORWARD:
 			temp = P_FORWARD;
 		break;
@@ -69,7 +67,7 @@ void SDLPacman::move(int direction, int velocity) {
 	}
 
 	//next part of code switches the picture every multiplyFactor of frames
-		if(velocity == 0) {
+		if(vel == 0) {
 			//the pacman isn't moving, --> mouth is half open
 			currentSprite = sprites[temp+2];
 		} else {
@@ -94,31 +92,11 @@ void SDLPacman::move(int direction, int velocity) {
 	frameCounter++;
 }
 
+/**
+ * visualizes every frame individually
+ *
+ */
 void SDLPacman::visualize(int frame) {
-	int velFactor = 0;
-	if(vel == 0) {
-		velFactor = 1;
-		frame = frameDelay;
-	}
-	else
-		velFactor = vel;
-	switch (dir) {
-		case FORWARD:
-			SDLY = position.y * currentSprite.h - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.h;
-			break;
-
-		case BACKWARD:
-			SDLY = position.y * currentSprite.h + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.h;
-			break;
-
-		case RIGHT:
-			SDLX = position.x * currentSprite.w + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.w;
-			break;
-
-		case LEFT:
-			SDLX = position.x * currentSprite.w - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.w;
-			break;
-	}
-	SDLEntity::visualize();
+	SDL::SDLMovingEntity::visualize(position.x, position.y, vel, dir, frame);
 }
 

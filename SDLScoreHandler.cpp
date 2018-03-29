@@ -19,7 +19,7 @@ SDLScoreHandler::SDLScoreHandler(SDL_Renderer* gRenderer) {
 }
 
 SDLScoreHandler::~SDLScoreHandler() {
-	// TODO Auto-generated destructor stub
+	close();
 }
 
 void SDLScoreHandler::visualize() {
@@ -45,6 +45,6 @@ void SDLScoreHandler::loadFont() {
 
 void SDLScoreHandler::close() {
 	TTF_CloseFont(gFont);
-	//TODO use this method
 }
+
 } /* namespace SDL */

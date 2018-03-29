@@ -16,7 +16,6 @@ SDLTimer::SDLTimer(): startTime(0), isStarted(false), passedTime(0), isPaused(fa
 }
 
 SDLTimer::~SDLTimer() {
-	// TODO Auto-generated destructor stub
 }
 
 void SDLTimer::startTimer() {

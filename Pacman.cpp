@@ -9,11 +9,10 @@
 #include "MovingEntity.h"
 
 Pacman::Pacman(int posX,int posY): MovingEntity(posX, posY, 24, 24) {
-	// TODO Auto-generated constructor stub
 
 }
 
 Pacman::~Pacman() {
-	// TODO Auto-generated destructor stub
+
 }
 

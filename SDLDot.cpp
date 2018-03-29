@@ -9,16 +9,18 @@
 #include <iostream>
 #include "Dot.h"
 SDLDot::SDLDot(SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Dot(posX, posY), SDLEntity(216, 0, 10, 10, gRenderer, spriteSheet, posX*24+5, posY*24+5) {
+Dot(posX, posY), SDLEntity(216, 0, 10, 10, gRenderer, spriteSheet) {
 
 	// TODO config file
 
 }
 
 SDLDot::~SDLDot() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void SDLDot::visualize(int frame) {
+	SDLX = position.x * 24 + 5;
+	SDLY = position.y * 24 + 5;
 	SDLEntity::visualize();
 }

@@ -15,7 +15,6 @@ Entity::Entity(int posX, int posY, int collisionWidth, int collisionHeight) {
 }
 
 Entity::~Entity() {
-	// TODO Auto-generated destructor stub
 }
 
 int Entity::getHeight() {

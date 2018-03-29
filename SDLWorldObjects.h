@@ -10,12 +10,13 @@
 
 #include "WorldObjects.h"
 #include <SDL2\SDL.h>
+#include "ScoreHandler.h"
 
 class SDLWorldObjects: public WorldObjects {
 public:
 	SDLWorldObjects(SDL_Renderer* gRenderer);
 	virtual ~SDLWorldObjects();
-	void visualize() override;
+	void visualize(const std::unique_ptr<ScoreHandler>& score) override;
 private:
 	int frames;
 	SDL_Renderer* gRenderer;

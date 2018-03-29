@@ -28,7 +28,7 @@ Map::Map() {
 }
 
 Map::~Map() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void Map::loadMap(string fileName) {
@@ -78,5 +78,13 @@ void Map::setValue(int i, int j,int value) {
 
 int Map::getValue(int i, int j) {
 	return map[i][j];
+}
+
+int Map::getCols() {
+	return cols;
+}
+
+int Map::getRows() {
+	return rows;
 }
 

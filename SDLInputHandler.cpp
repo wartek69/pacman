@@ -17,7 +17,7 @@ SDLInputHandler::SDLInputHandler(shared_ptr<Pacman> handleObject): InputHandler(
 }
 
 SDLInputHandler::~SDLInputHandler() {
-	// TODO Auto-generated destructor stub
+
 }
 
 /**
@@ -29,29 +29,29 @@ void SDLInputHandler::handleInput(bool& quit,int& direction, int& velocity) {
 
 	//Handle events on queue
 	while(SDL_PollEvent( &e )!=0) {
-	//User requests quit
-	if( e.type == SDL_QUIT ) {
-		quit = true;
-	} else if( e.type == SDL_KEYDOWN ) {
-		switch( e.key.keysym.sym) {
-		case SDLK_UP:
-			direction = FORWARD;
+		//User requests quit
+		if( e.type == SDL_QUIT ) {
+			quit = true;
+		} else if( e.type == SDL_KEYDOWN ) {
+			switch( e.key.keysym.sym) {
+			case SDLK_UP:
+				direction = FORWARD;
 
-			break;
-		case SDLK_DOWN:
-			direction = BACKWARD;
+				break;
+			case SDLK_DOWN:
+				direction = BACKWARD;
 
-			break;
-		case SDLK_LEFT:
-			direction = LEFT;
+				break;
+			case SDLK_LEFT:
+				direction = LEFT;
 
-			break;
-		case SDLK_RIGHT:
-			direction = RIGHT;
-			break;
+				break;
+			case SDLK_RIGHT:
+				direction = RIGHT;
+				break;
+			}
+		velocity = 1;
 		}
-	velocity = 1;
-	}
 	}
 
 }

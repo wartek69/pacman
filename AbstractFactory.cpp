@@ -9,11 +9,10 @@
 
 
 AbstractFactory::AbstractFactory() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AbstractFactory::~AbstractFactory() {
-	// TODO Auto-generated destructor stub
+
 }
 
