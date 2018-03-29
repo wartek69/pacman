@@ -7,7 +7,10 @@
 
 #include "SDLFactory.h"
 #include "Ghost.h"
-#include "SDLGhost.h"
+#include "SDLBlinky.h"
+#include "SDLInky.h"
+#include "SDLClyde.h"
+#include "SDLPinky.h"
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 #include <SDL2\SDL_TTF.h>
@@ -65,16 +68,16 @@ shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type) {
 	//TODO MEMORY LEAK?
 	switch(type) {
 	case RGHOST:
-		return make_shared<SDLGhost>(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLBlinky>(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case BGHOST:
-		return make_shared<SDLGhost>(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLInky>(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case OGHOST:
-		return make_shared<SDLGhost>(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLClyde>(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	case PGHOST:
-		return make_shared<SDLGhost>(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLPinky>(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
 	break;
 	}
 	//if no type is given up

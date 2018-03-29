@@ -14,12 +14,12 @@
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 
-class SDLGhost: public Ghost, public SDL::SDLMovingEntity {
+class SDLGhost: public SDL::SDLMovingEntity {
 public:
-	SDLGhost(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
+	SDLGhost(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet);
 	virtual ~SDLGhost();
-	void move(int direction, int velocity) override;
-	void visualize(int frame) override;
+	void animation(int direction, int velocity);
+	void showOnScreen(int posX, int posY, int velocity, int direction, int frame);
 	void loadSprites();
 private:
 	SDL_Rect sprites[8];

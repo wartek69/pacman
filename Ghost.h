@@ -19,6 +19,7 @@ class Ghost: public MovingEntity {
 public:
 	Ghost(int posX, int posY);
 	virtual ~Ghost();
+	virtual void findPath() = 0;
 private:
 	Ghost();
 

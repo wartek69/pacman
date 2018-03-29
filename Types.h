@@ -50,7 +50,7 @@ enum menu {
 	EXIT
 };
 
-const int frameDelay = 6;
+const int frameDelay = 8;
 
 
 

@@ -100,9 +100,6 @@ void Game::start() {
 	int previousDirection = direction+1;
 	int velocity = 0;
 
-	//used to make the ghosts move
-	int i = 0;
-	int j = 0;
 
 	//GAME LOOP
 	while( !quit ) {
@@ -154,6 +151,15 @@ void Game::start() {
 					it++;
 			}
 			/////GAME LOGIC
+			if(countedFrames <5)
+				pinkGhost->move(BACKWARD,1);
+			else if(countedFrames < 10)
+				pinkGhost->move(RIGHT,1);
+			else if(countedFrames <15)
+				pinkGhost->move(FORWARD,1);
+			else
+				pinkGhost->move(LEFT,1);
+			redGhost->move(BACKWARD,2);
 		}
 
 		countedFrames++;

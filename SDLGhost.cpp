@@ -13,8 +13,8 @@
 using namespace std;
 
 
-SDLGhost::SDLGhost(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-		Ghost(posX, posY), SDLMovingEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+SDLGhost::SDLGhost(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet):
+		SDLMovingEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
 		loadSprites();
 		frameCounter = 0;
 		j = 0;
@@ -44,36 +44,35 @@ void SDLGhost::loadSprites() {
 	currentSprite = sprites[RIGHT];
 }
 
-void SDLGhost::visualize(int frame) {
-	SDL::SDLMovingEntity::visualize(position.x, position.y, vel, dir, frame);
+void SDLGhost::showOnScreen(int posX, int posY, int velocity, int direction, int frame) {
+	SDL::SDLMovingEntity::visualize(posX, posY, velocity, direction, frame);
 }
 
-void SDLGhost::move(int direction, int velocity) {
+void SDLGhost::animation(int direction, int velocity) {
 	int temp = 0;
 	int multiplyFactor = 1;
 
-	Ghost::move(direction, velocity);
-	switch(dir) {
-	case FORWARD:
-		temp = FORWARD;
+	switch(direction) {
+		case FORWARD:
+			temp = FORWARD;
 		break;
-	case BACKWARD:
-		temp = BACKWARD;
+		case BACKWARD:
+			temp = BACKWARD;
 		break;
-	case LEFT:
-		temp = LEFT;
+		case LEFT:
+			temp = LEFT;
 		break;
-	case RIGHT:
-		temp = RIGHT;
+		case RIGHT:
+			temp = RIGHT;
 		break;
 	}
 
 	//switching sprites, every picture gets displayed for multiplyFactor frames
 
-	if(frameCounter > 2*(multiplyFactor/vel)) {
+	if(frameCounter > 2*(multiplyFactor/velocity)) {
 		j = 1;
 		frameCounter = 0;
-	} else if(frameCounter > multiplyFactor/vel){
+	} else if(frameCounter > multiplyFactor/velocity){
 		j = 0;
 	}
 
