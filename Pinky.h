@@ -14,9 +14,10 @@ namespace Logic {
 
 class Pinky: public Ghost {
 public:
-	Pinky(int posX, int posY);
+	Pinky(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Pinky();
-	void findPath() override;
+	void findPath(const Entity& entity) override;
+
 };
 
 } /* namespace Logic */

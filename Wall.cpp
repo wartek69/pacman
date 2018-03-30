@@ -6,6 +6,7 @@
  */
 
 #include "Wall.h"
+#include <iostream>
 
 Wall::Wall(int posX, int posY) : Entity(posX, posY, 24, 24) {
 
@@ -15,3 +16,6 @@ Wall::~Wall() {
 
 }
 
+void Wall::print() const {
+	std::cout << "I'm a wall" << std::endl;
+}

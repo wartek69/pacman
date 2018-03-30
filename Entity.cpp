@@ -6,6 +6,7 @@
  */
 
 #include "Entity.h"
+#include <iostream>
 
 Entity::Entity(int posX, int posY, int collisionWidth, int collisionHeight) {
 	position.x = posX;
@@ -17,18 +18,22 @@ Entity::Entity(int posX, int posY, int collisionWidth, int collisionHeight) {
 Entity::~Entity() {
 }
 
-int Entity::getHeight() {
+int Entity::getHeight() const {
 	return collisionHeight;
 }
 
-int Entity::getWidth() {
+int Entity::getWidth() const {
 	return collisionWidth;
 }
 
-int Entity::getPositionX() {
+int Entity::getPositionX() const {
 	return position.x;
 }
 
-int Entity::getPositionY() {
+int Entity::getPositionY() const {
 	return position.y;
+}
+
+void Entity::print() const {
+	std::cout << "I'm an entity" << std::endl;
 }

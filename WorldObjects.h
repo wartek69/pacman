@@ -12,16 +12,23 @@
 #include <memory>
 #include "Entity.h"
 #include "ScoreHandler.h"
-
+#include "Wall.h"
+/**
+ * This class contains the collections of the different objects
+ * Furthermore this class has the pure virtual method to visualize everything
+ */
 class WorldObjects {
 public:
 	WorldObjects();
 	virtual ~WorldObjects();
 	virtual void visualize(const std::unique_ptr<ScoreHandler>& score) = 0;
 	virtual void add(std::shared_ptr<Entity>);
+	virtual void addWall(std::shared_ptr<Wall>);
+	virtual const std::vector<std::shared_ptr<Wall>>& getWalls();
 	virtual void remove(std::shared_ptr<Entity>);
 protected:
 	std::vector<std::shared_ptr<Entity>> objects;
+	std::vector<std::shared_ptr<Wall>> walls;
 };
 
 #endif /* WORLDOBJECTS_H_ */

@@ -10,8 +10,8 @@
 
 namespace SDL {
 
-SDLBlinky::SDLBlinky(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-	Blinky(posX, posY), SDLGhost(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+SDLBlinky::SDLBlinky(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
+	Blinky(posX, posY, world), SDLGhost(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
 
 }
 
@@ -28,6 +28,12 @@ void SDLBlinky::move(int direction, int velocity) {
 
 void SDLBlinky::visualize(int frame) {
 	SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
+}
+
+void SDLBlinky::findPath(const Entity& entity) {
+	Logic::Blinky::findPath(entity);
+	SDLBlinky::move(dir, vel);
+
 }
 
 } /* namespace SDL */

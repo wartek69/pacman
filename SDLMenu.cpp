@@ -103,6 +103,9 @@ void SDLMenu::interact(bool& quit) {
 					break;
 				}
 			break;
+
+			default:
+			break;
 		}
 	}
 

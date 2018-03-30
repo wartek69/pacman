@@ -22,7 +22,7 @@ public:
 	virtual ~Game();
 	void start();
 private:
-	unique_ptr<WorldObjects> world;
+	shared_ptr<WorldObjects> world;
 	const int DELAY = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000/DELAY;
 	shared_ptr<AbstractFactory> F;

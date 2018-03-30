@@ -11,15 +11,20 @@
 #include <string>
 #include <iostream>
 #include "MovingEntity.h"
+#include "WorldObjects.h"
 
 using namespace std;
 
 
 class Ghost: public MovingEntity {
 public:
-	Ghost(int posX, int posY);
+	Ghost(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Ghost();
-	virtual void findPath() = 0;
+	virtual bool isCrossRoad();
+	virtual void findPath(const Entity& entity) = 0;
+	virtual bool doesCollideWall(int direction);
+protected:
+	shared_ptr<WorldObjects> world;
 private:
 	Ghost();
 

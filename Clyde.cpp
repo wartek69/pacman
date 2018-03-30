@@ -9,7 +9,7 @@
 
 namespace Logic {
 
-Clyde::Clyde(int posX, int posY): Ghost(posX, posY) {
+Clyde::Clyde(int posX, int posY, shared_ptr<WorldObjects> world): Ghost(posX, posY, world) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -18,7 +18,7 @@ Clyde::~Clyde() {
 	// TODO Auto-generated destructor stub
 }
 
-void Clyde::findPath() {
+void Clyde::findPath(const Entity& entity) {
 	//TODO ALGORITHM
 }
 

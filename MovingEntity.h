@@ -16,7 +16,8 @@ public:
 	MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight);
 	virtual ~MovingEntity();
 	virtual void move(int direction, int velocity);
-	virtual bool checkCollision(std::shared_ptr<Entity> collisionPartner);
+	virtual void place(int direction, int velocity);
+	virtual bool checkCollision(const Entity& collisionPartner);
 protected:
 	int dir = 100;
 	int vel = 0;

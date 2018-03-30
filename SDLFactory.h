@@ -22,14 +22,14 @@ class SDLFactory: public AbstractFactory {
 public:
 	SDLFactory();
 	virtual ~SDLFactory();
-	shared_ptr<Ghost> createGhost(int posX, int posY, int type) override;
+	shared_ptr<Ghost> createGhost(int posX, int posY, int type, shared_ptr<WorldObjects> world) override;
 	shared_ptr<Pacman> createPacman(int posX, int posY) override;
 	unique_ptr<Timer> createTimer() override;
 	shared_ptr<Wall> createWall(int posX, int posY, int type) override;
 	shared_ptr<Dot> createDot(int posX, int posY) override;
 	unique_ptr<ScoreHandler> createScoreHandler() override;
 	unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) override;
-	unique_ptr<WorldObjects> createWorld() override;
+	shared_ptr<WorldObjects> createWorld() override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);

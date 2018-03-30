@@ -14,13 +14,16 @@ using namespace std;
 
 MovingEntity::MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight)
 : Entity(posX, posY, collisionWidth, collisionHeight) {
+	vel = 1;
 
 }
 
 MovingEntity::~MovingEntity() {
 
 }
-
+/**
+ * move is a function to move an entity
+ */
 void MovingEntity::move(int direction, int velocity) {
 	dir = direction;
 	vel = velocity;
@@ -40,7 +43,32 @@ void MovingEntity::move(int direction, int velocity) {
 	}
 }
 
-bool MovingEntity::checkCollision(shared_ptr<Entity> collisionPartner) {
+/**
+ * place is a method that is used by the collision detection to place an entity
+ * without triggering any animations or changing the direction
+ */
+void MovingEntity::place(int direction, int velocity) {
+	switch(direction) {
+
+		case FORWARD:
+			position.y = position.y - velocity;
+		break;
+		case BACKWARD:
+			position.y = position.y + velocity;
+		break;
+		case LEFT:
+			position.x = position.x - velocity;
+		break;
+		case RIGHT:
+			position.x = position.x + velocity;
+		break;
+	}
+}
+/**
+ * if there is a collision return true
+ * else return false
+ */
+bool MovingEntity::checkCollision(const Entity& collisionPartner) {
 	 //The sides of the rectangles
 	    int leftA, leftB;
 	    int rightA, rightB;
@@ -54,10 +82,10 @@ bool MovingEntity::checkCollision(shared_ptr<Entity> collisionPartner) {
 	    bottomA = position.y + collisionHeight;
 
 	    //Calculate the sides of rect B
-	    leftB = collisionPartner->getPositionX();
-	    rightB = collisionPartner->getPositionX() + collisionPartner->getWidth();
-	    topB = collisionPartner->getPositionY();
-	    bottomB = collisionPartner->getPositionY() + collisionPartner->getHeight();
+	    leftB = collisionPartner.getPositionX();
+	    rightB = collisionPartner.getPositionX() + collisionPartner.getWidth();
+	    topB = collisionPartner.getPositionY();
+	    bottomB = collisionPartner.getPositionY() + collisionPartner.getHeight();
 
 	    //If any of the sides from A are outside of B
 	        if( bottomA <= topB ) {

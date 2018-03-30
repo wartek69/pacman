@@ -16,9 +16,9 @@ namespace Logic {
  */
 class Clyde: public Ghost {
 public:
-	Clyde(int posX, int posY);
+	Clyde(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Clyde();
-	void findPath() override;
+	void findPath(const Entity& entity) override;
 };
 
 } /* namespace Logic */

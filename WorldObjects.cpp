@@ -28,3 +28,11 @@ void WorldObjects::remove(std::shared_ptr<Entity> entity) {
 			it++;
 	}
 }
+
+void WorldObjects::addWall(std::shared_ptr<Wall> wall) {
+	walls.push_back(wall);
+}
+
+const std::vector<std::shared_ptr<Wall>>& WorldObjects::getWalls() {
+	return walls;
+}

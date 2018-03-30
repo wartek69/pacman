@@ -15,7 +15,7 @@ namespace SDL {
 
 class SDLInky: public Logic::Inky, public SDLGhost {
 public:
-	SDLInky(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
+	SDLInky(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~SDLInky();
 	void move(int direction, int velocity) override;
 	void visualize(int frame) override;

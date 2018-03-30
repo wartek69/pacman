@@ -16,9 +16,10 @@ namespace Logic {
   */
 class Blinky: public Ghost {
 public:
-	Blinky(int posX, int posY);
+	Blinky(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Blinky();
-	void findPath() override;
+	void findPath(const Entity& entity) override;
+
 };
 
 } /* namespace Logic */

@@ -9,7 +9,7 @@
 
 namespace Logic {
 
-Inky::Inky(int posX, int posY): Ghost(posX, posY) {
+Inky::Inky(int posX, int posY, shared_ptr<WorldObjects>): Ghost(posX, posY, world) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -18,7 +18,7 @@ Inky::~Inky() {
 	// TODO Auto-generated destructor stub
 }
 
-void Inky::findPath() {
+void Inky::findPath(const Entity& entity) {
 
 }
 

@@ -9,8 +9,8 @@
 
 namespace SDL {
 
-SDLClyde::SDLClyde(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-	Clyde(posX, posY), SDLGhost(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+SDLClyde::SDLClyde(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
+	Clyde(posX, posY, world), SDLGhost(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
 	// TODO Auto-generated constructor stub
 
 }

@@ -14,10 +14,11 @@ public:
 	virtual ~Entity();
 	//virtual void visualize() = 0;
 	virtual void visualize(int frame) = 0;
-	virtual int getPositionX();
-	virtual int getPositionY();
-	virtual int getWidth();
-	virtual int getHeight();
+	virtual int getPositionX() const;
+	virtual int getPositionY() const;
+	virtual int getWidth() const;
+	virtual int getHeight() const;
+	virtual void print() const;
 protected:
 	struct coordinates {
 			int x;

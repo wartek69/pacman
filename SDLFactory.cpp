@@ -64,20 +64,20 @@ SDLFactory::~SDLFactory() {
 	close();
 }
 
-shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type) {
+shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type, shared_ptr<WorldObjects> world) {
 	//TODO MEMORY LEAK?
 	switch(type) {
 	case RGHOST:
-		return make_shared<SDL::SDLBlinky>(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLBlinky>(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY, world);
 	break;
 	case BGHOST:
-		return make_shared<SDL::SDLInky>(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLInky>(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY, world);
 	break;
 	case OGHOST:
-		return make_shared<SDL::SDLClyde>(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLClyde>(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY, world);
 	break;
 	case PGHOST:
-		return make_shared<SDL::SDLPinky>(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY);
+		return make_shared<SDL::SDLPinky>(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY, world);
 	break;
 	}
 	//if no type is given up
@@ -232,6 +232,6 @@ unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
 	return make_unique<SDL::SDLMenu>(gRenderer, F);
 }
 
-unique_ptr<WorldObjects> SDLFactory::createWorld() {
-	return make_unique<SDLWorldObjects>(gRenderer);
+shared_ptr<WorldObjects> SDLFactory::createWorld() {
+	return make_shared<SDLWorldObjects>(gRenderer);
 }

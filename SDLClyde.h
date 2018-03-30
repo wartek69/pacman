@@ -15,7 +15,7 @@ namespace SDL {
 
 class SDLClyde: public Logic::Clyde, public SDLGhost {
 public:
-	SDLClyde(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
+	SDLClyde(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~SDLClyde();
 	void move(int direction, int velocity) override;
 	void visualize(int frame) override;

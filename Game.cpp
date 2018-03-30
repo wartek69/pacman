@@ -35,8 +35,10 @@ void Game::loadMap() {
 				int object = mapController.getValue(k,l);
 				if(object <= LUCORNER && object >= HWALL) {
 					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
+					//TODO delete the useless collections
 					walls.push_back(tempWall);
 					world->add(tempWall);
+					world->addWall(tempWall);
 				} else if(object == PACMAN) {
 					pacman = F->createPacman(l, k);
 					//bind inputhandler to pacman
@@ -44,7 +46,7 @@ void Game::loadMap() {
 					mEntities.push_back(pacman);
 					world->add(mEntities.back());
 				} else if (object >= RGHOST && object <= BGHOST) {
-					shared_ptr<Ghost> tempGhost = F->createGhost(l, k, object);
+					shared_ptr<Ghost> tempGhost = F->createGhost(l, k, object, world);
 					if(object == RGHOST) {
 						redGhost = tempGhost;
 					} else if( object == BGHOST) {
@@ -69,17 +71,17 @@ void Game::loadMap() {
  * if no collision occurs the pacman gets moved
  */
 bool Game::pacCollision(int inputBuffer, int velocity) {
-	pacman->MovingEntity::move(inputBuffer, velocity);
+	pacman->MovingEntity::place(inputBuffer, velocity);
 	//checks collision with walls
 	for(shared_ptr<Wall> wall : walls) {
-		if(pacman->checkCollision(wall)) {
+		if(pacman->checkCollision(*wall)) {
 			//if there is a collision move the pacman back to it's initial position
 			//use the base class for this so that the animations stay correct
-			pacman->MovingEntity::move(inputBuffer, -velocity);
+			pacman->MovingEntity::place(inputBuffer, -velocity);
 			return true;
 		}
 	}
-	pacman->MovingEntity::move(inputBuffer, -velocity);
+	pacman->MovingEntity::place(inputBuffer, -velocity);
 	pacman->move(inputBuffer, velocity);
 	return false;
 }
@@ -143,7 +145,7 @@ void Game::start() {
 
 			//////COLLISION DETECTION ON DOTS AND GHOSTS
 			for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
-				if(pacman->checkCollision(*it) && *it != pacman) {
+				if(pacman->checkCollision(**it) && *it != pacman) {
 					score->addScore();
 					world->remove(*it);
 					it = mEntities.erase(it);
@@ -155,11 +157,14 @@ void Game::start() {
 				pinkGhost->move(BACKWARD,1);
 			else if(countedFrames < 10)
 				pinkGhost->move(RIGHT,1);
-			else if(countedFrames <15)
+			else if(countedFrames < 15)
 				pinkGhost->move(FORWARD,1);
 			else
 				pinkGhost->move(LEFT,1);
-			redGhost->move(BACKWARD,2);
+			redGhost->findPath(*pacman);
+			//cout << redGhost->getPositionX() << endl;
+			//cout << redGhost->getPositionY() << endl;
+			//redGhost->move(BACKWARD,2);
 		}
 
 		countedFrames++;

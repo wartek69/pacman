@@ -14,6 +14,7 @@ class Wall: public Entity {
 public:
 	Wall(int posX, int posY);
 	virtual ~Wall();
+	void print() const override;
 private:
 	Wall(); 		//default constructor shouldn't be used
 };
