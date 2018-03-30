@@ -9,7 +9,7 @@
 
 namespace Logic {
 
-Pinky::Pinky(int posX, int posY) : Ghost(posX, posY){
+Pinky::Pinky(int posX, int posY, shared_ptr<WorldObjects> world) : Ghost(posX, posY, world){
 	// TODO Auto-generated constructor stub
 
 }
@@ -18,7 +18,7 @@ Pinky::~Pinky() {
 	// TODO Auto-generated destructor stub
 }
 
-void Pinky::findPath() {
+void Pinky::findPath(const Entity& entity) {
 	//TODO ALGORITHM
 }
 
