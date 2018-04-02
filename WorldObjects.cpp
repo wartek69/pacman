@@ -10,7 +10,7 @@
 #include <iostream>
 #include <algorithm>
 #include "Ghost.h"
-
+#include "Blinky.h"
 WorldObjects::WorldObjects() {
 
 }
@@ -45,6 +45,10 @@ void WorldObjects::addGhost(std::shared_ptr<Ghost> ghost) {
 	ghosts.push_back(ghost);
 }
 
+void WorldObjects::addBlinky(std::shared_ptr<Ghost> blinky) {
+	this->blinky = blinky;
+}
+
 const Pacman& WorldObjects::getPacman() {
 	return *pacman;
 }
@@ -60,6 +64,9 @@ std::vector<std::shared_ptr<Ghost>>& WorldObjects::getGhosts() {
 	return ghosts;
 }
 
+const Ghost& WorldObjects::getBlinky() {
+	return *blinky;
+}
 /*
  * this function was used for debugging
  */
@@ -67,3 +74,12 @@ void WorldObjects::printDotSize() {
 	std::cout << dots.size() << std::endl;
 }
 
+void WorldObjects::moveGhosts() {
+	for(auto ghost: ghosts) {
+		ghost->findPath(*pacman);
+	}
+}
+
+void WorldObjects::removeGhost(Ghost& ghost) {
+
+}

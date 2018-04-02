@@ -18,7 +18,7 @@ class Clyde: public Ghost {
 public:
 	Clyde(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Clyde();
-	void findPath(const Entity& entity) override;
+	void findPath(const MovingEntity& entity) override;
 };
 
 } /* namespace Logic */

@@ -22,11 +22,15 @@ public:
 	Ghost(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Ghost();
 	virtual bool isCrossRoad();
-	virtual void findPath(const Entity& entity) = 0;
+	virtual void findPath(const MovingEntity& entity) = 0;
+	virtual void decidePath(int, int);
 	virtual bool doesCollidePac();
 	virtual bool doesCollideWall(int direction);
+	static void setMode(int mode);
+	static int getMode();
 protected:
 	std::shared_ptr<WorldObjects> world;
+	static int mode;
 private:
 	Ghost();
 

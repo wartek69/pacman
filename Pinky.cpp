@@ -6,6 +6,7 @@
  */
 
 #include "Pinky.h"
+#include "Types.h"
 
 namespace Logic {
 
@@ -17,9 +18,38 @@ Pinky::Pinky(int posX, int posY, shared_ptr<WorldObjects> world) : Ghost(posX, p
 Pinky::~Pinky() {
 	// TODO Auto-generated destructor stub
 }
+/**
+ * pinky targets a tile 4 tiles before pacman
+ * in scatter mode he goes to the left upper corner
+ */
+void Pinky::findPath(const MovingEntity& entity) {
+	int posGoalX = 0;
+	int posGoalY = 0;
+	if(Ghost::mode == CHASE) {
+		switch(entity.getDirection()) {
+			case FORWARD:
+				posGoalX = entity.getPositionX();
+				posGoalY = entity.getPositionY() - 4;
+			break;
+			case BACKWARD:
+				posGoalX = entity.getPositionX();
+				posGoalY = entity.getPositionY() + 4;
+			break;
+			case RIGHT:
+				posGoalX = entity.getPositionX() + 4;
+				posGoalY = entity.getPositionY();
+			break;
+			case LEFT:
+				posGoalX = entity.getPositionX() - 4;
+				posGoalY = entity.getPositionY();
+			break;
+		}
+	} else if(Ghost::mode == SCATTER) {
+		posGoalX = 1;
+		posGoalY = 1;
+	}
+	Ghost::decidePath(posGoalX, posGoalY);
 
-void Pinky::findPath(const Entity& entity) {
-	//TODO ALGORITHM
 }
 
 } /* namespace Logic */

@@ -30,4 +30,9 @@ void SDLClyde::visualize(int frame) {
 	SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
 }
 
+void SDLClyde::findPath(const MovingEntity& entity) {
+	Logic::Clyde::findPath(entity);
+	SDLClyde::move(dir, vel);
+}
+
 } /* namespace SDL */

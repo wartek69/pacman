@@ -16,7 +16,7 @@ class Inky: public Ghost {
 public:
 	Inky(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Inky();
-	void findPath(const Entity& entity) override;
+	void findPath(const MovingEntity& entity) override;
 
 };
 

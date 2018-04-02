@@ -20,6 +20,7 @@
  */
 class Pacman;
 class Ghost;
+class Blinky;
 
 class WorldObjects {
 public:
@@ -34,14 +35,19 @@ public:
 	virtual void addPacman(std::shared_ptr<Pacman>);
 	virtual void addGhost(std::shared_ptr<Ghost>);
 	virtual void addDot(std::shared_ptr<Dot>);
+	virtual void addBlinky(std::shared_ptr<Ghost>);
 	virtual std::vector<std::shared_ptr<Dot>>& getDots();
 	virtual std::vector<std::shared_ptr<Ghost>>& getGhosts();
+	virtual const Ghost& getBlinky();
+	virtual void moveGhosts();
+	virtual void removeGhost(Ghost& ghost);
 	virtual void printDotSize(); //used for debugging
 protected:
 	std::vector<std::shared_ptr<Entity>> objects;
 	std::vector<std::shared_ptr<Wall>> walls;
 	std::vector<std::shared_ptr<Ghost>> ghosts;
 	std::shared_ptr<Pacman> pacman;
+	std::shared_ptr<Ghost> blinky;
 	std::vector<std::shared_ptr<Dot>> dots;
 };
 

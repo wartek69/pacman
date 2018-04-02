@@ -19,6 +19,7 @@ public:
 	virtual ~SDLClyde();
 	void move(int direction, int velocity) override;
 	void visualize(int frame) override;
+	void findPath(const MovingEntity& entity) override;
 
 };
 

@@ -16,7 +16,7 @@ class Pinky: public Ghost {
 public:
 	Pinky(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Pinky();
-	void findPath(const Entity& entity) override;
+	void findPath(const MovingEntity& entity) override;
 
 };
 

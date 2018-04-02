@@ -30,7 +30,7 @@ void SDLBlinky::visualize(int frame) {
 	SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
 }
 
-void SDLBlinky::findPath(const Entity& entity) {
+void SDLBlinky::findPath(const MovingEntity& entity) {
 	Logic::Blinky::findPath(entity);
 	SDLBlinky::move(dir, vel);
 

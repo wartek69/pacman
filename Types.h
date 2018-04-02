@@ -8,11 +8,17 @@
 #ifndef TYPES_H_
 #define TYPES_H_
 
-enum GhostSprites{
+enum GhostSprites {
 	   	RIGHT,
 	    BACKWARD,
 	    LEFT,
 	    FORWARD
+};
+
+enum GhostMode {
+	SCATTER,
+	CHASE,
+	FRIGHTENED
 };
 
 enum PacmanSprites {

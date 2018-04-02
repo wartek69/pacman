@@ -30,4 +30,8 @@ void SDLInky::visualize(int frame) {
 	SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
 }
 
+void SDLInky::findPath(const MovingEntity& entity) {
+	Logic::Inky::findPath(entity);
+	SDLInky::move(dir, vel);
+}
 } /* namespace SDL */

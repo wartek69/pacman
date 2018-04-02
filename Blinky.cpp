@@ -9,6 +9,7 @@
 #include "Math.h"
 #include <limits>
 #include <map>
+#include "Types.h"
 
 
 namespace Logic {
@@ -21,28 +22,22 @@ Blinky::~Blinky() {
 
 }
 /**
- * decide what way to go to find the shortest path to entity
+ * Blinky chases pacman, if he is in scatter mode he goes to the upper right corner
  */
-void Blinky::findPath(const Entity& entity) {
-	//has ot be a multi map since multiple values should be stored
-	multimap<int, int> shortestD;
-	for(int i = 0; i < 4; i++) {
-		//TODO parametrize the velocity
-		MovingEntity::place(i,1);
-		int temp = pow((entity.getPositionX() - this->position.x), 2.0) + pow((entity.getPositionY() - this->position.y), 2.0);
-		MovingEntity::place(i,-1);
-		if(!(Ghost::doesCollideWall(i))) {
-			shortestD.insert(make_pair(temp, i));
-		}
+void Blinky::findPath(const MovingEntity& entity) {
+	int posX = 0;
+	int posY = 0;
+	if(Ghost::mode == CHASE) {
+		posX = entity.getPositionX();
+		posY = entity.getPositionY();
+	} else if(Ghost::mode == SCATTER) {
+		//right top corner
+		posX = 10000;
+		posY = 1;
+	} else if(Ghost::mode == FRIGHTENED) {
+
 	}
-	//checks if the new ain't the opposite direction of the old direction
-	//since the ghost can't move back
-	if((shortestD.begin()->second+dir)%2 == 0 && dir != 100 && shortestD.begin()->second != dir) {
-		//remove the first element from the list
-		shortestD.begin() = shortestD.erase(shortestD.begin());
-		dir = shortestD.begin()->second;
-	} else
-		dir = shortestD.begin()->second;
+	Ghost::decidePath(posX, posY);
 }
 
 } /* namespace Logic */

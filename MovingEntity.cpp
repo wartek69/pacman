@@ -104,10 +104,10 @@ bool MovingEntity::checkCollision(const Entity& collisionPartner) {
 	        return true;
 }
 
-int MovingEntity::getDirection() {
+int MovingEntity::getDirection() const {
 	return dir;
 }
 
-int MovingEntity::getVelocity() {
+int MovingEntity::getVelocity() const {
 	return vel;
 }

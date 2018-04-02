@@ -55,6 +55,8 @@ void Game::loadMap() {
 					} else if( object == PGHOST) {
 						pinkGhost = tempGhost;
 					}
+					if(tempGhost == redGhost)
+						world->addBlinky(tempGhost);
 					world->add(tempGhost);
 					world->addGhost(tempGhost);
 				} else if (object == DOT) {
@@ -91,8 +93,11 @@ void Game::start() {
 	//creates the needed instrument using factory
 	unique_ptr<Timer> capTimer = F->createTimer();
 	unique_ptr<Timer> FPSTimer = F->createTimer();
+	//timer that is used to switch the ghosts between different modes
+	unique_ptr<Timer> ghostTimer = F->createTimer();
 	//starts up timer
 	FPSTimer->startTimer();
+	ghostTimer ->startTimer();
 	float FPS;
 	//Main loop flag
 	bool quit = false;
@@ -125,19 +130,22 @@ void Game::start() {
 		//TODO fix fps
 		F->showScreen();
 
-		redGhost->findPath(*pacman);
+		/*redGhost->findPath(*pacman);
+		pinkGhost->findPath(*pacman);
+		orangeGhost->findPath(*pacman);
+		blueGhost->findPath(*pacman);*/
+		world->moveGhosts();
 
 		//checks if there was a pacman created
 		if(pacman != NULL) {
 			int temp = direction;
 			iHandler->handleInput(quit,direction, velocity);
 			//Detect collision on ghosts before you move pacman!!
-
 			for(vector<shared_ptr<Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
 				bool bool1 = direction != (*it)->getDirection();
 				bool bool2 = (direction+(*it)->getDirection())%2 == 0;
 				if(pacman->checkCollision(**it) && bool1 && bool2) {
-					cout << "collision detectedd"<< countedFrames << endl;
+					cout << "collision1" << endl;
 					it++;
 				} else
 					it++;
@@ -150,11 +158,11 @@ void Game::start() {
 				previousDirection = temp;
 			//collision algorithm takes previous direction if given direction isn't possible
 			if(pacCollision(direction, velocity)) {
-					if(pacCollision(previousDirection, velocity)) {
-						//stop
-						pacman->move(previousDirection, 0);
-					}else
-						pacman->move(previousDirection, velocity);
+				if(pacCollision(previousDirection, velocity)) {
+					//stop
+					pacman->move(previousDirection, 0);
+				}else
+					pacman->move(previousDirection, velocity);
 			} else {
 				previousDirection = direction;
 				pacman->move(direction, velocity);
@@ -163,7 +171,7 @@ void Game::start() {
 			//collision detection on ghosts after the pacman got moved!!
 			for(vector<shared_ptr<Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
 				if(pacman->checkCollision(**it)) {
-					cout << "collision detected"<< countedFrames << endl;
+					cout << "collision2" << endl;
 					it++;
 				} else
 					it++;
@@ -178,15 +186,6 @@ void Game::start() {
 				} else
 					it++;
 			}
-			/////GAME LOGIC
-			if(countedFrames <5)
-				pinkGhost->move(BACKWARD,1);
-			else if(countedFrames < 10)
-				pinkGhost->move(RIGHT,1);
-			else if(countedFrames < 15)
-				pinkGhost->move(FORWARD,1);
-			else
-				pinkGhost->move(LEFT,1);
 		}
 
 		countedFrames++;
@@ -199,7 +198,16 @@ void Game::start() {
 		}
 		//resets the timer
 		capTimer->stopTimer();
-
+		if(ghostTimer->getTimePassed() > 7000 && Ghost::getMode() == SCATTER) {
+			Ghost::setMode(CHASE);
+			ghostTimer->stopTimer();
+			ghostTimer->startTimer();
+		} else if(ghostTimer->getTimePassed() > 20000) {
+			Ghost::setMode(SCATTER);
+			ghostTimer->stopTimer();
+			ghostTimer->startTimer();
+		}
+		//cout << Ghost::getMode() << endl;
 		//resets timer every 5sec to keep the fps measurements precise
 		if(FPSTimer->getTimePassed() > 5000) {
 			countedFrames = 0;

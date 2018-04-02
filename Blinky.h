@@ -18,7 +18,7 @@ class Blinky: public Ghost {
 public:
 	Blinky(int posX, int posY, shared_ptr<WorldObjects> world);
 	virtual ~Blinky();
-	void findPath(const Entity& entity) override;
+	void findPath(const MovingEntity& entity) override;
 
 };
 
