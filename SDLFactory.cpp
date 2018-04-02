@@ -84,9 +84,9 @@ shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type, shared_p
 	return NULL;
 }
 
-shared_ptr<Pacman> SDLFactory::createPacman(int posX, int posY, shared_ptr<WorldObjects> world) {
+shared_ptr<Pacman> SDLFactory::createPacman(int posX, int posY) {
 	//return new SDLPacman(PACMAN.x, PACMAN.y, PACMAN.w, PACMAN.h, gRenderer, spriteSheet, posX, posY);
-	return make_shared<SDLPacman>(0, 70, 24, 24, gRenderer, spriteSheet, posX, posY, world);
+	return make_shared<SDLPacman>(0, 70, 24, 24, gRenderer, spriteSheet, posX, posY);
 }
 
 shared_ptr<Wall> SDLFactory::createWall(int posX, int posY, int type) {

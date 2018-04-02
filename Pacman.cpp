@@ -8,7 +8,7 @@
 #include "Pacman.h"
 #include "MovingEntity.h"
 
-Pacman::Pacman(int posX,int posY, std::shared_ptr<WorldObjects> world): MovingEntity(posX, posY, 1, 1) {
+Pacman::Pacman(int posX,int posY): MovingEntity(posX, posY, 1, 1) {
 
 }
 

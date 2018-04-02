@@ -36,15 +36,13 @@ void Game::loadMap() {
 				if(object <= LUCORNER && object >= HWALL) {
 					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
 					//TODO delete the useless collections
-					walls.push_back(tempWall);
 					world->add(tempWall);
 					world->addWall(tempWall);
 				} else if(object == PACMAN) {
-					pacman = F->createPacman(l, k, world);
+					pacman = F->createPacman(l, k);
 					//bind inputhandler to pacman
 					iHandler = F->createInputHandler(pacman);
-					mEntities.push_back(pacman);
-					world->add(mEntities.back());
+					world->add(pacman);
 					world->addPacman(pacman);
 				} else if (object >= RGHOST && object <= BGHOST) {
 					shared_ptr<Ghost> tempGhost = F->createGhost(l, k, object, world);
@@ -57,11 +55,13 @@ void Game::loadMap() {
 					} else if( object == PGHOST) {
 						pinkGhost = tempGhost;
 					}
-					mEntities.push_back(tempGhost);
-						world->add(tempGhost);
+					world->add(tempGhost);
+					world->addGhost(tempGhost);
 				} else if (object == DOT) {
-					mEntities.push_back(F->createDot(l, k));
-					world->add(mEntities.back());
+					shared_ptr<Dot> tempDot = F->createDot(l, k);
+					world->add(tempDot);
+					world->addDot(tempDot);
+
 				}
 
 			}
@@ -72,6 +72,7 @@ void Game::loadMap() {
  */
 bool Game::pacCollision(int inputBuffer, int velocity) {
 	pacman->MovingEntity::place(inputBuffer, velocity);
+	std::vector<shared_ptr<Wall>> walls = world->getWalls();
 	//checks collision with walls
 	for(shared_ptr<Wall> wall : walls) {
 		if(pacman->checkCollision(*wall)) {
@@ -85,6 +86,8 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 	return false;
 }
 void Game::start() {
+	vector<shared_ptr<Dot>>& dots = world->getDots();
+	vector<shared_ptr<Ghost>>& ghosts = world->getGhosts();
 	//creates the needed instrument using factory
 	unique_ptr<Timer> capTimer = F->createTimer();
 	unique_ptr<Timer> FPSTimer = F->createTimer();
@@ -122,12 +125,24 @@ void Game::start() {
 		//TODO fix fps
 		F->showScreen();
 
-		////////////////COLLISION DETECTION FOR PACMAN
+		redGhost->findPath(*pacman);
 
 		//checks if there was a pacman created
 		if(pacman != NULL) {
 			int temp = direction;
 			iHandler->handleInput(quit,direction, velocity);
+			//Detect collision on ghosts before you move pacman!!
+
+			for(vector<shared_ptr<Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
+				bool bool1 = direction != (*it)->getDirection();
+				bool bool2 = (direction+(*it)->getDirection())%2 == 0;
+				if(pacman->checkCollision(**it) && bool1 && bool2) {
+					cout << "collision detectedd"<< countedFrames << endl;
+					it++;
+				} else
+					it++;
+			}
+
 			//the user input changed the direction, so there is another previous direction now
 			//the modulo 2 operator checks that the prev direction ain't the opposite of the direction
 			//else pacman can stay still in a hallway
@@ -144,14 +159,22 @@ void Game::start() {
 				previousDirection = direction;
 				pacman->move(direction, velocity);
 			}
-			redGhost->findPath(*pacman);
 
-			//////COLLISION DETECTION ON DOTS AND GHOSTS
-			for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
-				if(pacman->checkCollision(**it) && *it != pacman) {
+			//collision detection on ghosts after the pacman got moved!!
+			for(vector<shared_ptr<Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
+				if(pacman->checkCollision(**it)) {
+					cout << "collision detected"<< countedFrames << endl;
+					it++;
+				} else
+					it++;
+			}
+			//////COLLISION DETECTION ON DOTS
+			for(vector<shared_ptr<Dot>>::iterator it = dots.begin(); it != dots.end();) {
+				if(pacman->checkCollision(**it)) {
 					score->addScore();
+					//remove the dot from all the collections that it is in
 					world->remove(*it);
-					it = mEntities.erase(it);
+					it = dots.erase(it);
 				} else
 					it++;
 			}

@@ -17,6 +17,8 @@ public:
 	virtual ~MovingEntity();
 	virtual void move(int direction, int velocity);
 	virtual void place(int direction, int velocity);
+	virtual int getDirection();
+	virtual int getVelocity();
 	virtual bool checkCollision(const Entity& collisionPartner);
 protected:
 	int dir;

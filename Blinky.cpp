@@ -34,7 +34,6 @@ void Blinky::findPath(const Entity& entity) {
 		if(!(Ghost::doesCollideWall(i))) {
 			shortestD.insert(make_pair(temp, i));
 		}
-
 	}
 	//checks if the new ain't the opposite direction of the old direction
 	//since the ghost can't move back
@@ -44,12 +43,6 @@ void Blinky::findPath(const Entity& entity) {
 		dir = shortestD.begin()->second;
 	} else
 		dir = shortestD.begin()->second;
-	if(doesCollidePac(dir)) {
-		cout << "collision met pac" << endl;
-
-	}
-
-
 }
 
 } /* namespace Logic */

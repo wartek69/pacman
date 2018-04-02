@@ -13,11 +13,13 @@
 #include "Entity.h"
 #include "ScoreHandler.h"
 #include "Wall.h"
+#include "Dot.h"
 /**
  * This class contains the collections of the different objects
  * Furthermore this class has the pure virtual method to visualize everything
  */
 class Pacman;
+class Ghost;
 
 class WorldObjects {
 public:
@@ -30,10 +32,17 @@ public:
 	virtual const std::vector<std::shared_ptr<Wall>>& getWalls();
 	virtual void remove(std::shared_ptr<Entity>);
 	virtual void addPacman(std::shared_ptr<Pacman>);
+	virtual void addGhost(std::shared_ptr<Ghost>);
+	virtual void addDot(std::shared_ptr<Dot>);
+	virtual std::vector<std::shared_ptr<Dot>>& getDots();
+	virtual std::vector<std::shared_ptr<Ghost>>& getGhosts();
+	virtual void printDotSize(); //used for debugging
 protected:
 	std::vector<std::shared_ptr<Entity>> objects;
 	std::vector<std::shared_ptr<Wall>> walls;
+	std::vector<std::shared_ptr<Ghost>> ghosts;
 	std::shared_ptr<Pacman> pacman;
+	std::vector<std::shared_ptr<Dot>> dots;
 };
 
 #endif /* WORLDOBJECTS_H_ */

@@ -56,7 +56,7 @@ bool Ghost::doesCollideWall(int direction) {
 	return false;
 }
 
-bool Ghost::doesCollidePac(int direction) {
+bool Ghost::doesCollidePac() {
 	if(MovingEntity::checkCollision(world->getPacman())) {
 		return true;
 	}

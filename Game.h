@@ -31,8 +31,6 @@ private:
 	shared_ptr<Ghost> orangeGhost;
 	shared_ptr<Ghost> pinkGhost;
 	shared_ptr<Pacman> pacman;
-	vector<shared_ptr<Wall>> walls;
-	vector<shared_ptr<Entity>> mEntities;
 	unique_ptr<InputHandler> iHandler;
 	unique_ptr<ScoreHandler> score;
 	bool pacCollision(int inputBuffer, int velocity);

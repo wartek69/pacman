@@ -23,7 +23,7 @@ public:
 	virtual ~Ghost();
 	virtual bool isCrossRoad();
 	virtual void findPath(const Entity& entity) = 0;
-	virtual bool doesCollidePac(int direction);
+	virtual bool doesCollidePac();
 	virtual bool doesCollideWall(int direction);
 protected:
 	std::shared_ptr<WorldObjects> world;
