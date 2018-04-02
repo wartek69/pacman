@@ -6,6 +6,8 @@
  */
 
 #include "WorldObjects.h"
+#include "Pacman.h"
+
 
 
 WorldObjects::WorldObjects() {
@@ -33,6 +35,13 @@ void WorldObjects::addWall(std::shared_ptr<Wall> wall) {
 	walls.push_back(wall);
 }
 
+void WorldObjects::addPacman(std::shared_ptr<Pacman> pacman) {
+	this->pacman = pacman;
+}
+
+const Pacman& WorldObjects::getPacman() {
+	return *pacman;
+}
 const std::vector<std::shared_ptr<Wall>>& WorldObjects::getWalls() {
 	return walls;
 }

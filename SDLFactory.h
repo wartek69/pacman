@@ -23,7 +23,7 @@ public:
 	SDLFactory();
 	virtual ~SDLFactory();
 	shared_ptr<Ghost> createGhost(int posX, int posY, int type, shared_ptr<WorldObjects> world) override;
-	shared_ptr<Pacman> createPacman(int posX, int posY) override;
+	shared_ptr<Pacman> createPacman(int posX, int posY, std::shared_ptr<WorldObjects> world) override;
 	unique_ptr<Timer> createTimer() override;
 	shared_ptr<Wall> createWall(int posX, int posY, int type) override;
 	shared_ptr<Dot> createDot(int posX, int posY) override;

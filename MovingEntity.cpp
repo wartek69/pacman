@@ -8,13 +8,13 @@
 #include "MovingEntity.h"
 #include "Types.h"
 #include <iostream>
-#include "Entity.h"
 
 using namespace std;
 
 MovingEntity::MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight)
 : Entity(posX, posY, collisionWidth, collisionHeight) {
 	vel = 1;
+	dir = 100;
 
 }
 

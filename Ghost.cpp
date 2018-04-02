@@ -8,6 +8,8 @@
 #include "Ghost.h"
 #include "Types.h"
 #include "WorldObjects.h"
+#include "MovingEntity.h"
+#include "Pacman.h"
 #include <string>
 #include <iostream>
 
@@ -54,6 +56,12 @@ bool Ghost::doesCollideWall(int direction) {
 	return false;
 }
 
+bool Ghost::doesCollidePac(int direction) {
+	if(MovingEntity::checkCollision(world->getPacman())) {
+		return true;
+	}
+	return false;
+}
 
 
 

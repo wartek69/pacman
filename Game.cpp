@@ -40,11 +40,12 @@ void Game::loadMap() {
 					world->add(tempWall);
 					world->addWall(tempWall);
 				} else if(object == PACMAN) {
-					pacman = F->createPacman(l, k);
+					pacman = F->createPacman(l, k, world);
 					//bind inputhandler to pacman
 					iHandler = F->createInputHandler(pacman);
 					mEntities.push_back(pacman);
 					world->add(mEntities.back());
+					world->addPacman(pacman);
 				} else if (object >= RGHOST && object <= BGHOST) {
 					shared_ptr<Ghost> tempGhost = F->createGhost(l, k, object, world);
 					if(object == RGHOST) {
@@ -68,7 +69,6 @@ void Game::loadMap() {
 }
 /**
  * This functions checks collision for pacman
- * if no collision occurs the pacman gets moved
  */
 bool Game::pacCollision(int inputBuffer, int velocity) {
 	pacman->MovingEntity::place(inputBuffer, velocity);
@@ -82,7 +82,6 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 		}
 	}
 	pacman->MovingEntity::place(inputBuffer, -velocity);
-	pacman->move(inputBuffer, velocity);
 	return false;
 }
 void Game::start() {
@@ -131,6 +130,7 @@ void Game::start() {
 			iHandler->handleInput(quit,direction, velocity);
 			//the user input changed the direction, so there is another previous direction now
 			//the modulo 2 operator checks that the prev direction ain't the opposite of the direction
+			//else pacman can stay still in a hallway
 			if(temp != direction && (temp+direction)%2 != 0)
 				previousDirection = temp;
 			//collision algorithm takes previous direction if given direction isn't possible
@@ -138,10 +138,13 @@ void Game::start() {
 					if(pacCollision(previousDirection, velocity)) {
 						//stop
 						pacman->move(previousDirection, 0);
-					}
+					}else
+						pacman->move(previousDirection, velocity);
 			} else {
 				previousDirection = direction;
+				pacman->move(direction, velocity);
 			}
+			redGhost->findPath(*pacman);
 
 			//////COLLISION DETECTION ON DOTS AND GHOSTS
 			for(vector<shared_ptr<Entity>>::iterator it = mEntities.begin(); it != mEntities.end();) {
@@ -161,10 +164,6 @@ void Game::start() {
 				pinkGhost->move(FORWARD,1);
 			else
 				pinkGhost->move(LEFT,1);
-			redGhost->findPath(*pacman);
-			//cout << redGhost->getPositionX() << endl;
-			//cout << redGhost->getPositionY() << endl;
-			//redGhost->move(BACKWARD,2);
 		}
 
 		countedFrames++;

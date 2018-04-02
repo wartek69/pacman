@@ -11,7 +11,8 @@
 #include <string>
 #include <iostream>
 #include "MovingEntity.h"
-#include "WorldObjects.h"
+
+class WorldObjects;
 
 using namespace std;
 
@@ -22,9 +23,10 @@ public:
 	virtual ~Ghost();
 	virtual bool isCrossRoad();
 	virtual void findPath(const Entity& entity) = 0;
+	virtual bool doesCollidePac(int direction);
 	virtual bool doesCollideWall(int direction);
 protected:
-	shared_ptr<WorldObjects> world;
+	std::shared_ptr<WorldObjects> world;
 private:
 	Ghost();
 

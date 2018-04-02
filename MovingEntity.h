@@ -9,7 +9,7 @@
 #define MOVINGENTITY_H_
 
 #include "Entity.h"
-#include <memory>
+#include "WorldObjects.h"
 
 class MovingEntity:public Entity {
 public:
@@ -19,8 +19,8 @@ public:
 	virtual void place(int direction, int velocity);
 	virtual bool checkCollision(const Entity& collisionPartner);
 protected:
-	int dir = 100;
-	int vel = 0;
+	int dir;
+	int vel;
 };
 
 #endif /* MOVINGENTITY_H_ */
