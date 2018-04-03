@@ -14,6 +14,7 @@
 #include "InputHandler.h"
 #include "Wall.h"
 #include "Dot.h"
+#include "PowerUp.h"
 #include "ScoreHandler.h"
 #include "WorldObjects.h"
 #include <memory>
@@ -30,6 +31,7 @@ public:
 	virtual shared_ptr<Pacman> createPacman(int posX, int posY) = 0;
 	virtual shared_ptr<Wall> createWall(int posX, int posY, int type) = 0;
 	virtual shared_ptr<Dot> createDot(int posX, int posY) = 0;
+	virtual shared_ptr<Logic::PowerUp> createPowerUp(int posX, int posY) = 0;
 	virtual void clearScreen() = 0;
 	virtual void showScreen() = 0;
 	virtual unique_ptr<Timer> createTimer() = 0;

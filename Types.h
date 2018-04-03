@@ -12,7 +12,9 @@ enum GhostSprites {
 	   	RIGHT,
 	    BACKWARD,
 	    LEFT,
-	    FORWARD
+	    FORWARD,
+		WHITE = 8,
+		BLUE = 10
 };
 
 enum GhostMode {
@@ -45,7 +47,8 @@ enum pacmanObjects {
 	OGHOST,
 	PGHOST,
 	BGHOST,
-	DOT
+	DOT,
+	POWERUP
 
 };
 
@@ -55,6 +58,7 @@ enum menu {
 	CREDITS,
 	EXIT
 };
+
 
 const int frameDelay = 8;
 

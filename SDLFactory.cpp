@@ -23,6 +23,7 @@
 #include "SDLScoreHandler.h"
 #include "SDLWorldObjects.h"
 #include "SDLMenu.h"
+#include "SDLPowerUp.h"
 #include "Menu.h"
 #include <iostream>
 #include <memory>
@@ -95,6 +96,10 @@ shared_ptr<Wall> SDLFactory::createWall(int posX, int posY, int type) {
 
 shared_ptr<Dot> SDLFactory::createDot(int posX, int posY) {
 	return make_shared<SDLDot>(gRenderer, spriteSheet, posX, posY);
+}
+
+shared_ptr<Logic::PowerUp> SDLFactory::createPowerUp(int posX, int posY) {
+	return make_shared<SDL::SDLPowerUp>(gRenderer, spriteSheet, posX, posY);
 }
 
 /**

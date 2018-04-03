@@ -13,6 +13,7 @@
 #include "Map.h"
 #include <vector>
 #include <typeinfo>
+#include "PowerUp.h"
 
 
 #include <iostream>
@@ -63,7 +64,8 @@ void Game::loadMap() {
 					shared_ptr<Dot> tempDot = F->createDot(l, k);
 					world->add(tempDot);
 					world->addDot(tempDot);
-
+				} else if(object == POWERUP) {
+					world->add(F->createPowerUp(l, k));
 				}
 
 			}

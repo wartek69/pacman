@@ -30,6 +30,7 @@ public:
 	unique_ptr<ScoreHandler> createScoreHandler() override;
 	unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) override;
 	shared_ptr<WorldObjects> createWorld() override;
+	shared_ptr<Logic::PowerUp> createPowerUp(int posX, int posY) override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);

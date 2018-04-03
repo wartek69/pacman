@@ -31,15 +31,15 @@ void SDLGhost::loadSprites() {
 		sprites[i+4] = currentSprite;
 		currentSprite.x = currentSprite.x + currentSprite.w;
 
+		//add the dead animation sprites
 	}
-	/*sprites[RIGHT] = currentSprite;
-	currentSprite.x = currentSprite.x + 2*currentSprite.w;
-	sprites[BACKWARD] = currentSprite;
-	currentSprite.x = currentSprite.x + 2*currentSprite.w;
-	sprites[LEFT] = currentSprite;
-	currentSprite.x = currentSprite.x + 2*currentSprite.w;
-	sprites[FORWARD] = currentSprite;
-*/
+	//add the dead animation sprites
+	//TODO config file this
+	SDL_Rect frightenedSprite = {143, 95, 24, 24};
+	for(int i = 8; i< 12; i++) {
+		sprites[i] = frightenedSprite;
+		frightenedSprite.x = frightenedSprite.x + frightenedSprite.w;
+	}
 	//default value
 	currentSprite = sprites[RIGHT];
 }
@@ -68,20 +68,57 @@ void SDLGhost::animation(int direction, int velocity) {
 	}
 
 	//switching sprites, every picture gets displayed for multiplyFactor frames
+	if(Ghost::getMode() == CHASE || Ghost::getMode() == SCATTER) {
+		if(frameCounter > 2*(multiplyFactor/velocity)) {
+			j = 1;
+			frameCounter = 0;
+		} else if(frameCounter > multiplyFactor/velocity){
+			j = 0;
+		}
 
-	if(frameCounter > 2*(multiplyFactor/velocity)) {
-		j = 1;
-		frameCounter = 0;
-	} else if(frameCounter > multiplyFactor/velocity){
-		j = 0;
-	}
+		if(j == 0) {
+			currentSprite = sprites[temp];
+		} else {
+			currentSprite = sprites[temp+4];
+		}
+	} else if(Ghost::getMode() == FRIGHTENED){
+		if(frameCounter > 2*(multiplyFactor/velocity)) {
+			j = 1;
+			frameCounter = 0;
+		} else if(frameCounter > multiplyFactor/velocity){
+			j = 0;
+		}
 
-	if(j == 0) {
-		currentSprite = sprites[temp];
+		if(j == 0) {
+			currentSprite = sprites[BLUE];
+		} else {
+			currentSprite = sprites[BLUE + 1];
+		}
 	} else {
-		currentSprite = sprites[temp+4];
+		//animations when ghost are frightened and time is running out
+		if(frameCounter > 4*(multiplyFactor/velocity)) {
+			j = 3;
+			frameCounter = 0;
+		} else if(frameCounter > 3*(multiplyFactor/velocity)) {
+			j = 2;
+		} else if(frameCounter > 2*(multiplyFactor/velocity)) {
+			j = 1;
+		} else if(frameCounter > (multiplyFactor/velocity)) {
+			j = 0;
+		}
+
+		if(j == 3) {
+			currentSprite = sprites[WHITE];
+		} else if(j == 2) {
+			currentSprite = sprites[WHITE + 1];
+		} else if(j == 1) {
+			currentSprite = sprites[BLUE];
+		} else if(j == 0) {
+			currentSprite = sprites[BLUE+1];
+		}
 	}
 	frameCounter++;
+
 
 
 }
