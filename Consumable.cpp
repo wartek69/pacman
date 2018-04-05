@@ -7,6 +7,7 @@
 
 #include "Consumable.h"
 #include "Entity.h"
+#include <iostream>
 
 namespace Logic {
 
@@ -18,4 +19,7 @@ Consumable::~Consumable() {
 	// TODO Auto-generated destructor stub
 }
 
+void Consumable::print() {
+	std::cout << "I'm a consumable" << std::endl;
+}
 } /* namespace Logic */

@@ -52,12 +52,17 @@ void Inky::findPath(const MovingEntity& entity) {
 		//this formula can be easily derived with vector math
 		posGoalX = 2*posGoalX - blinky.getPositionX();
 		posGoalY = 2*posGoalY - blinky.getPositionY();
+		Ghost::decidePath(posGoalX, posGoalY);
+
 	} else if(Ghost::mode == SCATTER) {
 		posGoalX = 15;
 		posGoalY = 15;
+		Ghost::decidePath(posGoalX, posGoalY);
+
+	} else if(Ghost::mode == FRIGHTENED) {
+		Ghost::frighten();
 	}
 
-	Ghost::decidePath(posGoalX, posGoalY);
 
 }
 

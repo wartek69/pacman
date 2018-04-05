@@ -44,11 +44,14 @@ void Pinky::findPath(const MovingEntity& entity) {
 				posGoalY = entity.getPositionY();
 			break;
 		}
+		Ghost::decidePath(posGoalX, posGoalY);
 	} else if(Ghost::mode == SCATTER) {
 		posGoalX = 1;
 		posGoalY = 1;
+		Ghost::decidePath(posGoalX, posGoalY);
+	} else if(Ghost::mode == FRIGHTENED) {
+		Ghost::frighten();
 	}
-	Ghost::decidePath(posGoalX, posGoalY);
 
 }
 

@@ -17,6 +17,7 @@ public:
 	Consumable(int posX, int posY);
 	virtual ~Consumable();
 	virtual void action() = 0;
+	virtual void print();
 };
 
 } /* namespace Logic */

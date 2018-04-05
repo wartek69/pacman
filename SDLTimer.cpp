@@ -46,6 +46,10 @@ void SDLTimer::pause() {
 	passedTime = SDL_GetTicks() - startTime;
 }
 
+bool SDLTimer::isRunning() {
+	return isStarted;
+}
+
 void SDLTimer::resume() {
 	if(isPaused)
 		startTime = SDL_GetTicks() - passedTime;

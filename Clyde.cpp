@@ -39,11 +39,15 @@ void Clyde::findPath(const MovingEntity& entity) {
 			posGoalX = entity.getPositionX();
 			posGoalY = entity.getPositionY();
 		}
-	} else if(Ghost::mode == SCATTER){
+		Ghost::decidePath(posGoalX, posGoalY);
+
+	} else if(Ghost::mode == SCATTER) {
 		posGoalX = 1;
 		posGoalY = 10000;
+		Ghost::decidePath(posGoalX, posGoalY);
+	} else if(Ghost::mode == FRIGHTENED) {
+		Ghost::frighten();
 	}
-	Ghost::decidePath(posGoalX, posGoalY);
 
 }
 

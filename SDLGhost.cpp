@@ -33,13 +33,21 @@ void SDLGhost::loadSprites() {
 
 		//add the dead animation sprites
 	}
-	//add the dead animation sprites
+	//add the frigthened animation sprites
 	//TODO config file this
 	SDL_Rect frightenedSprite = {143, 95, 24, 24};
-	for(int i = 8; i< 12; i++) {
+	for(int i = 8; i < 12; i++) {
 		sprites[i] = frightenedSprite;
 		frightenedSprite.x = frightenedSprite.x + frightenedSprite.w;
 	}
+
+	//add the dead animation sprites
+	SDL_Rect deadSprite = {192, 218, 24, 24};
+	for(int i = 12; i < 16; i++) {
+		sprites[i] = deadSprite;
+		deadSprite.x = deadSprite.x + 2*deadSprite.w;
+	}
+
 	//default value
 	currentSprite = sprites[RIGHT];
 }
@@ -81,20 +89,7 @@ void SDLGhost::animation(int direction, int velocity) {
 		} else {
 			currentSprite = sprites[temp+4];
 		}
-	} else if(Ghost::getMode() == FRIGHTENED){
-		if(frameCounter > 2*(multiplyFactor/velocity)) {
-			j = 1;
-			frameCounter = 0;
-		} else if(frameCounter > multiplyFactor/velocity){
-			j = 0;
-		}
-
-		if(j == 0) {
-			currentSprite = sprites[BLUE];
-		} else {
-			currentSprite = sprites[BLUE + 1];
-		}
-	} else {
+	} else if (Ghost::getMode() == FRIGHTENED && Ghost::getBlink() == true) {
 		//animations when ghost are frightened and time is running out
 		if(frameCounter > 4*(multiplyFactor/velocity)) {
 			j = 3;
@@ -115,6 +110,19 @@ void SDLGhost::animation(int direction, int velocity) {
 			currentSprite = sprites[BLUE];
 		} else if(j == 0) {
 			currentSprite = sprites[BLUE+1];
+		}
+	} else if(Ghost::getMode() == FRIGHTENED){
+		if(frameCounter > 2*(multiplyFactor/velocity)) {
+			j = 1;
+			frameCounter = 0;
+		} else if(frameCounter > multiplyFactor/velocity){
+			j = 0;
+		}
+
+		if(j == 0) {
+			currentSprite = sprites[BLUE];
+		} else {
+			currentSprite = sprites[BLUE + 1];
 		}
 	}
 	frameCounter++;

@@ -7,6 +7,8 @@
 
 #include "PowerUp.h"
 #include "Consumable.h"
+#include "Ghost.h"
+#include "Types.h"
 
 namespace Logic {
 
@@ -20,6 +22,6 @@ PowerUp::~PowerUp() {
 }
 
 void PowerUp::action() {
-
+	Ghost::setMode(FRIGHTENED);
 }
 } /* namespace Logic */

@@ -30,14 +30,15 @@ void Blinky::findPath(const MovingEntity& entity) {
 	if(Ghost::mode == CHASE) {
 		posX = entity.getPositionX();
 		posY = entity.getPositionY();
+		Ghost::decidePath(posX, posY);
 	} else if(Ghost::mode == SCATTER) {
 		//right top corner
 		posX = 10000;
 		posY = 1;
+		Ghost::decidePath(posX, posY);
 	} else if(Ghost::mode == FRIGHTENED) {
-
+		Ghost::frighten();
 	}
-	Ghost::decidePath(posX, posY);
 }
 
 } /* namespace Logic */

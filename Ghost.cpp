@@ -13,14 +13,19 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <set>
 #include "Math.h"
+#include <Time.h>
 
 using namespace std;
 
 int Ghost::mode = SCATTER;
+bool Ghost::blink = false;
 
 Ghost::Ghost(int posX, int posY, shared_ptr<WorldObjects> world): MovingEntity(posX, posY, 24, 24) {
 	this->world = world;
+	//init random num generator
+	srand(time(NULL));
 }
 
 Ghost::~Ghost() {
@@ -78,7 +83,6 @@ int Ghost::getMode() {
 
 void Ghost::decidePath(int posGoalX, int posGoalY) {
 	//has to be a multi map since multiple values should be stored
-	auto temp = world->getWalls();
 	multimap<int, int> shortestD;
 	for(int i = 0; i < 4; i++) {
 		//TODO parametrize the velocity
@@ -101,4 +105,35 @@ void Ghost::decidePath(int posGoalX, int posGoalY) {
 		dir = shortestD.begin()->second;
 }
 
+void Ghost::frighten() {
+	//get a random number between 0 and 3
+	int randNumber = rand() % 4;
+	//set has a o(log n) lookup time instead of o(n) for vector
+	set<int> possibleWays;
+	//first determine the possible ways
+	for(int i = 0; i < 4; i++) {
+		if(!(Ghost::doesCollideWall(i))) {
+			possibleWays.insert(i);
+		}
+		cout << Ghost::doesCollideWall(i) <<endl;
+
+	}
+	//choose a random way out of the possible ones
+	//can't be previous dir or a value that is not in the possible ways
+	// have to check the size of the set to not stay infinityly in the loop when the ghosts is in a 1way alley
+	while(possibleWays.find(randNumber) == possibleWays.end() || ((randNumber+dir)%2 == 0 && (randNumber != dir && possibleWays.size()>1)) ) {
+		//get a new random
+		randNumber = rand() % 4;
+	}
+
+	dir = randNumber;
+}
+
+void Ghost::setBlink(bool flag) {
+	Ghost::blink = flag;
+}
+
+bool Ghost::getBlink() {
+	return Ghost::blink;
+}
 

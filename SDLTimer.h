@@ -20,6 +20,7 @@ public:
 	void resume() override;
 	int getTimePassed() override;
 	void Delay(int delay) override;
+	bool isRunning() override;
 private:
 	int startTime;
 	bool isStarted;

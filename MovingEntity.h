@@ -11,6 +11,7 @@
 #include "Entity.h"
 #include "WorldObjects.h"
 
+
 class MovingEntity:public Entity {
 public:
 	MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight);

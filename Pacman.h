@@ -10,6 +10,7 @@
 
 #include "MovingEntity.h"
 
+
 class Pacman: public MovingEntity {
 public:
 	Pacman(int posX, int posY);

@@ -12,10 +12,8 @@
 #include "InputHandler.h"
 #include "Map.h"
 #include <vector>
-#include <typeinfo>
 #include "PowerUp.h"
-
-
+#include "Consumable.h"
 #include <iostream>
 using namespace std;
 
@@ -65,7 +63,9 @@ void Game::loadMap() {
 					world->add(tempDot);
 					world->addDot(tempDot);
 				} else if(object == POWERUP) {
-					world->add(F->createPowerUp(l, k));
+					shared_ptr<Logic::PowerUp> pow = F->createPowerUp(l, k);
+					world->add(pow);
+					world->addConsumable(pow);
 				}
 
 			}
@@ -92,11 +92,14 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 void Game::start() {
 	vector<shared_ptr<Dot>>& dots = world->getDots();
 	vector<shared_ptr<Ghost>>& ghosts = world->getGhosts();
+	vector<shared_ptr<Logic::Consumable>>& consumables = world->getConsumables();
 	//creates the needed instrument using factory
 	unique_ptr<Timer> capTimer = F->createTimer();
 	unique_ptr<Timer> FPSTimer = F->createTimer();
 	//timer that is used to switch the ghosts between different modes
 	unique_ptr<Timer> ghostTimer = F->createTimer();
+	//timer for the frightened mode
+	unique_ptr<Timer> frightenedTimer = F->createTimer();
 	//starts up timer
 	FPSTimer->startTimer();
 	ghostTimer ->startTimer();
@@ -188,6 +191,17 @@ void Game::start() {
 				} else
 					it++;
 			}
+
+			/////COLLISION DETECTION ON CONSUMABLES
+
+			for(vector<shared_ptr<Logic::Consumable>>::iterator it = consumables.begin();it != consumables.end();) {
+				if(pacman->checkCollision(**it)) {
+					(*it)->action();
+					world->remove(*it);
+					it = consumables.erase(it);
+				} else
+					it++;
+			}
 		}
 
 		countedFrames++;
@@ -198,18 +212,32 @@ void Game::start() {
 
 			capTimer->Delay(SCREEN_TICKS_PER_FRAME - capTimer->getTimePassed());
 		}
-		//resets the timer
+		//resets the captimer
 		capTimer->stopTimer();
+
 		if(ghostTimer->getTimePassed() > 7000 && Ghost::getMode() == SCATTER) {
 			Ghost::setMode(CHASE);
 			ghostTimer->stopTimer();
 			ghostTimer->startTimer();
-		} else if(ghostTimer->getTimePassed() > 20000) {
+		} else if(ghostTimer->getTimePassed() > 20000 && Ghost::getMode() == CHASE) {
 			Ghost::setMode(SCATTER);
 			ghostTimer->stopTimer();
 			ghostTimer->startTimer();
+		} else if(Ghost::getMode() == FRIGHTENED && !(frightenedTimer->isRunning())) {
+			frightenedTimer->startTimer();
+		} else if(Ghost::getMode() == FRIGHTENED && frightenedTimer->isRunning()) {
+			if(frightenedTimer->getTimePassed() > 7000) {
+				frightenedTimer->stopTimer();
+				Ghost::setBlink(false);
+				Ghost::setMode(CHASE);
+				ghostTimer->stopTimer();
+				ghostTimer->startTimer();
+			} else if(frightenedTimer->getTimePassed() > 4000) {
+				//Time is running out
+				Ghost::setBlink(true);
+			}
 		}
-		//cout << Ghost::getMode() << endl;
+		cout << Ghost::getMode() << endl;
 		//resets timer every 5sec to keep the fps measurements precise
 		if(FPSTimer->getTimePassed() > 5000) {
 			countedFrames = 0;

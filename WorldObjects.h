@@ -14,6 +14,8 @@
 #include "ScoreHandler.h"
 #include "Wall.h"
 #include "Dot.h"
+#include "Consumable.h"
+
 /**
  * This class contains the collections of the different objects
  * Furthermore this class has the pure virtual method to visualize everything
@@ -36,11 +38,12 @@ public:
 	virtual void addGhost(std::shared_ptr<Ghost>);
 	virtual void addDot(std::shared_ptr<Dot>);
 	virtual void addBlinky(std::shared_ptr<Ghost>);
+	virtual void addConsumable(std::shared_ptr<Logic::Consumable>);
+	virtual std::vector<std::shared_ptr<Logic::Consumable>>& getConsumables();
 	virtual std::vector<std::shared_ptr<Dot>>& getDots();
 	virtual std::vector<std::shared_ptr<Ghost>>& getGhosts();
 	virtual const Ghost& getBlinky();
 	virtual void moveGhosts();
-	virtual void removeGhost(Ghost& ghost);
 	virtual void printDotSize(); //used for debugging
 protected:
 	std::vector<std::shared_ptr<Entity>> objects;
@@ -49,6 +52,7 @@ protected:
 	std::shared_ptr<Pacman> pacman;
 	std::shared_ptr<Ghost> blinky;
 	std::vector<std::shared_ptr<Dot>> dots;
+	std::vector<std::shared_ptr<Logic::Consumable>> consumables;
 };
 
 #endif /* WORLDOBJECTS_H_ */

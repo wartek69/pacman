@@ -26,11 +26,15 @@ public:
 	virtual void decidePath(int, int);
 	virtual bool doesCollidePac();
 	virtual bool doesCollideWall(int direction);
+	virtual void frighten();
 	static void setMode(int mode);
 	static int getMode();
+	static void setBlink(bool);
+	static bool getBlink();
 protected:
 	std::shared_ptr<WorldObjects> world;
 	static int mode;
+	static bool blink;
 private:
 	Ghost();
 

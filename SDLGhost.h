@@ -22,7 +22,7 @@ public:
 	void showOnScreen(int posX, int posY, int velocity, int direction, int frame);
 	void loadSprites();
 private:
-	SDL_Rect sprites[12];
+	SDL_Rect sprites[16];
 	// j is used to swap animations
 	int frameCounter, j;
 };

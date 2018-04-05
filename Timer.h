@@ -18,6 +18,7 @@ public:
 	virtual void Delay(int delay) = 0;
 	virtual void pause() = 0;
 	virtual void resume() = 0;
+	virtual bool isRunning() = 0;
 };
 
 #endif /* TIMER_H_ */

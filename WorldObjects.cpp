@@ -49,6 +49,14 @@ void WorldObjects::addBlinky(std::shared_ptr<Ghost> blinky) {
 	this->blinky = blinky;
 }
 
+void WorldObjects::addConsumable(std::shared_ptr<Logic::Consumable> cons) {
+	consumables.push_back(cons);
+}
+
+std::vector<std::shared_ptr<Logic::Consumable>>& WorldObjects::getConsumables() {
+	return consumables;
+}
+
 const Pacman& WorldObjects::getPacman() {
 	return *pacman;
 }
@@ -80,6 +88,3 @@ void WorldObjects::moveGhosts() {
 	}
 }
 
-void WorldObjects::removeGhost(Ghost& ghost) {
-
-}
