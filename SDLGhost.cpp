@@ -56,27 +56,12 @@ void SDLGhost::showOnScreen(int posX, int posY, int velocity, int direction, int
 	SDL::SDLMovingEntity::visualize(posX, posY, velocity, direction, frame);
 }
 
-void SDLGhost::animation(int direction, int velocity) {
-	int temp = 0;
+void SDLGhost::animation(int direction, int velocity, bool eaten) {
 	int multiplyFactor = 1;
-
-	switch(direction) {
-		case FORWARD:
-			temp = FORWARD;
-		break;
-		case BACKWARD:
-			temp = BACKWARD;
-		break;
-		case LEFT:
-			temp = LEFT;
-		break;
-		case RIGHT:
-			temp = RIGHT;
-		break;
-	}
-
 	//switching sprites, every picture gets displayed for multiplyFactor frames
-	if(Ghost::getMode() == CHASE || Ghost::getMode() == SCATTER) {
+	if(eaten) {
+		currentSprite = sprites[EATEN + direction];
+	} else if(Ghost::getMode() == CHASE || Ghost::getMode() == SCATTER) {
 		if(frameCounter > 2*(multiplyFactor/velocity)) {
 			j = 1;
 			frameCounter = 0;
@@ -85,9 +70,9 @@ void SDLGhost::animation(int direction, int velocity) {
 		}
 
 		if(j == 0) {
-			currentSprite = sprites[temp];
+				currentSprite = sprites[direction];
 		} else {
-			currentSprite = sprites[temp+4];
+				currentSprite = sprites[direction + 4];
 		}
 	} else if (Ghost::getMode() == FRIGHTENED && Ghost::getBlink() == true) {
 		//animations when ghost are frightened and time is running out

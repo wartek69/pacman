@@ -31,10 +31,13 @@ public:
 	static int getMode();
 	static void setBlink(bool);
 	static bool getBlink();
+	virtual void setEaten(bool flag);
+	virtual bool getEaten();
 protected:
 	std::shared_ptr<WorldObjects> world;
 	static int mode;
 	static bool blink;
+	bool eaten;
 private:
 	Ghost();
 

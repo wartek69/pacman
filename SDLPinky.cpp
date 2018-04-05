@@ -23,7 +23,7 @@ void SDLPinky::move(int direction, int velocity) {
 	//first replace the ghost in the game
 	Ghost::move(direction, velocity);
 	//Do the animation
-	SDLGhost::animation(dir, vel);
+	SDLGhost::animation(dir, vel, this->eaten);
 }
 
 void SDLPinky::visualize(int frame) {

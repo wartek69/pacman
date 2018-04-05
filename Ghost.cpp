@@ -26,6 +26,7 @@ Ghost::Ghost(int posX, int posY, shared_ptr<WorldObjects> world): MovingEntity(p
 	this->world = world;
 	//init random num generator
 	srand(time(NULL));
+	eaten = false;
 }
 
 Ghost::~Ghost() {
@@ -94,15 +95,19 @@ void Ghost::decidePath(int posGoalX, int posGoalY) {
 		}
 
 	}
-
 	//checks if the new ain't the opposite direction of the old direction
 	//since the ghost can't move back
-	if((shortestD.begin()->second+dir)%2 == 0 && dir != 100 && shortestD.begin()->second != dir) {
-		//remove the first element from the list
-		shortestD.begin() = shortestD.erase(shortestD.begin());
+	if( shortestD.size() > 1) {
+		if((shortestD.begin()->second + dir)%2 == 0 && dir != 100 && shortestD.begin()->second != dir) {
+			//remove the first element from the list
+			shortestD.begin() = shortestD.erase(shortestD.begin());
+			dir = shortestD.begin()->second;
+		} else
+			dir = shortestD.begin()->second;
+	} else {
 		dir = shortestD.begin()->second;
-	} else
-		dir = shortestD.begin()->second;
+	}
+
 }
 
 void Ghost::frighten() {
@@ -115,7 +120,6 @@ void Ghost::frighten() {
 		if(!(Ghost::doesCollideWall(i))) {
 			possibleWays.insert(i);
 		}
-		cout << Ghost::doesCollideWall(i) <<endl;
 
 	}
 	//choose a random way out of the possible ones
@@ -137,3 +141,10 @@ bool Ghost::getBlink() {
 	return Ghost::blink;
 }
 
+void Ghost::setEaten(bool flag) {
+	eaten = flag;
+}
+
+bool Ghost::getEaten() {
+	return eaten;
+}

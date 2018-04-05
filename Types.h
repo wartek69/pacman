@@ -14,7 +14,8 @@ enum GhostSprites {
 	    LEFT,
 	    FORWARD,
 		WHITE = 8,
-		BLUE = 10
+		BLUE = 10,
+		EATEN = 12
 };
 
 enum GhostMode {

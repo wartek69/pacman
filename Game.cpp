@@ -23,6 +23,7 @@ Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 	countedFrames = 0; //used to calculate fps
 	score = F->createScoreHandler();
 	world = F->createWorld();
+	Ghost::setMode(SCATTER);
 	loadMap();
 }
 Game::~Game() {
@@ -151,6 +152,9 @@ void Game::start() {
 				bool bool2 = (direction+(*it)->getDirection())%2 == 0;
 				if(pacman->checkCollision(**it) && bool1 && bool2) {
 					cout << "collision1" << endl;
+					if(Ghost::getMode() == FRIGHTENED) {
+						(*it)->setEaten(true);
+					}
 					it++;
 				} else
 					it++;
@@ -177,6 +181,10 @@ void Game::start() {
 			for(vector<shared_ptr<Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
 				if(pacman->checkCollision(**it)) {
 					cout << "collision2" << endl;
+					if(Ghost::getMode() == FRIGHTENED) {
+						(*it)->setEaten(true);
+					}
+
 					it++;
 				} else
 					it++;
@@ -214,7 +222,7 @@ void Game::start() {
 		}
 		//resets the captimer
 		capTimer->stopTimer();
-
+		//TODO fix that the amount of time in frightened mode gets stacked
 		if(ghostTimer->getTimePassed() > 7000 && Ghost::getMode() == SCATTER) {
 			Ghost::setMode(CHASE);
 			ghostTimer->stopTimer();
@@ -237,7 +245,6 @@ void Game::start() {
 				Ghost::setBlink(true);
 			}
 		}
-		cout << Ghost::getMode() << endl;
 		//resets timer every 5sec to keep the fps measurements precise
 		if(FPSTimer->getTimePassed() > 5000) {
 			countedFrames = 0;

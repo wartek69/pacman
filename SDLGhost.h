@@ -18,7 +18,7 @@ class SDLGhost: public SDL::SDLMovingEntity {
 public:
 	SDLGhost(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet);
 	virtual ~SDLGhost();
-	void animation(int direction, int velocity);
+	void animation(int direction, int velocity, bool eaten);
 	void showOnScreen(int posX, int posY, int velocity, int direction, int frame);
 	void loadSprites();
 private:
