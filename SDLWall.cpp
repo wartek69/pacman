@@ -41,6 +41,8 @@ void SDLWall::loadSprites() {
 		currentSprite.x = currentSprite.x+currentSprite.w;
 	}
 	//add the sprite for the gate
+	SDL_Rect temp = {320, 141, 24, 24};
+	sprites[GATE-1] = temp;
 	//set default value
 	currentSprite = sprites [HWALL-1];
 }
