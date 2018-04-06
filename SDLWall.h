@@ -26,7 +26,7 @@ private:
 	static const int amountOfSprites = 6;
 	void setActiveSprite(int type);
 	void loadSprites();
-	SDL_Rect sprites[amountOfSprites];
+	SDL_Rect sprites[7];
 };
 
 #endif /* SDLWALL_H_ */

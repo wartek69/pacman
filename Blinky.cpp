@@ -27,7 +27,9 @@ Blinky::~Blinky() {
 void Blinky::findPath(const MovingEntity& entity) {
 	int posX = 0;
 	int posY = 0;
-	if(Ghost::mode == CHASE) {
+	if(this->eaten) {
+		Ghost::decidePath(posX, posY);
+	}else if(Ghost::mode == CHASE) {
 		posX = entity.getPositionX();
 		posY = entity.getPositionY();
 		Ghost::decidePath(posX, posY);

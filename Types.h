@@ -44,14 +44,15 @@ enum pacmanObjects {
 	RBCORNER,
 	RUCORNER,
 	LUCORNER,
+	GATE,
 	RGHOST,
 	OGHOST,
 	PGHOST,
 	BGHOST,
 	DOT,
-	POWERUP
-
+	POWERUP,
 };
+
 
 enum menu {
 	START,

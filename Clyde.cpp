@@ -28,7 +28,9 @@ Clyde::~Clyde() {
 void Clyde::findPath(const MovingEntity& entity) {
 	int posGoalX = 0;
 	int posGoalY = 0;
-	if(Ghost::mode == CHASE) {
+	if(this->eaten) {
+		Ghost::decidePath(posGoalX, posGoalY);
+	}else if(Ghost::mode == CHASE) {
 		//distance  to entity < 8
 		if(sqrt(pow((entity.getPositionX() - this->position.x), 2.0) + pow((entity.getPositionY() - this->position.y), 2.0)) < 8) {
 			//scatter

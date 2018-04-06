@@ -83,6 +83,10 @@ int Ghost::getMode() {
 }
 
 void Ghost::decidePath(int posGoalX, int posGoalY) {
+	if(this->eaten) {
+		posGoalX = 13;
+		posGoalY = 13;
+	}
 	//has to be a multi map since multiple values should be stored
 	multimap<int, int> shortestD;
 	for(int i = 0; i < 4; i++) {

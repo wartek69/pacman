@@ -191,7 +191,7 @@ bool SDLFactory::loadFromFile(string path) {
  */
 bool SDLFactory::loadSpriteSheet() {
 	bool success = true;
-	if(!loadFromFile("pacman3.png")) {
+	if(!loadFromFile("picture4.png")) {
 		cout << "Failed to load pacman sprite from the system" << endl;
 		success = false;
 	}

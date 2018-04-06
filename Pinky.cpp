@@ -25,7 +25,9 @@ Pinky::~Pinky() {
 void Pinky::findPath(const MovingEntity& entity) {
 	int posGoalX = 0;
 	int posGoalY = 0;
-	if(Ghost::mode == CHASE) {
+	if(this->eaten) {
+		Ghost::decidePath(posGoalX, posGoalY);
+	}else if(Ghost::mode == CHASE) {
 		switch(entity.getDirection()) {
 			case FORWARD:
 				posGoalX = entity.getPositionX();

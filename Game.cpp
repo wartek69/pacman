@@ -33,7 +33,7 @@ void Game::loadMap() {
 		for(int k = 0;k<mapController.getRows();k++) {
 			for(int l = 0;l<mapController.getCols();l++) {
 				int object = mapController.getValue(k,l);
-				if(object <= LUCORNER && object >= HWALL) {
+				if(object <= GATE && object >= HWALL) {
 					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
 					//TODO delete the useless collections
 					world->add(tempWall);

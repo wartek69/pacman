@@ -25,8 +25,9 @@ Inky::~Inky() {
 void Inky::findPath(const MovingEntity& entity) {
 	int posGoalX = 0;
 	int posGoalY = 0;
-
-	if(Ghost::mode == CHASE) {
+	if(this->eaten) {
+		Ghost::decidePath(posGoalX, posGoalY);
+	}else if(Ghost::mode == CHASE) {
 		//first determine 2tiles in front of pacman
 
 		switch(entity.getDirection()) {
@@ -59,7 +60,7 @@ void Inky::findPath(const MovingEntity& entity) {
 		posGoalY = 15;
 		Ghost::decidePath(posGoalX, posGoalY);
 
-	} else if(Ghost::mode == FRIGHTENED) {
+	} else if(Ghost::mode == FRIGHTENED ) {
 		Ghost::frighten();
 	}
 
