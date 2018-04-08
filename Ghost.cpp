@@ -27,6 +27,7 @@ Ghost::Ghost(int posX, int posY, shared_ptr<WorldObjects> world): MovingEntity(p
 	//init random num generator
 	srand(time(NULL));
 	eaten = false;
+	spawned = false;
 }
 
 Ghost::~Ghost() {
@@ -84,9 +85,20 @@ int Ghost::getMode() {
 
 void Ghost::decidePath(int posGoalX, int posGoalY) {
 	if(this->eaten) {
-		posGoalX = 13;
-		posGoalY = 13;
+		const Wall& gate = world->getGate();
+		posGoalX = gate.getPositionX();
+		posGoalY = gate.getPositionY();
+		//check for collision with the gate
+		for(int i = 0;i < 4; i++) {
+			MovingEntity::place(i,1);
+			if(checkCollision(gate)) {
+				Ghost::setEaten(false);
+			}
+			MovingEntity::place(i,-1);
+
+		}
 	}
+
 	//has to be a multi map since multiple values should be stored
 	multimap<int, int> shortestD;
 	for(int i = 0; i < 4; i++) {
@@ -151,4 +163,29 @@ void Ghost::setEaten(bool flag) {
 
 bool Ghost::getEaten() {
 	return eaten;
+}
+
+void Ghost::setSpawned(bool flag) {
+	spawned = flag;
+}
+
+bool Ghost::getSpawned() {
+	return spawned;
+}
+
+bool Ghost::spawn() {
+	//first check where the gate of the ghost house is
+	for(int i = 0; i < 4; i++) {
+		MovingEntity::place(i, 1);
+		if(checkCollision(world->getGate())) {
+			//spawn the ghost
+			MovingEntity::place(i, -1);
+			move(i, 1);
+			vel = 1;
+			return true;
+		}
+		MovingEntity::place(i, -1);
+	}
+	return false;
+
 }

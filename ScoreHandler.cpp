@@ -22,3 +22,7 @@ void ScoreHandler::addScore() {
 void ScoreHandler::removeScore() {
 	score = score - 1;
 }
+
+int ScoreHandler::getScore() {
+	return score;
+}

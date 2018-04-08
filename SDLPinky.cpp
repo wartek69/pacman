@@ -24,6 +24,7 @@ void SDLPinky::move(int direction, int velocity) {
 	Ghost::move(direction, velocity);
 	//Do the animation
 	SDLGhost::animation(dir, vel, this->eaten);
+	cout << "this move has been called" << endl;
 }
 
 void SDLPinky::visualize(int frame) {

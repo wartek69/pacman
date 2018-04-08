@@ -39,9 +39,11 @@ public:
 	virtual void addDot(std::shared_ptr<Dot>);
 	virtual void addBlinky(std::shared_ptr<Ghost>);
 	virtual void addConsumable(std::shared_ptr<Logic::Consumable>);
+	virtual void addGate(std::shared_ptr<Wall> wall);
 	virtual std::vector<std::shared_ptr<Logic::Consumable>>& getConsumables();
 	virtual std::vector<std::shared_ptr<Dot>>& getDots();
 	virtual std::vector<std::shared_ptr<Ghost>>& getGhosts();
+	virtual const Wall& getGate();
 	virtual const Ghost& getBlinky();
 	virtual void moveGhosts();
 	virtual void printDotSize(); //used for debugging
@@ -51,6 +53,7 @@ protected:
 	std::vector<std::shared_ptr<Ghost>> ghosts;
 	std::shared_ptr<Pacman> pacman;
 	std::shared_ptr<Ghost> blinky;
+	std::vector<std::shared_ptr<Wall>> gate;
 	std::vector<std::shared_ptr<Dot>> dots;
 	std::vector<std::shared_ptr<Logic::Consumable>> consumables;
 };

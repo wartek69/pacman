@@ -35,7 +35,8 @@ void Game::loadMap() {
 				int object = mapController.getValue(k,l);
 				if(object <= GATE && object >= HWALL) {
 					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
-					//TODO delete the useless collections
+					if(object == GATE)
+						world->addGate(tempWall);
 					world->add(tempWall);
 					world->addWall(tempWall);
 				} else if(object == PACMAN) {
@@ -91,6 +92,7 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 	return false;
 }
 void Game::start() {
+	int spawned = 1;
 	vector<shared_ptr<Dot>>& dots = world->getDots();
 	vector<shared_ptr<Ghost>>& ghosts = world->getGhosts();
 	vector<shared_ptr<Logic::Consumable>>& consumables = world->getConsumables();
@@ -130,6 +132,7 @@ void Game::start() {
 		//pauses timer because world visualize slows down the loop
 		FPSTimer->pause();
 		world->visualize(score);
+
 		//resumes the timer
 		FPSTimer->resume();
 		//score->visualize();
@@ -140,7 +143,19 @@ void Game::start() {
 		pinkGhost->findPath(*pacman);
 		orangeGhost->findPath(*pacman);
 		blueGhost->findPath(*pacman);*/
-		world->moveGhosts();
+		//if(spawned == 0)
+			//world->moveGhosts();
+
+		if(spawned == 1 && score->getScore() > 20) {
+			if(pinkGhost->spawn()) {
+				spawned = 0;
+				pinkGhost->setSpawned(true);
+				//pinkGhost->move(FORWARD, 1);
+			} else
+				world->moveGhosts();
+		} else
+			world->moveGhosts();
+
 
 		//checks if there was a pacman created
 		if(pacman != NULL) {

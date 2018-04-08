@@ -24,6 +24,7 @@ public:
 	virtual bool isCrossRoad();
 	virtual void findPath(const MovingEntity& entity) = 0;
 	virtual void decidePath(int, int);
+	virtual void setSpawned(bool);
 	virtual bool doesCollidePac();
 	virtual bool doesCollideWall(int direction);
 	virtual void frighten();
@@ -32,12 +33,15 @@ public:
 	static void setBlink(bool);
 	static bool getBlink();
 	virtual void setEaten(bool flag);
+	bool spawn();
 	virtual bool getEaten();
+	virtual bool getSpawned();
 protected:
 	std::shared_ptr<WorldObjects> world;
 	static int mode;
 	static bool blink;
 	bool eaten;
+	bool spawned;
 private:
 	Ghost();
 

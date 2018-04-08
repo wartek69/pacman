@@ -53,6 +53,9 @@ void WorldObjects::addConsumable(std::shared_ptr<Logic::Consumable> cons) {
 	consumables.push_back(cons);
 }
 
+void WorldObjects::addGate(shared_ptr<Wall> wall) {
+	gate.push_back(wall);
+}
 std::vector<std::shared_ptr<Logic::Consumable>>& WorldObjects::getConsumables() {
 	return consumables;
 }
@@ -72,6 +75,11 @@ std::vector<std::shared_ptr<Ghost>>& WorldObjects::getGhosts() {
 	return ghosts;
 }
 
+const Wall& WorldObjects::getGate() {
+	shared_ptr<Wall> temp = gate[0];
+	return *temp;
+}
+
 const Ghost& WorldObjects::getBlinky() {
 	return *blinky;
 }
@@ -84,7 +92,7 @@ void WorldObjects::printDotSize() {
 
 void WorldObjects::moveGhosts() {
 	for(auto ghost: ghosts) {
-		ghost->findPath(*pacman);
+			ghost->findPath(*pacman);
 	}
 }
 

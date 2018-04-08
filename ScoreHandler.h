@@ -13,6 +13,7 @@ public:
 	ScoreHandler();
 	virtual ~ScoreHandler();
 	void addScore();
+	int getScore();
 	void removeScore();
 	virtual void visualize() = 0;
 protected:
