@@ -28,7 +28,7 @@ class WorldObjects {
 public:
 	WorldObjects();
 	virtual ~WorldObjects();
-	virtual void visualize(const std::unique_ptr<ScoreHandler>& score) = 0;
+	virtual void visualize(const std::shared_ptr<ScoreHandler>& score) = 0;
 	virtual void add(std::shared_ptr<Entity>);
 	virtual void addWall(std::shared_ptr<Wall>);
 	virtual const Pacman& getPacman();

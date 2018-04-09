@@ -14,6 +14,7 @@
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 #include <SDL2\SDL_TTF.h>
+#include <SDL2\SDL_mixer.h>
 #include "SDLTimer.h"
 #include "SDLInputHandler.h"
 #include "Types.h"
@@ -24,8 +25,11 @@
 #include "SDLWorldObjects.h"
 #include "SDLMenu.h"
 #include "SDLPowerUp.h"
+#include "SDLCherry.h"
 #include "Menu.h"
+#include "SDLSoundManager.h"
 #include <iostream>
+#include "SDLTextHandler.h"
 #include <memory>
 
 
@@ -98,8 +102,8 @@ shared_ptr<Dot> SDLFactory::createDot(int posX, int posY) {
 	return make_shared<SDLDot>(gRenderer, spriteSheet, posX, posY);
 }
 
-shared_ptr<Logic::PowerUp> SDLFactory::createPowerUp(int posX, int posY) {
-	return make_shared<SDL::SDLPowerUp>(gRenderer, spriteSheet, posX, posY);
+shared_ptr<Logic::PowerUp> SDLFactory::createPowerUp(int posX, int posY, shared_ptr<Timer> timer) {
+	return make_shared<SDL::SDLPowerUp>(gRenderer, spriteSheet, posX, posY, timer);
 }
 
 /**
@@ -111,7 +115,7 @@ bool SDLFactory::init() {
 	bool success = true;
 
 	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
+	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 ) {
 		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
 		success = false;
 	} else {
@@ -147,6 +151,11 @@ bool SDLFactory::init() {
 				    printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
 				    success = false;
 	            }
+				//initialize sound
+				if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 88000) < 0) {
+				    printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+				    success = false;
+				}
 			}
 		}
 	}
@@ -218,6 +227,7 @@ void SDLFactory::close() {
 	//Quit SDL subsystems
 	IMG_Quit();
     TTF_Quit();
+    Mix_Quit();
 	SDL_Quit();
 }
 
@@ -239,4 +249,16 @@ unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
 
 shared_ptr<WorldObjects> SDLFactory::createWorld() {
 	return make_shared<SDLWorldObjects>(gRenderer);
+}
+
+shared_ptr<Logic::Cherry> SDLFactory::createCherry(int posX, int posY, shared_ptr<ScoreHandler> score) {
+	return make_shared<SDL::SDLCherry>(gRenderer, spriteSheet, posX, posY, score);
+}
+
+unique_ptr<Logic::SoundManager> SDLFactory::createSoundManager() {
+	return make_unique<SDL::SDLSoundManager>();
+}
+
+unique_ptr<Logic::TextHandler> SDLFactory::createTextHandler() {
+	return make_unique<SDL::SDLTextHandler>(gRenderer);
 }

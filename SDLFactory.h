@@ -14,7 +14,6 @@
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 #include "Timer.h"
-//#include "Menu.h"
 #include <memory>
 
 
@@ -30,7 +29,8 @@ public:
 	unique_ptr<ScoreHandler> createScoreHandler() override;
 	unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) override;
 	shared_ptr<WorldObjects> createWorld() override;
-	shared_ptr<Logic::PowerUp> createPowerUp(int posX, int posY) override;
+	shared_ptr<Logic::PowerUp> createPowerUp(int posX, int posY, shared_ptr<Timer> timer) override;
+	shared_ptr<Logic::Cherry> createCherry(int posX, int posY, shared_ptr<ScoreHandler> score) override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);
@@ -38,6 +38,8 @@ public:
 	void clearScreen() override;
 	void showScreen() override;
 	unique_ptr<InputHandler> createInputHandler(shared_ptr<Pacman> handleObject) override;
+	unique_ptr<Logic::SoundManager> createSoundManager() override;
+	unique_ptr<Logic::TextHandler> createTextHandler() override;
 
 private:
 	bool init();

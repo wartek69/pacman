@@ -16,6 +16,8 @@ public:
 	SDLInputHandler(std::shared_ptr<Pacman> handleObject);
 	virtual ~SDLInputHandler();
 	void handleInput(bool& quit, int& direction,int& velocity);
+	void handleEndScreen(bool& quit, bool& repeat);
+
 private:
 
 };

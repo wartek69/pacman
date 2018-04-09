@@ -23,6 +23,10 @@ Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 	countedFrames = 0; //used to calculate fps
 	score = F->createScoreHandler();
 	world = F->createWorld();
+	sound = F->createSoundManager();
+	//timer for the frightened mode
+	frightenedTimer = F->createTimer();
+	textHandler = F->createTextHandler();
 	Ghost::setMode(SCATTER);
 	loadMap();
 }
@@ -65,9 +69,13 @@ void Game::loadMap() {
 					world->add(tempDot);
 					world->addDot(tempDot);
 				} else if(object == POWERUP) {
-					shared_ptr<Logic::PowerUp> pow = F->createPowerUp(l, k);
+					shared_ptr<Logic::PowerUp> pow = F->createPowerUp(l, k, frightenedTimer);
 					world->add(pow);
 					world->addConsumable(pow);
+				} else if(object == CHERRY) {
+					shared_ptr<Logic::Cherry> cherry = F->createCherry(l, k, score);
+					world->add(cherry);
+					world->addConsumable(cherry);
 				}
 
 			}
@@ -91,7 +99,9 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 	pacman->MovingEntity::place(inputBuffer, -velocity);
 	return false;
 }
-void Game::start() {
+void Game::start(bool& repeat) {
+	bool win = false;
+	bool gameOver = false;
 	vector<shared_ptr<Dot>>& dots = world->getDots();
 	vector<shared_ptr<Ghost>>& ghosts = world->getGhosts();
 	vector<shared_ptr<Logic::Consumable>>& consumables = world->getConsumables();
@@ -100,8 +110,7 @@ void Game::start() {
 	unique_ptr<Timer> FPSTimer = F->createTimer();
 	//timer that is used to switch the ghosts between different modes
 	unique_ptr<Timer> ghostTimer = F->createTimer();
-	//timer for the frightened mode
-	unique_ptr<Timer> frightenedTimer = F->createTimer();
+
 	//starts up timer
 	FPSTimer->startTimer();
 	ghostTimer ->startTimer();
@@ -119,6 +128,11 @@ void Game::start() {
 
 	//GAME LOOP
 	while( !quit ) {
+		if(dots.size() == 0) {
+			cout << "You win!" << endl;
+			win = true;
+			quit = true;
+		}
 		//timer that times the duration of the loop
 		capTimer->startTimer();
 		//calculate fps
@@ -127,21 +141,15 @@ void Game::start() {
 
 
 		/////////////// VISUAL ASPECTS
-		//F->clearScreen();
 		//pauses timer because world visualize slows down the loop
 		FPSTimer->pause();
 		world->visualize(score);
 
 		//resumes the timer
 		FPSTimer->resume();
-		//score->visualize();
 		//TODO fix fps
 		F->showScreen();
 
-		/*redGhost->findPath(*pacman);
-		pinkGhost->findPath(*pacman);
-		orangeGhost->findPath(*pacman);
-		blueGhost->findPath(*pacman);*/
 		if(orangeGhost->getSpawned() == false && score->getScore() > 60) {
 			if(orangeGhost->spawn()) {
 				//set the spawning flag so that the ghost won't seek for a path and just spawn
@@ -172,7 +180,11 @@ void Game::start() {
 					cout << "collision1" << endl;
 					if(Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
+					} else if(!(*it)->getEaten()) {
+						gameOver = true;
+						quit = true;
 					}
+
 					it++;
 				} else
 					it++;
@@ -188,11 +200,15 @@ void Game::start() {
 				if(pacCollision(previousDirection, velocity)) {
 					//stop
 					pacman->move(previousDirection, 0);
-				}else
+				}else {
 					pacman->move(previousDirection, velocity);
+					sound->munch();
+				}
 			} else {
 				previousDirection = direction;
 				pacman->move(direction, velocity);
+				sound->munch();
+
 			}
 
 			//collision detection on ghosts after the pacman got moved!!
@@ -201,6 +217,9 @@ void Game::start() {
 					cout << "collision2" << endl;
 					if(Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
+					} else if(!(*it)->getEaten()) {
+						gameOver = true;
+						quit = true;
 					}
 
 					it++;
@@ -222,6 +241,7 @@ void Game::start() {
 
 			for(vector<shared_ptr<Logic::Consumable>>::iterator it = consumables.begin();it != consumables.end();) {
 				if(pacman->checkCollision(**it)) {
+					sound->eatFruit();
 					(*it)->action();
 					world->remove(*it);
 					it = consumables.erase(it);
@@ -243,25 +263,21 @@ void Game::start() {
 		//TODO fix that the amount of time in frightened mode gets stacked
 		if(ghostTimer->getTimePassed() > 7000 && Ghost::getMode() == SCATTER) {
 			Ghost::setMode(CHASE);
-			ghostTimer->stopTimer();
 			ghostTimer->startTimer();
 		} else if(ghostTimer->getTimePassed() > 20000 && Ghost::getMode() == CHASE) {
 			Ghost::setMode(SCATTER);
-			ghostTimer->stopTimer();
 			ghostTimer->startTimer();
-		} else if(Ghost::getMode() == FRIGHTENED && !(frightenedTimer->isRunning())) {
-			frightenedTimer->startTimer();
 		} else if(Ghost::getMode() == FRIGHTENED && frightenedTimer->isRunning()) {
 			if(frightenedTimer->getTimePassed() > 7000) {
 				frightenedTimer->stopTimer();
 				Ghost::setBlink(false);
 				Ghost::setMode(CHASE);
-				ghostTimer->stopTimer();
 				ghostTimer->startTimer();
 			} else if(frightenedTimer->getTimePassed() > 4000) {
 				//Time is running out
 				Ghost::setBlink(true);
-			}
+			} else
+				Ghost::setBlink(false);
 		}
 		//resets timer every 5sec to keep the fps measurements precise
 		if(FPSTimer->getTimePassed() > 5000) {
@@ -270,4 +286,21 @@ void Game::start() {
 			FPSTimer->startTimer();
 		}
 	}
+	if(win) {
+		do {
+			quit = false;
+			textHandler->renderText("You win!");
+			F->showScreen();
+			iHandler->handleEndScreen(quit,repeat);
+		}while(quit == false);
+	} else if(gameOver) {
+		do {
+			quit = false;
+			textHandler->renderText("Game Over!");
+			F->showScreen();
+			iHandler->handleEndScreen(quit,repeat);
+			repeat = false;
+		}while(quit == false);
+	}
+
 }

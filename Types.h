@@ -51,6 +51,7 @@ enum pacmanObjects {
 	BGHOST,
 	DOT,
 	POWERUP,
+	CHERRY
 };
 
 

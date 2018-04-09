@@ -9,12 +9,11 @@
 #include "Consumable.h"
 #include "Ghost.h"
 #include "Types.h"
-
+#include "Timer.h"
 namespace Logic {
 
-PowerUp::PowerUp(int posX, int posY): Consumable(posX, posY) {
-	// TODO Auto-generated constructor stub
-
+PowerUp::PowerUp(int posX, int posY, shared_ptr<Timer> timer ): Consumable(posX, posY) {
+	this->frightenedTimer = timer;
 }
 
 PowerUp::~PowerUp() {
@@ -23,5 +22,6 @@ PowerUp::~PowerUp() {
 
 void PowerUp::action() {
 	Ghost::setMode(FRIGHTENED);
+	frightenedTimer->startTimer();
 }
 } /* namespace Logic */

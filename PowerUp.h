@@ -9,14 +9,18 @@
 #define POWERUP_H_
 
 #include "Consumable.h"
+#include "Timer.h"
+#include <memory>
 
 namespace Logic {
 
 class PowerUp: public Consumable {
 public:
-	PowerUp(int posX, int posY);
+	PowerUp(int posX, int posY, std::shared_ptr<Timer>);
 	virtual ~PowerUp();
 	void action() override;
+protected:
+	std::shared_ptr<Timer> frightenedTimer;
 };
 
 

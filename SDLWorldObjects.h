@@ -16,7 +16,7 @@ class SDLWorldObjects: public WorldObjects {
 public:
 	SDLWorldObjects(SDL_Renderer* gRenderer);
 	virtual ~SDLWorldObjects();
-	void visualize(const std::unique_ptr<ScoreHandler>& score) override;
+	void visualize(const std::shared_ptr<ScoreHandler>& score) override;
 private:
 	int frames;
 	SDL_Renderer* gRenderer;

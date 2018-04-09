@@ -17,6 +17,11 @@ Menu::~Menu() {
 }
 
 void Menu::startGame() {
-	unique_ptr<Game> game = make_unique<Game>(F);
-	game->start();
+	bool repeat;
+	do {
+		repeat = false;
+		unique_ptr<Game> game = make_unique<Game>(F);
+		game->start(repeat);
+	}while(repeat);
+
 }

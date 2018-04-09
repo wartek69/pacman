@@ -15,12 +15,13 @@
 #include <memory>
 #include "ScoreHandler.h"
 #include "WorldObjects.h"
+#include "SoundManager.h"
 
 class Game {
 public:
 	Game(shared_ptr<AbstractFactory> F);
 	virtual ~Game();
-	void start();
+	void start(bool& repeat);
 private:
 	shared_ptr<WorldObjects> world;
 	const int DELAY = 60;
@@ -32,7 +33,11 @@ private:
 	shared_ptr<Ghost> pinkGhost;
 	shared_ptr<Pacman> pacman;
 	unique_ptr<InputHandler> iHandler;
-	unique_ptr<ScoreHandler> score;
+	shared_ptr<ScoreHandler> score;
+	unique_ptr<Logic::SoundManager> sound;
+	unique_ptr<Logic::TextHandler> textHandler;
+	shared_ptr<Timer> frightenedTimer;
+
 	bool pacCollision(int inputBuffer, int velocity);
 	int countedFrames; //used to calculate fps
 	//default constructor shouldn't be used --> private

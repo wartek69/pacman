@@ -57,3 +57,4 @@ void SDLTimer::resume() {
 		cout << "can't resume, timer wasn't paused" << endl;
 	isPaused = false;
 }
+

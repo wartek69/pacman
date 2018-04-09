@@ -19,7 +19,7 @@ SDLWorldObjects::~SDLWorldObjects() {
 
 }
 
-void SDLWorldObjects::visualize(const unique_ptr<ScoreHandler>& score) {
+void SDLWorldObjects::visualize(const shared_ptr<ScoreHandler>& score) {
 	frames = 0;
 	while (frames < frameDelay) {
 		frames++;

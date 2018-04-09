@@ -56,3 +56,27 @@ void SDLInputHandler::handleInput(bool& quit,int& direction, int& velocity) {
 
 }
 
+void SDLInputHandler::handleEndScreen(bool& quit, bool& repeat) {
+	SDL_Event e;
+
+	//Handle events on queue
+	while(SDL_PollEvent( &e )!=0) {
+		//User requests quit
+		if( e.type == SDL_QUIT ) {
+			quit = true;
+			repeat = false;
+		} else if( e.type == SDL_KEYDOWN ) {
+			switch( e.key.keysym.sym) {
+				case SDLK_SPACE:
+					quit = true;
+					repeat = true;
+				break;
+
+				case SDLK_ESCAPE:
+					quit = true;
+					repeat = false;
+				break;
+			}
+		}
+	}
+}

@@ -26,3 +26,7 @@ void ScoreHandler::removeScore() {
 int ScoreHandler::getScore() {
 	return score;
 }
+
+void ScoreHandler::add(int amount) {
+	score = score + amount;
+}
