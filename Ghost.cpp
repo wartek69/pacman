@@ -28,6 +28,7 @@ Ghost::Ghost(int posX, int posY, shared_ptr<WorldObjects> world): MovingEntity(p
 	srand(time(NULL));
 	eaten = false;
 	spawned = false;
+	spawnStatus = false;
 }
 
 Ghost::~Ghost() {
@@ -98,7 +99,6 @@ void Ghost::decidePath(int posGoalX, int posGoalY) {
 
 		}
 	}
-
 	//has to be a multi map since multiple values should be stored
 	multimap<int, int> shortestD;
 	for(int i = 0; i < 4; i++) {
@@ -123,7 +123,6 @@ void Ghost::decidePath(int posGoalX, int posGoalY) {
 	} else {
 		dir = shortestD.begin()->second;
 	}
-
 }
 
 void Ghost::frighten() {
@@ -188,4 +187,13 @@ bool Ghost::spawn() {
 	}
 	return false;
 
+}
+
+void Ghost::isSpawning(bool flag) {
+	spawned = true;
+	spawnStatus = flag;
+}
+
+bool Ghost::getSpawnStatus() {
+	return spawnStatus;
 }

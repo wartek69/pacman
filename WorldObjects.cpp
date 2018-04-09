@@ -92,7 +92,10 @@ void WorldObjects::printDotSize() {
 
 void WorldObjects::moveGhosts() {
 	for(auto ghost: ghosts) {
+		if(ghost->getSpawnStatus() == false)
 			ghost->findPath(*pacman);
+		else
+			ghost->isSpawning(false);
 	}
 }
 

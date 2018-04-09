@@ -92,7 +92,6 @@ bool Game::pacCollision(int inputBuffer, int velocity) {
 	return false;
 }
 void Game::start() {
-	int spawned = 1;
 	vector<shared_ptr<Dot>>& dots = world->getDots();
 	vector<shared_ptr<Ghost>>& ghosts = world->getGhosts();
 	vector<shared_ptr<Logic::Consumable>>& consumables = world->getConsumables();
@@ -143,18 +142,22 @@ void Game::start() {
 		pinkGhost->findPath(*pacman);
 		orangeGhost->findPath(*pacman);
 		blueGhost->findPath(*pacman);*/
-		//if(spawned == 0)
-			//world->moveGhosts();
-
-		if(spawned == 1 && score->getScore() > 20) {
+		if(orangeGhost->getSpawned() == false && score->getScore() > 60) {
+			if(orangeGhost->spawn()) {
+				//set the spawning flag so that the ghost won't seek for a path and just spawn
+				orangeGhost->isSpawning(true);
+			}
+		} else if (blueGhost->getSpawned() == false && score->getScore() > 30) {
+			if(blueGhost->spawn()) {
+				blueGhost->isSpawning(true);
+			}
+		} else if (pinkGhost->getSpawned() == false) {
 			if(pinkGhost->spawn()) {
-				spawned = 0;
-				pinkGhost->setSpawned(true);
-				//pinkGhost->move(FORWARD, 1);
-			} else
-				world->moveGhosts();
-		} else
-			world->moveGhosts();
+				pinkGhost->isSpawning(true);
+			}
+		}
+
+		world->moveGhosts();
 
 
 		//checks if there was a pacman created

@@ -33,15 +33,19 @@ public:
 	static void setBlink(bool);
 	static bool getBlink();
 	virtual void setEaten(bool flag);
+	virtual void isSpawning(bool flag);
 	bool spawn();
 	virtual bool getEaten();
 	virtual bool getSpawned();
+	virtual bool getSpawnStatus();
 protected:
 	std::shared_ptr<WorldObjects> world;
 	static int mode;
 	static bool blink;
 	bool eaten;
 	bool spawned;
+	// this flag is used to indicate that the ghost is spawning
+	bool spawnStatus;
 private:
 	Ghost();
 
