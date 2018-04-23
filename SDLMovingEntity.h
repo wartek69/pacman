@@ -14,7 +14,7 @@ namespace SDL {
 
 class SDLMovingEntity: public SDLEntity {
 public:
-	SDLMovingEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet);
+	SDLMovingEntity(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet);
 	virtual ~SDLMovingEntity();
 	void visualize(int posX, int posY, int vel, int dir, int frame);
 };

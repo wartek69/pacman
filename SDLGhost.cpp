@@ -13,8 +13,8 @@
 using namespace std;
 
 
-SDLGhost::SDLGhost(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet):
-		SDLMovingEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+SDLGhost::SDLGhost(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet):
+		SDLMovingEntity(data, gRenderer, spriteSheet) {
 		loadSprites();
 		frameCounter = 0;
 		j = 0;
@@ -35,15 +35,15 @@ void SDLGhost::loadSprites() {
 	}
 	//add the frigthened animation sprites
 	//TODO config file this
-	SDL_Rect frightenedSprite = {143, 95, 24, 24};
-	for(int i = 8; i < 12; i++) {
+	SDL_Rect frightenedSprite = {data.getData(WHITE).x, data.getData(WHITE).y, data.getData(WHITE).w, data.getData(WHITE).h};
+	for(int i = WHITE; i < WHITE + 4; i++) {
 		sprites[i] = frightenedSprite;
 		frightenedSprite.x = frightenedSprite.x + frightenedSprite.w;
 	}
 
 	//add the dead animation sprites
-	SDL_Rect deadSprite = {192, 218, 24, 24};
-	for(int i = 12; i < 16; i++) {
+	SDL_Rect deadSprite = {data.getData(EATEN).x, data.getData(EATEN).y, data.getData(EATEN).w, data.getData(EATEN).h};
+	for(int i = EATEN; i < EATEN+4; i++) {
 		sprites[i] = deadSprite;
 		deadSprite.x = deadSprite.x + 2*deadSprite.w;
 	}

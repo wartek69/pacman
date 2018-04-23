@@ -11,8 +11,8 @@
 
 namespace SDL {
 
-SDLMovingEntity::SDLMovingEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet)
-	:SDLEntity(rectX, rectY, rectW, rectH, gRenderer, spriteSheet)	{
+SDLMovingEntity::SDLMovingEntity(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet)
+	:SDLEntity(data, gRenderer, spriteSheet)	{
 
 }
 

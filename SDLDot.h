@@ -13,7 +13,7 @@
 
 class SDLDot: public Dot, public SDLEntity {
 public:
-	SDLDot(SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
+	SDLDot(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLDot();
 	void visualize(int frame) override;
 };

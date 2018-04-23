@@ -9,8 +9,8 @@
 
 namespace SDL {
 
-SDLPinky::SDLPinky(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
-	Pinky(posX, posY, world), SDLGhost(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+SDLPinky::SDLPinky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
+	Pinky(posX, posY, world), SDLGhost(data, gRenderer, spriteSheet) {
 	// TODO Auto-generated constructor stub
 
 }

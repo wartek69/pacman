@@ -42,7 +42,8 @@ void SDLSoundManager::close() {
 }
 
 void SDLSoundManager::munch() {
-	Mix_PlayChannel(1, munchSound, 0);
+	//if(Mix_PlayingMusic() == 0)
+		Mix_PlayChannel(1, munchSound, 0);
 }
 
 void SDLSoundManager::eatFruit() {

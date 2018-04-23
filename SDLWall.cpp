@@ -10,8 +10,8 @@
 #include <iostream>
 using namespace std;
 
-SDLWall::SDLWall( SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, int type) :
-Wall(posX,posY), SDLEntity(rectX ,rectY ,rectW, rectH, gRenderer, spriteSheet) {
+SDLWall::SDLWall(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, int type) :
+Wall(posX,posY), SDLEntity(data, gRenderer, spriteSheet) {
 	//loads all wall sprites
 	//cout << rectY << endl;
 	loadSprites();
@@ -36,12 +36,12 @@ void SDLWall::visualize(int frame) {
  * starting from one sprite
  */
 void SDLWall::loadSprites() {
-	for(int i = 0;i<amountOfSprites;i++) {
+	for(int i = 0;i<6;i++) {
 		sprites[i] = currentSprite;
 		currentSprite.x = currentSprite.x+currentSprite.w;
 	}
 	//add the sprite for the gate
-	SDL_Rect temp = {320, 141, 24, 24};
+	SDL_Rect temp = {data.getData(GATE).x, data.getData(GATE).y, data.getData(GATE).w, data.getData(GATE).h};
 	sprites[GATE-1] = temp;
 	//set default value
 	currentSprite = sprites [HWALL-1];

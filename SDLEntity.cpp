@@ -11,14 +11,15 @@
 #include "Types.h"
 using namespace std;
 
-SDLEntity::SDLEntity(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet) {
+SDLEntity::SDLEntity(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet) {
+	this-> data = data;
 	//gets the coordinates to get the right sprite from the spritesheet
 	SDL_Rect clip ;
-	clip.x = rectX;
-	clip.y = rectY;
-	clip.w = rectW;
-	clip.h = rectH;
-
+	clip.x = data.getData(0).x;
+	clip.y = data.getData(0).y;
+	clip.w = data.getData(0).w;
+	clip.h = data.getData(0).h;
+	//TODO  ??
 	SDLX = 200;
 	SDLY = 200;
 	//initializes the renderer and sprite sheet

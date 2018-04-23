@@ -16,7 +16,7 @@
 
 class SDLPacman:public Pacman,public SDL::SDLMovingEntity {
 public:
-	SDLPacman(int x, int y, int w, int h,SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
+	SDLPacman(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLPacman();
 	void move(int direction, int velocity) override;
 	void loadSprites();

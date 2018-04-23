@@ -15,6 +15,7 @@
 #include <SDL2\SDL_image.h>
 #include "Timer.h"
 #include <memory>
+#include "ConfigParser.h"
 
 
 class SDLFactory: public AbstractFactory {
@@ -49,6 +50,7 @@ private:
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 530;
 	SDL_Texture* spriteSheet;
+	Config::ConfigParser config;
 };
 
 #endif /* SDLFACTORY_H_ */

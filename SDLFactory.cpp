@@ -31,6 +31,7 @@
 #include <iostream>
 #include "SDLTextHandler.h"
 #include <memory>
+#include "Data.h"
 
 
 using namespace std;
@@ -70,19 +71,18 @@ SDLFactory::~SDLFactory() {
 }
 
 shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type, shared_ptr<WorldObjects> world) {
-	//TODO MEMORY LEAK?
 	switch(type) {
 	case RGHOST:
-		return make_shared<SDL::SDLBlinky>(0, 143, 24, 24, gRenderer, spriteSheet, posX, posY, world);
+		return make_shared<SDL::SDLBlinky>(config.searchElement("Blinky"), gRenderer, spriteSheet, posX, posY, world);
 	break;
 	case BGHOST:
-		return make_shared<SDL::SDLInky>(191, 192, 24, 24, gRenderer, spriteSheet, posX, posY, world);
+		return make_shared<SDL::SDLInky>(config.searchElement("Inky"), gRenderer, spriteSheet, posX, posY, world);
 	break;
 	case OGHOST:
-		return make_shared<SDL::SDLClyde>(0, 216, 24, 24, gRenderer, spriteSheet, posX, posY, world);
+		return make_shared<SDL::SDLClyde>(config.searchElement("Clyde"), gRenderer, spriteSheet, posX, posY, world);
 	break;
 	case PGHOST:
-		return make_shared<SDL::SDLPinky>(0, 192, 24, 24, gRenderer, spriteSheet, posX, posY, world);
+		return make_shared<SDL::SDLPinky>(config.searchElement("Pinky"), gRenderer, spriteSheet, posX, posY, world);
 	break;
 	}
 	//if no type is given up
@@ -90,20 +90,23 @@ shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type, shared_p
 }
 
 shared_ptr<Pacman> SDLFactory::createPacman(int posX, int posY) {
-	//return new SDLPacman(PACMAN.x, PACMAN.y, PACMAN.w, PACMAN.h, gRenderer, spriteSheet, posX, posY);
-	return make_shared<SDLPacman>(0, 70, 24, 24, gRenderer, spriteSheet, posX, posY);
+	return make_shared<SDLPacman>(config.searchElement("Pacman"), gRenderer, spriteSheet, posX, posY);
 }
 
 shared_ptr<Wall> SDLFactory::createWall(int posX, int posY, int type) {
-	return make_shared<SDLWall>(gRenderer, spriteSheet, posX, posY,type);
+	return make_shared<SDLWall>(config.searchElement("Wall"), gRenderer, spriteSheet, posX, posY,type);
 }
 
 shared_ptr<Dot> SDLFactory::createDot(int posX, int posY) {
-	return make_shared<SDLDot>(gRenderer, spriteSheet, posX, posY);
+	return make_shared<SDLDot>(config.searchElement("Dot"), gRenderer, spriteSheet, posX, posY);
 }
 
 shared_ptr<Logic::PowerUp> SDLFactory::createPowerUp(int posX, int posY, shared_ptr<Timer> timer) {
-	return make_shared<SDL::SDLPowerUp>(gRenderer, spriteSheet, posX, posY, timer);
+	return make_shared<SDL::SDLPowerUp>(config.searchElement("PowerUp"), gRenderer, spriteSheet, posX, posY, timer);
+}
+
+shared_ptr<Logic::Cherry> SDLFactory::createCherry(int posX, int posY, shared_ptr<ScoreHandler> score) {
+	return make_shared<SDL::SDLCherry>(config.searchElement("Cherry"), gRenderer, spriteSheet, posX, posY, score);
 }
 
 /**
@@ -249,10 +252,6 @@ unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
 
 shared_ptr<WorldObjects> SDLFactory::createWorld() {
 	return make_shared<SDLWorldObjects>(gRenderer);
-}
-
-shared_ptr<Logic::Cherry> SDLFactory::createCherry(int posX, int posY, shared_ptr<ScoreHandler> score) {
-	return make_shared<SDL::SDLCherry>(gRenderer, spriteSheet, posX, posY, score);
 }
 
 unique_ptr<Logic::SoundManager> SDLFactory::createSoundManager() {

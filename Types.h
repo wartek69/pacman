@@ -65,6 +65,12 @@ enum menu {
 
 const int frameDelay = 8;
 
+struct Rect{
+	int x;
+	int y;
+	int w;
+	int h;
+};
 
 
 #endif /* TYPES_H_ */

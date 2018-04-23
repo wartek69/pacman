@@ -10,8 +10,8 @@
 
 namespace SDL {
 
-SDLCherry::SDLCherry(SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<ScoreHandler> score):
-	Logic::Cherry(posX, posY, score), SDLEntity(0, 119, 24, 24, gRenderer, spriteSheet) {
+SDLCherry::SDLCherry(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<ScoreHandler> score):
+	Logic::Cherry(posX, posY, score), SDLEntity(data, gRenderer, spriteSheet) {
 	// TODO Auto-generated constructor stub
 
 }

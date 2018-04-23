@@ -15,7 +15,7 @@ namespace SDL {
 
 class SDLCherry: public Logic::Cherry, public SDLEntity {
 public:
-	SDLCherry(SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<ScoreHandler> score);
+	SDLCherry(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<ScoreHandler> score);
 	virtual ~SDLCherry();
 	void visualize(int frame) override;
 };

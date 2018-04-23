@@ -10,8 +10,8 @@
 
 namespace SDL {
 
-SDLBlinky::SDLBlinky(int rectX, int rectY, int rectW, int rectH, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
-	Blinky(posX, posY, world), SDLGhost(rectX, rectY, rectW, rectH, gRenderer, spriteSheet) {
+SDLBlinky::SDLBlinky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
+	Blinky(posX, posY, world), SDLGhost(data, gRenderer, spriteSheet) {
 
 }
 
