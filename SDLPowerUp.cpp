@@ -17,7 +17,6 @@ SDLPowerUp::SDLPowerUp(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* 
 }
 
 SDLPowerUp::~SDLPowerUp() {
-	// TODO Auto-generated destructor stub
 }
 
 void SDLPowerUp::visualize(int frame) {

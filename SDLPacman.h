@@ -21,10 +21,14 @@ public:
 	void move(int direction, int velocity) override;
 	void loadSprites();
 	void visualize(int frame) override;
+	bool die() override;
 private:
 	//9 sprites needed t animate and move the pacman
 	SDL_Rect sprites[9];
+	SDL_Rect deadSprites[12];
 	int frameCounter, j;
+	int dyingCounter;
+	bool isDead;
 
 
 };

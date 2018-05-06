@@ -11,12 +11,10 @@
 namespace Logic {
 
 Inky::Inky(int posX, int posY, shared_ptr<WorldObjects> world): Ghost(posX, posY, world) {
-	// TODO Auto-generated constructor stub
 
 }
 
 Inky::~Inky() {
-	// TODO Auto-generated destructor stub
 }
 /**
  * inky uses a vector to calculate the position it should go to

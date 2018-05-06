@@ -11,12 +11,10 @@
 namespace Logic {
 
 Pinky::Pinky(int posX, int posY, shared_ptr<WorldObjects> world) : Ghost(posX, posY, world){
-	// TODO Auto-generated constructor stub
 
 }
 
 Pinky::~Pinky() {
-	// TODO Auto-generated destructor stub
 }
 /**
  * pinky targets a tile 4 tiles before pacman

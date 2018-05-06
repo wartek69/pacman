@@ -11,12 +11,10 @@ namespace SDL {
 
 SDLInky::SDLInky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
 	Inky(posX, posY, world), SDLGhost(data, gRenderer, spriteSheet){
-	// TODO Auto-generated constructor stub
 
 }
 
 SDLInky::~SDLInky() {
-	// TODO Auto-generated destructor stub
 }
 
 void SDLInky::move(int direction, int velocity) {

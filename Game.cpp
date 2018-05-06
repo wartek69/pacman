@@ -260,7 +260,6 @@ void Game::start(bool& repeat) {
 		}
 		//resets the captimer
 		capTimer->stopTimer();
-		//TODO fix that the amount of time in frightened mode gets stacked
 		if(ghostTimer->getTimePassed() > 7000 && Ghost::getMode() == SCATTER) {
 			Ghost::setMode(CHASE);
 			ghostTimer->startTimer();
@@ -294,6 +293,11 @@ void Game::start(bool& repeat) {
 			iHandler->handleEndScreen(quit,repeat);
 		}while(quit == false);
 	} else if(gameOver) {
+		while(pacman->die()) {
+			//pacman dying
+			world->visualize(score);
+			world->moveGhosts();
+		}
 		do {
 			quit = false;
 			textHandler->renderText("Game Over!");

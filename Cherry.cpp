@@ -16,7 +16,6 @@ Cherry::Cherry(int posX, int posY, std::shared_ptr<ScoreHandler> score): Consuma
 }
 
 Cherry::~Cherry() {
-	// TODO Auto-generated destructor stub
 }
 
 void Cherry::action() {

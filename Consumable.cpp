@@ -16,7 +16,6 @@ Consumable::Consumable(int posX, int posY): Entity(posX, posY, 1, 1) {
 }
 
 Consumable::~Consumable() {
-	// TODO Auto-generated destructor stub
 }
 
 void Consumable::print() {

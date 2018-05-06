@@ -20,7 +20,6 @@ ConfigParser::ConfigParser() {
 }
 
 ConfigParser::~ConfigParser() {
-	// TODO Auto-generated destructor stub
 }
 
 Data ConfigParser::searchElement(std::string query) {
@@ -28,7 +27,6 @@ Data ConfigParser::searchElement(std::string query) {
 	tinyxml2::XMLElement *pRoot;
 	pRoot = doc.FirstChildElement(query.c_str());
 	tinyxml2::XMLElement* pChild = pRoot->FirstChildElement();
-	std::cout << "testttt" << std::endl;
 
 	for (tinyxml2::XMLElement* child = pRoot->FirstChildElement(); child != NULL; child = child->NextSiblingElement()) {
 		int id;

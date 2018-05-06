@@ -21,6 +21,7 @@ SDLMovingEntity::~SDLMovingEntity() {
 }
 
 void SDLMovingEntity::visualize(int posX, int posY, int vel, int dir, int frame) {
+	//TODO change the currentsprite h and w to another variable that contains the value of screenwidth/amounts of rows--> how to get these parameters here??
 	int velFactor = 0;
 	if(vel == 0) {
 		velFactor = 1;

@@ -11,12 +11,10 @@ namespace SDL {
 
 SDLClyde::SDLClyde(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
 	Clyde(posX, posY, world), SDLGhost(data, gRenderer, spriteSheet) {
-	// TODO Auto-generated constructor stub
 
 }
 
 SDLClyde::~SDLClyde() {
-	// TODO Auto-generated destructor stub
 }
 
 void SDLClyde::move(int direction, int velocity) {

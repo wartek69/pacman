@@ -18,10 +18,11 @@ Pacman(posX, posY), SDL::SDLMovingEntity(data, gRenderer, spriteSheet) {
 	loadSprites();
 	frameCounter = 0;
 	j = 0;
+	dyingCounter = 0;
+	isDead = false;
 }
 
 SDLPacman::~SDLPacman() {
-	// TODO Auto-generated destructor stub
 }
 //loads sprites from the spriteSheet
 void SDLPacman::loadSprites() {
@@ -31,22 +32,27 @@ void SDLPacman::loadSprites() {
 	//fill the array with the sprites for pacman
 	//cout << "testtt" << endl;
 
-	for(int i = 0;i<8;i++) {
+	for(int i = 0;i < 8;i++) {
 		sprites[i] = currentSprite;
 		currentSprite.x = currentSprite.x + currentSprite.w;
 	}
 	currentSprite.y = currentSprite.y + 4*currentSprite.h;
 	currentSprite.x = currentSprite.x - 8*currentSprite.w;
-	sprites[8] = currentSprite;
-
+	//sprite for a closed pacman
+	sprites[P_CLOSED] = currentSprite;
+	//sprites for dead animation
+	currentSprite.x = currentSprite.x + 4*currentSprite.w;
+	for(int i = 0;i < 12;i++) {
+		deadSprites[i] = currentSprite;
+		currentSprite.x = currentSprite.x + currentSprite.w;
+	}
 	//default value
 	currentSprite = sprites[7];
 
 }
 void SDLPacman::move(int direction, int velocity) {
 	//call base class move
-	//if(vel != 0)
-		MovingEntity::move(direction, velocity);
+	MovingEntity::move(direction, velocity);
 	//animations
 	int temp;
 	float multiplyFactor = 0.8f;
@@ -94,9 +100,18 @@ void SDLPacman::move(int direction, int velocity) {
 
 /**
  * visualizes every frame individually
- *
  */
 void SDLPacman::visualize(int frame) {
 	SDL::SDLMovingEntity::visualize(position.x, position.y, vel, dir, frame);
+}
+
+bool SDLPacman::die() {
+	vel = 0;
+	if(dyingCounter < 12) {
+		currentSprite = deadSprites[dyingCounter];
+		dyingCounter++;
+		return true;
+	} else
+		return false;
 }
 

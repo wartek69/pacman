@@ -34,7 +34,6 @@ void SDLGhost::loadSprites() {
 		//add the dead animation sprites
 	}
 	//add the frigthened animation sprites
-	//TODO config file this
 	SDL_Rect frightenedSprite = {data.getData(WHITE).x, data.getData(WHITE).y, data.getData(WHITE).w, data.getData(WHITE).h};
 	for(int i = WHITE; i < WHITE + 4; i++) {
 		sprites[i] = frightenedSprite;

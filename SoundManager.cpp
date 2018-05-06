@@ -10,12 +10,10 @@
 namespace Logic {
 
 SoundManager::SoundManager() {
-	// TODO Auto-generated constructor stub
 
 }
 
 SoundManager::~SoundManager() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace Logic */

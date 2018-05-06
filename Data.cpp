@@ -11,12 +11,10 @@
 namespace Config {
 
 Data::Data() {
-	// TODO Auto-generated constructor stub
 
 }
 
 Data::~Data() {
-	// TODO Auto-generated destructor stub
 }
 
 void Data::addData(int id, Rect sprite) {

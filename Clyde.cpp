@@ -12,12 +12,11 @@
 namespace Logic {
 
 Clyde::Clyde(int posX, int posY, shared_ptr<WorldObjects> world): Ghost(posX, posY, world) {
-	// TODO Auto-generated constructor stub
+
 
 }
 
 Clyde::~Clyde() {
-	// TODO Auto-generated destructor stub
 }
 /**
  * Clyde algorithm has 2sides to it

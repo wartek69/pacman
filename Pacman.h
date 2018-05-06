@@ -15,6 +15,7 @@ class Pacman: public MovingEntity {
 public:
 	Pacman(int posX, int posY);
 	virtual ~Pacman();
+	virtual bool die() = 0;
 };
 
 #endif /* PACMAN_H_ */

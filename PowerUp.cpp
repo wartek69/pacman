@@ -17,7 +17,6 @@ PowerUp::PowerUp(int posX, int posY, shared_ptr<Timer> timer ): Consumable(posX,
 }
 
 PowerUp::~PowerUp() {
-	// TODO Auto-generated destructor stub
 }
 
 void PowerUp::action() {
