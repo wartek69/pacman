@@ -32,25 +32,25 @@ void SDLMovingEntity::visualize(int posX, int posY, int vel, int dir, int frame)
 		velFactor = vel;
 	switch (dir) {
 		case FORWARD:
-			SDLY = posY * currentSprite.h - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.h;
+			SDLY = posY * tileDimensions.height - frame * (tileDimensions.height / frameDelay * velFactor) + tileDimensions.height;
 			break;
 
 		case BACKWARD:
-			SDLY = posY * currentSprite.h + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.h;
+			SDLY = posY * tileDimensions.height + frame * (tileDimensions.height / frameDelay * velFactor) - tileDimensions.height;
 			break;
 
 		case RIGHT:
-			SDLX = posX * currentSprite.w + frame * (currentSprite.h / frameDelay * velFactor) - currentSprite.w;
+			SDLX = posX * tileDimensions.width + frame * (tileDimensions.width / frameDelay * velFactor) - tileDimensions.width;
 			break;
 
 		case LEFT:
-			SDLX = posX * currentSprite.w - frame * (currentSprite.h / frameDelay * velFactor) + currentSprite.w;
+			SDLX = posX * tileDimensions.width - frame * (tileDimensions.width / frameDelay * velFactor) + tileDimensions.width;
 			break;
 		default:
 			//default value
 			//this state is only used when the entity is initialized
-			SDLX = posX * currentSprite.w;
-			SDLY = posY * currentSprite.h;
+			SDLX = posX * tileDimensions.width;
+			SDLY = posY * tileDimensions.height;
 			break;
 	}
 	SDLEntity::visualize();

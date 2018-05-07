@@ -26,7 +26,6 @@ Data ConfigParser::searchElement(std::string query) {
 	Data data;
 	tinyxml2::XMLElement *pRoot;
 	pRoot = doc.FirstChildElement(query.c_str());
-	tinyxml2::XMLElement* pChild = pRoot->FirstChildElement();
 
 	for (tinyxml2::XMLElement* child = pRoot->FirstChildElement(); child != NULL; child = child->NextSiblingElement()) {
 		int id;
@@ -39,6 +38,14 @@ Data ConfigParser::searchElement(std::string query) {
 		data.addData(id, rect);
 	}
 	return data;
+}
+
+Size ConfigParser::getScreenSize() {
+	Size screenDimensions;
+	tinyxml2::XMLElement *pRoot = doc.FirstChildElement("Screen");
+	pRoot->QueryIntAttribute("width", &screenDimensions.width);
+	pRoot->QueryIntAttribute("height", &screenDimensions.height);
+	return screenDimensions;
 }
 
 } /* namespace Config */

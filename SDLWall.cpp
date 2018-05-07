@@ -27,8 +27,8 @@ void SDLWall::setActiveSprite(int type) {
 	currentSprite = sprites[type-1];
 }
 void SDLWall::visualize(int frame) {
-	SDLX = position.x * currentSprite.w;
-	SDLY = position.y * currentSprite.h;
+	SDLX = position.x * tileDimensions.width;
+	SDLY = position.y * tileDimensions.height;
 	SDLEntity::visualize();
 }
 /**

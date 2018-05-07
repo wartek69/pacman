@@ -18,7 +18,7 @@ SDLDot::~SDLDot() {
 
 void SDLDot::visualize(int frame) {
 	//TODO param
-	SDLX = position.x * 24 + 5;
-	SDLY = position.y * 24 + 5;
+	SDLX = position.x * tileDimensions.width;
+	SDLY = position.y * tileDimensions.height;
 	SDLEntity::visualize();
 }

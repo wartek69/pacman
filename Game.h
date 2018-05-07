@@ -16,6 +16,8 @@
 #include "ScoreHandler.h"
 #include "WorldObjects.h"
 #include "SoundManager.h"
+#include "Map.h"
+
 
 class Game {
 public:
@@ -42,7 +44,7 @@ private:
 	int countedFrames; //used to calculate fps
 	//default constructor shouldn't be used --> private
 	Game();
-	void loadMap();
+	void loadMap(Map mapController);
 };
 
 #endif /* GAME_H_ */

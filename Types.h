@@ -65,7 +65,12 @@ enum menu {
 
 const int frameDelay = 8;
 
-struct Rect{
+struct Size {
+	int width;
+	int height;
+};
+
+struct Rect {
 	int x;
 	int y;
 	int w;

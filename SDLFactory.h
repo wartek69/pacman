@@ -29,7 +29,7 @@ public:
 	shared_ptr<Dot> createDot(int posX, int posY) override;
 	unique_ptr<ScoreHandler> createScoreHandler() override;
 	unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) override;
-	shared_ptr<WorldObjects> createWorld() override;
+	shared_ptr<WorldObjects> createWorld(int width, int height) override;
 	shared_ptr<Logic::PowerUp> createPowerUp(int posX, int posY, shared_ptr<Timer> timer) override;
 	shared_ptr<Logic::Cherry> createCherry(int posX, int posY, shared_ptr<ScoreHandler> score) override;
 	bool createWindow();

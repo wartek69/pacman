@@ -19,8 +19,8 @@ SDLCherry::~SDLCherry() {
 }
 
 void SDLCherry::visualize(int frame) {
-	SDLX = position.x * 24;
-	SDLY = position.y * 24;
+	SDLX = position.x * tileDimensions.width;
+	SDLY = position.y * tileDimensions.height;
 	SDLEntity::visualize();
 }
 

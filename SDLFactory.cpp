@@ -47,7 +47,6 @@ SDLFactory::SDLFactory() {
 			cout << "SDL setup succeeded" << endl;
 
 		}
-
 	}
 }
 /**
@@ -128,7 +127,7 @@ bool SDLFactory::init() {
 		}
 
 		//Create window
-		window = SDL_CreateWindow( "PacMan", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		window = SDL_CreateWindow( "PacMan", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, config.getScreenSize().width, config.getScreenSize().height, SDL_WINDOW_SHOWN );
 		if( window == NULL ) {
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
 			success = false;
@@ -203,7 +202,7 @@ bool SDLFactory::loadFromFile(string path) {
  */
 bool SDLFactory::loadSpriteSheet() {
 	bool success = true;
-	if(!loadFromFile("picture4.png")) {
+	if(!loadFromFile("picture6.png")) {
 		cout << "Failed to load pacman sprite from the system" << endl;
 		success = false;
 	}
@@ -250,7 +249,12 @@ unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
 	return make_unique<SDL::SDLMenu>(gRenderer, F);
 }
 
-shared_ptr<WorldObjects> SDLFactory::createWorld() {
+shared_ptr<WorldObjects> SDLFactory::createWorld(int width, int height) {
+	//first sets the tile width and height for every entity;
+	int tileWidth = config.getScreenSize().width/width;
+	int tileHeight = (config.getScreenSize().height - 50)/height;
+	SDLEntity::setTileDimensions(tileWidth, tileHeight);
+
 	return make_shared<SDLWorldObjects>(gRenderer);
 }
 

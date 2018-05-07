@@ -21,8 +21,8 @@ SDLPowerUp::~SDLPowerUp() {
 
 void SDLPowerUp::visualize(int frame) {
 	//TODO param the 24 and 5, do same in dot
-	SDLX = position.x * 24 + 5;
-	SDLY = position.y * 24 + 5;
+	SDLX = position.x * tileDimensions.width;
+	SDLY = position.y * tileDimensions.height;
 
 	//Blinking of the dot
 	if(frameCounter%16 == 0) {

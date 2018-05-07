@@ -10,7 +10,6 @@
 #include "Types.h"
 #include "Ghost.h"
 #include "InputHandler.h"
-#include "Map.h"
 #include <vector>
 #include "PowerUp.h"
 #include "Consumable.h"
@@ -22,20 +21,22 @@ Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 
 	countedFrames = 0; //used to calculate fps
 	score = F->createScoreHandler();
-	world = F->createWorld();
 	sound = F->createSoundManager();
 	//timer for the frightened mode
 	frightenedTimer = F->createTimer();
 	textHandler = F->createTextHandler();
 	Ghost::setMode(SCATTER);
-	loadMap();
+	Map gameMap;
+	cout << gameMap.getCols() << "  " << gameMap.getRows() << endl;
+	world = F->createWorld(gameMap.getCols(), gameMap.getRows());
+	loadMap(gameMap);
+
 }
 Game::~Game() {
 }
-void Game::loadMap() {
-	Map mapController;
-		for(int k = 0;k<mapController.getRows();k++) {
-			for(int l = 0;l<mapController.getCols();l++) {
+void Game::loadMap(Map mapController) {
+		for(int k = 0;k < mapController.getRows();k++) {
+			for(int l = 0;l < mapController.getCols();l++) {
 				int object = mapController.getValue(k,l);
 				if(object <= GATE && object >= HWALL) {
 					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
@@ -177,7 +178,6 @@ void Game::start(bool& repeat) {
 				bool bool1 = direction != (*it)->getDirection();
 				bool bool2 = (direction+(*it)->getDirection())%2 == 0;
 				if(pacman->checkCollision(**it) && bool1 && bool2) {
-					cout << "collision1" << endl;
 					if(Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
 					} else if(!(*it)->getEaten()) {
@@ -214,7 +214,6 @@ void Game::start(bool& repeat) {
 			//collision detection on ghosts after the pacman got moved!!
 			for(vector<shared_ptr<Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
 				if(pacman->checkCollision(**it)) {
-					cout << "collision2" << endl;
 					if(Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
 					} else if(!(*it)->getEaten()) {

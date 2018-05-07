@@ -11,7 +11,11 @@
 #include "Types.h"
 using namespace std;
 
+Size SDLEntity::tileDimensions = {};
+
+
 SDLEntity::SDLEntity(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet) {
+
 	this-> data = data;
 	//gets the coordinates to get the right sprite from the spritesheet
 	SDL_Rect clip ;
@@ -35,8 +39,13 @@ void SDLEntity::visualize() {
 	//SDL_RenderSetScale(gRenderer,1.5,1.5);
 	//Set rendering space and render to screen
 
-	SDL_Rect renderQuad = {SDLX, SDLY, currentSprite.w, currentSprite.h};
+	SDL_Rect renderQuad = {SDLX, SDLY, tileDimensions.width, tileDimensions.height};
 	SDL_RenderCopy(gRenderer, spriteSheet, &currentSprite, &renderQuad);
+}
 
+void SDLEntity::setTileDimensions(int width, int height) {
+	cout << width << "  " << height << endl;
+	SDLEntity::tileDimensions.width = width;
+	SDLEntity::tileDimensions.height = height;
 }
 

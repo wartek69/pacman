@@ -20,6 +20,7 @@ class ConfigParser {
 public:
 	ConfigParser();
 	Data searchElement(std::string query);
+	Size getScreenSize();
 	virtual ~ConfigParser();
 private:
 	tinyxml2::XMLDocument doc;

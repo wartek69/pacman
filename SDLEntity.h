@@ -22,6 +22,7 @@ public:
 	virtual ~SDLEntity();
 	//virtual void loadSprites() = 0;
 	void visualize();
+	static void setTileDimensions(int width, int height);
 protected:
 	int SDLX;
 	int SDLY;
@@ -29,6 +30,7 @@ protected:
 	SDL_Renderer* gRenderer;
 	SDL_Texture* spriteSheet;
 	Config::Data data;
+	static Size tileDimensions;
 
 };
 

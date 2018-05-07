@@ -62,9 +62,9 @@ void Map::loadMap(string fileName) {
 }
 
 void Map::printMap() {
-	for(int i = 0;i<20;i++) {
+	for(int i = 0;i<cols;i++) {
 		cout << endl;
-		for(int j = 0;j<26;j++) {
+		for(int j = 0;j<rows;j++) {
 			cout << map[i][j] << " ";
 		}
 	}
