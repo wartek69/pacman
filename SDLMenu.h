@@ -11,12 +11,14 @@
 #include "Menu.h"
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_TTF.h>
+#include "Types.h"
+
 
 namespace SDL {
 
 class SDLMenu: public Menu {
 public:
-	SDLMenu(SDL_Renderer *gRenderer, shared_ptr<AbstractFactory> F);
+	SDLMenu(SDL_Renderer *gRenderer, shared_ptr<AbstractFactory> F, Size screenSize);
 	virtual ~SDLMenu();
 	void loadFont();
 	void visualize();
@@ -27,6 +29,7 @@ private:
 	TTF_Font *gFont;
 	SDL_Renderer* gRenderer;
 	int currentSelection;
+	Size screenSize;
 };
 
 } /* namespace SDL */

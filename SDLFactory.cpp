@@ -246,7 +246,7 @@ unique_ptr<ScoreHandler> SDLFactory::createScoreHandler() {
 }
 
 unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
-	return make_unique<SDL::SDLMenu>(gRenderer, F);
+	return make_unique<SDL::SDLMenu>(gRenderer, F, config.getScreenSize());
 }
 
 shared_ptr<WorldObjects> SDLFactory::createWorld(int width, int height) {

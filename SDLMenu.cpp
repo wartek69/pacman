@@ -10,14 +10,14 @@
 #include <SDL2\SDL_TTF.h>
 #include <sstream>
 #include <iostream>
-#include "Types.h"
 
 namespace SDL {
 
-SDLMenu::SDLMenu(SDL_Renderer* gRenderer, shared_ptr<AbstractFactory> F): Menu(F) {
+SDLMenu::SDLMenu(SDL_Renderer* gRenderer, shared_ptr<AbstractFactory> F, Size screenSize): Menu(F) {
 	currentSelection = 0;
 	this->gRenderer = gRenderer;
 	loadFont();
+	this->screenSize = screenSize;
 }
 
 SDLMenu::~SDLMenu() {
@@ -41,9 +41,13 @@ void SDLMenu::visualize() {
 		temp[2] << " Credits";
 		temp[3] << " Exit";
 		temp[currentSelection].str("-" + temp[currentSelection].str());
-		SDL_Rect renderQuad = {220, 100, 200, 80};
-		for(int i = 0;i<4; i++) {
-			renderQuad.y = 100+80*i;
+		//SDL_Rect renderQuad = {220, 100, 200, 80};
+		//the position and size of the menu is related to the screen size and width
+		int textWidth = screenSize.width/3;
+		int textHeight = screenSize.height/7;
+		SDL_Rect renderQuad = {screenSize.width/2 - textWidth/2, screenSize.height - textHeight/2, textWidth, textHeight};
+		for(int i = 0;i < 4; i++) {
+			renderQuad.y = screenSize.height/5 + screenSize.height/6 * i;
 			renderStaticText(temp[i], renderQuad);
 		}
 }
