@@ -19,13 +19,20 @@ public:
 	virtual ~SDLSoundManager();
 	void LoadMusic();
 	void close();
-	void eatFruit();
+	void eatFruit() override;
 	void munch() override;
+	void die() override;
+	void eatGhost() override;
+	void win() override;
+	void menu() override;
+	void stopMusic() override;
 private:
 	Mix_Chunk* munchSound;
 	Mix_Chunk* fruit;
 	Mix_Chunk* ghost;
-	Mix_Chunk* intro;
+	Mix_Music* intro;
+	Mix_Chunk* death;
+	Mix_Chunk* winSound;
 };
 
 } /* namespace SDL */

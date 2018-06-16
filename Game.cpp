@@ -138,7 +138,7 @@ void Game::start(bool& repeat) {
 		capTimer->startTimer();
 		//calculate fps
 		FPS =  countedFrames / (FPSTimer->getTimePassed()/ 1000. );
-		//cout << "FPS: " << FPS << endl;
+		cout << "FPS: " << FPS << endl;
 
 
 		/////////////// VISUAL ASPECTS
@@ -180,6 +180,7 @@ void Game::start(bool& repeat) {
 				if(pacman->checkCollision(**it) && bool1 && bool2) {
 					if(Logic::Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
+						sound->eatGhost();
 					} else if(!(*it)->getEaten()) {
 						gameOver = true;
 						quit = true;
@@ -202,12 +203,12 @@ void Game::start(bool& repeat) {
 					pacman->move(previousDirection, 0);
 				}else {
 					pacman->move(previousDirection, velocity);
-					sound->munch();
+					//sound->munch();
 				}
 			} else {
 				previousDirection = direction;
 				pacman->move(direction, velocity);
-				sound->munch();
+				//sound->munch();
 
 			}
 
@@ -216,6 +217,7 @@ void Game::start(bool& repeat) {
 				if(pacman->checkCollision(**it)) {
 					if(Logic::Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
+							sound->eatGhost();
 					} else if(!(*it)->getEaten()) {
 						gameOver = true;
 						quit = true;
@@ -228,6 +230,8 @@ void Game::start(bool& repeat) {
 			//////COLLISION DETECTION ON DOTS
 			for(vector<shared_ptr<Logic::Dot>>::iterator it = dots.begin(); it != dots.end();) {
 				if(pacman->checkCollision(**it)) {
+					sound->munch();
+
 					score->addScore();
 					//remove the dot from all the collections that it is in
 					world->remove(*it);
@@ -285,6 +289,7 @@ void Game::start(bool& repeat) {
 		}
 	}
 	if(win) {
+		sound->win();
 		do {
 			quit = false;
 			textHandler->renderText("You win!");
@@ -292,6 +297,8 @@ void Game::start(bool& repeat) {
 			iHandler->handleEndScreen(quit,repeat);
 		}while(quit == false);
 	} else if(gameOver) {
+		sound->die();
+
 		while(pacman->die()) {
 			//pacman dying
 			world->visualize(score);

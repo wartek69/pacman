@@ -16,6 +16,11 @@ public:
 	virtual ~SoundManager();
 	virtual void munch() = 0;
 	virtual void eatFruit() = 0;
+	virtual void die() = 0;
+	virtual void eatGhost() = 0;
+	virtual void win() = 0;
+	virtual void menu() = 0;
+	virtual void stopMusic() = 0;
 };
 
 } /* namespace Logic */
