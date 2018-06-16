@@ -13,8 +13,9 @@
 
 namespace SDL {
 
-SDLScoreHandler::SDLScoreHandler(SDL_Renderer* gRenderer) {
+SDLScoreHandler::SDLScoreHandler(SDL_Renderer* gRenderer, Size screenSize) {
 	this->gRenderer = gRenderer;
+	this->screenSize = screenSize;
 	loadFont();
 }
 
@@ -29,7 +30,9 @@ void SDLScoreHandler::visualize() {
     SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, temp.str().c_str(), textColor );
     SDL_Texture* mTexture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
     SDL_FreeSurface(textSurface);
-	SDL_Rect renderQuad = {590, 480, 50, 50};
+	//SDL_Rect renderQuad = {590, 480, 50, 50};
+    SDL_Rect renderQuad = {screenSize.width-screenSize.width/10, screenSize.height - screenSize.height/12, screenSize.width/15, screenSize.height/15 };
+
     SDL_RenderCopy(gRenderer, mTexture, NULL, &renderQuad );
     SDL_DestroyTexture(mTexture);
     //TODO somewhere in here there is a memory leak I suppose

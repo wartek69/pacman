@@ -19,7 +19,10 @@ SDLMovingEntity::SDLMovingEntity(Config::Data data, SDL_Renderer* gRenderer, SDL
 SDLMovingEntity::~SDLMovingEntity() {
 
 }
-
+/**
+ * This function translates the game world coordinates to sdl coordinates
+ * it takes in consideration the screen size, the game world grid size and the amount of frames that we delay our world with(frameDelay).
+ */
 void SDLMovingEntity::visualize(int posX, int posY, int vel, int dir, int frame) {
 	//TODO change the currentsprite h and w to another variable that contains the value of screenwidth/amounts of rows--> how to get these parameters here??
 	int velFactor = 0;

@@ -11,8 +11,9 @@
 #include <SDL2\SDL_TTF.h>
 namespace SDL {
 
-SDLTextHandler::SDLTextHandler(SDL_Renderer* gRenderer) {
+SDLTextHandler::SDLTextHandler(SDL_Renderer* gRenderer, Size screenSize) {
 	this->gRenderer = gRenderer;
+	this->screenSize = screenSize;
 	loadFont();
 }
 
@@ -35,7 +36,10 @@ void SDLTextHandler::close() {
 void SDLTextHandler::renderText(std::string text) {
 	SDL_Color textColor = {255, 255, 255 }; //white
 	//TODO param the renderquad?
-	SDL_Rect renderQuad = {230, 200, 160, 80};
+	//SDL_Rect renderQuad = {230, 200, 160, 80};
+	int textWidth = screenSize.width/3;
+	int textHeight = screenSize.height/7;
+	SDL_Rect renderQuad= {screenSize.width/2 - textWidth/2, screenSize.height/2-textHeight , textWidth, textHeight};
 	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, text.c_str(), textColor );
 	SDL_Texture* mTexture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
 

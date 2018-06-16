@@ -10,12 +10,13 @@
 
 #include "TextHandler.h"
 #include <SDL2\SDL_TTF.h>
+#include "types.h"
 
 namespace SDL {
 
 class SDLTextHandler: public Logic::TextHandler {
 public:
-	SDLTextHandler(SDL_Renderer* gRenderer);
+	SDLTextHandler(SDL_Renderer* gRenderer, Size screenSize);
 	virtual ~SDLTextHandler();
 	void renderText(std::string text) override;
 private:
@@ -23,6 +24,7 @@ private:
 	void close();
 	TTF_Font *gFont;
 	SDL_Renderer* gRenderer;
+	Size screenSize;
 
 };
 

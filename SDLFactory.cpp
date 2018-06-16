@@ -242,7 +242,7 @@ unique_ptr<InputHandler> SDLFactory::createInputHandler(shared_ptr<Pacman> handl
 }
 
 unique_ptr<ScoreHandler> SDLFactory::createScoreHandler() {
-	return make_unique<SDL::SDLScoreHandler>(gRenderer);
+	return make_unique<SDL::SDLScoreHandler>(gRenderer, config.getScreenSize());
 }
 
 unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
@@ -263,5 +263,5 @@ unique_ptr<Logic::SoundManager> SDLFactory::createSoundManager() {
 }
 
 unique_ptr<Logic::TextHandler> SDLFactory::createTextHandler() {
-	return make_unique<SDL::SDLTextHandler>(gRenderer);
+	return make_unique<SDL::SDLTextHandler>(gRenderer, config.getScreenSize());
 }
