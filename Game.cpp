@@ -16,8 +16,8 @@
 #include <iostream>
 using namespace std;
 
-
-Game::Game(shared_ptr<AbstractFactory> F): F(F) {
+namespace Logic {
+Game::Game(shared_ptr<Logic::AbstractFactory> F): F(F) {
 
 	countedFrames = 0; //used to calculate fps
 	score = F->createScoreHandler();
@@ -25,8 +25,8 @@ Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 	//timer for the frightened mode
 	frightenedTimer = F->createTimer();
 	textHandler = F->createTextHandler();
-	Ghost::setMode(SCATTER);
-	Map gameMap;
+	Logic::Ghost::setMode(SCATTER);
+	Logic::Map gameMap;
 	cout << gameMap.getCols() << "  " << gameMap.getRows() << endl;
 	world = F->createWorld(gameMap.getCols(), gameMap.getRows());
 	loadMap(gameMap);
@@ -34,12 +34,12 @@ Game::Game(shared_ptr<AbstractFactory> F): F(F) {
 }
 Game::~Game() {
 }
-void Game::loadMap(Map mapController) {
+void Game::loadMap(Logic::Map mapController) {
 		for(int k = 0;k < mapController.getRows();k++) {
 			for(int l = 0;l < mapController.getCols();l++) {
 				int object = mapController.getValue(k,l);
 				if(object <= GATE && object >= HWALL) {
-					shared_ptr<Wall> tempWall = F->createWall(l, k, object);
+					shared_ptr<Logic::Wall> tempWall = F->createWall(l, k, object);
 					if(object == GATE)
 						world->addGate(tempWall);
 					world->add(tempWall);
@@ -51,7 +51,7 @@ void Game::loadMap(Map mapController) {
 					world->add(pacman);
 					world->addPacman(pacman);
 				} else if (object >= RGHOST && object <= BGHOST) {
-					shared_ptr<Ghost> tempGhost = F->createGhost(l, k, object, world);
+					shared_ptr<Logic::Ghost> tempGhost = F->createGhost(l, k, object, world);
 					if(object == RGHOST) {
 						redGhost = tempGhost;
 					} else if( object == BGHOST) {
@@ -66,7 +66,7 @@ void Game::loadMap(Map mapController) {
 					world->add(tempGhost);
 					world->addGhost(tempGhost);
 				} else if (object == DOT) {
-					shared_ptr<Dot> tempDot = F->createDot(l, k);
+					shared_ptr<Logic::Dot> tempDot = F->createDot(l, k);
 					world->add(tempDot);
 					world->addDot(tempDot);
 				} else if(object == POWERUP) {
@@ -86,31 +86,31 @@ void Game::loadMap(Map mapController) {
  * This functions checks collision for pacman
  */
 bool Game::pacCollision(int inputBuffer, int velocity) {
-	pacman->MovingEntity::place(inputBuffer, velocity);
-	std::vector<shared_ptr<Wall>> walls = world->getWalls();
+	pacman->Logic::MovingEntity::place(inputBuffer, velocity);
+	std::vector<shared_ptr<Logic::Wall>> walls = world->getWalls();
 	//checks collision with walls
-	for(shared_ptr<Wall> wall : walls) {
+	for(shared_ptr<Logic::Wall> wall : walls) {
 		if(pacman->checkCollision(*wall)) {
 			//if there is a collision move the pacman back to it's initial position
 			//use the base class for this so that the animations stay correct
-			pacman->MovingEntity::place(inputBuffer, -velocity);
+			pacman->Logic::MovingEntity::place(inputBuffer, -velocity);
 			return true;
 		}
 	}
-	pacman->MovingEntity::place(inputBuffer, -velocity);
+	pacman->Logic::MovingEntity::place(inputBuffer, -velocity);
 	return false;
 }
 void Game::start(bool& repeat) {
 	bool win = false;
 	bool gameOver = false;
-	vector<shared_ptr<Dot>>& dots = world->getDots();
-	vector<shared_ptr<Ghost>>& ghosts = world->getGhosts();
+	vector<shared_ptr<Logic::Dot>>& dots = world->getDots();
+	vector<shared_ptr<Logic::Ghost>>& ghosts = world->getGhosts();
 	vector<shared_ptr<Logic::Consumable>>& consumables = world->getConsumables();
 	//creates the needed instrument using factory
-	unique_ptr<Timer> capTimer = F->createTimer();
-	unique_ptr<Timer> FPSTimer = F->createTimer();
+	unique_ptr<Logic::Timer> capTimer = F->createTimer();
+	unique_ptr<Logic::Timer> FPSTimer = F->createTimer();
 	//timer that is used to switch the ghosts between different modes
-	unique_ptr<Timer> ghostTimer = F->createTimer();
+	unique_ptr<Logic::Timer> ghostTimer = F->createTimer();
 
 	//starts up timer
 	FPSTimer->startTimer();
@@ -178,7 +178,7 @@ void Game::start(bool& repeat) {
 				bool bool1 = direction != (*it)->getDirection();
 				bool bool2 = (direction+(*it)->getDirection())%2 == 0;
 				if(pacman->checkCollision(**it) && bool1 && bool2) {
-					if(Ghost::getMode() == FRIGHTENED) {
+					if(Logic::Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
 					} else if(!(*it)->getEaten()) {
 						gameOver = true;
@@ -212,9 +212,9 @@ void Game::start(bool& repeat) {
 			}
 
 			//collision detection on ghosts after the pacman got moved!!
-			for(vector<shared_ptr<Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
+			for(vector<shared_ptr<Logic::Ghost>>::iterator it = ghosts.begin();it != ghosts.end();) {
 				if(pacman->checkCollision(**it)) {
-					if(Ghost::getMode() == FRIGHTENED) {
+					if(Logic::Ghost::getMode() == FRIGHTENED) {
 						(*it)->setEaten(true);
 					} else if(!(*it)->getEaten()) {
 						gameOver = true;
@@ -226,7 +226,7 @@ void Game::start(bool& repeat) {
 					it++;
 			}
 			//////COLLISION DETECTION ON DOTS
-			for(vector<shared_ptr<Dot>>::iterator it = dots.begin(); it != dots.end();) {
+			for(vector<shared_ptr<Logic::Dot>>::iterator it = dots.begin(); it != dots.end();) {
 				if(pacman->checkCollision(**it)) {
 					score->addScore();
 					//remove the dot from all the collections that it is in
@@ -259,23 +259,23 @@ void Game::start(bool& repeat) {
 		}
 		//resets the captimer
 		capTimer->stopTimer();
-		if(ghostTimer->getTimePassed() > 7000 && Ghost::getMode() == SCATTER) {
-			Ghost::setMode(CHASE);
+		if(ghostTimer->getTimePassed() > 7000 && Logic::Ghost::getMode() == SCATTER) {
+			Logic::Ghost::setMode(CHASE);
 			ghostTimer->startTimer();
-		} else if(ghostTimer->getTimePassed() > 20000 && Ghost::getMode() == CHASE) {
-			Ghost::setMode(SCATTER);
+		} else if(ghostTimer->getTimePassed() > 20000 && Logic::Ghost::getMode() == CHASE) {
+			Logic::Ghost::setMode(SCATTER);
 			ghostTimer->startTimer();
-		} else if(Ghost::getMode() == FRIGHTENED && frightenedTimer->isRunning()) {
+		} else if(Logic::Ghost::getMode() == FRIGHTENED && frightenedTimer->isRunning()) {
 			if(frightenedTimer->getTimePassed() > 7000) {
 				frightenedTimer->stopTimer();
-				Ghost::setBlink(false);
-				Ghost::setMode(CHASE);
+				Logic::Ghost::setBlink(false);
+				Logic::Ghost::setMode(CHASE);
 				ghostTimer->startTimer();
 			} else if(frightenedTimer->getTimePassed() > 4000) {
 				//Time is running out
-				Ghost::setBlink(true);
+				Logic::Ghost::setBlink(true);
 			} else
-				Ghost::setBlink(false);
+				Logic::Ghost::setBlink(false);
 		}
 		//resets timer every 5sec to keep the fps measurements precise
 		if(FPSTimer->getTimePassed() > 5000) {
@@ -306,4 +306,5 @@ void Game::start(bool& repeat) {
 		}while(quit == false);
 	}
 
+}
 }
