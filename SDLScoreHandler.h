@@ -14,7 +14,7 @@
 
 namespace SDL {
 
-class SDLScoreHandler: public ScoreHandler {
+class SDLScoreHandler: public Logic::ScoreHandler {
 public:
 	SDLScoreHandler(SDL_Renderer* gRenderer, Size screenSize);
 	virtual ~SDLScoreHandler();

@@ -18,9 +18,9 @@ using namespace std;
 
 int main( int argc, char* args[] ) {
 	//AbstractFactory *F = new SDLFactory();
-	shared_ptr<AbstractFactory> F = make_shared<SDLFactory>();
+	shared_ptr<Logic::AbstractFactory> F = make_shared<SDL::SDLFactory>();
 	bool quit = false ;
-	unique_ptr<Menu> menu = F->createMenu(F);
+	unique_ptr<Logic::Menu> menu = F->createMenu(F);
 	while(!quit) {
 		F->clearScreen();
 		menu->interact(quit);

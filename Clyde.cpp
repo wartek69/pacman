@@ -11,7 +11,7 @@
 
 namespace Logic {
 
-Clyde::Clyde(int posX, int posY, shared_ptr<WorldObjects> world): Ghost(posX, posY, world) {
+Clyde::Clyde(int posX, int posY, shared_ptr<Logic::WorldObjects> world): Logic::Ghost(posX, posY, world) {
 
 
 }
@@ -24,12 +24,12 @@ Clyde::~Clyde() {
  * else he should do the same as blinky
  * when scattering clyde should go to the left bottom corner
  */
-void Clyde::findPath(const MovingEntity& entity) {
+void Clyde::findPath(const Logic::MovingEntity& entity) {
 	int posGoalX = 0;
 	int posGoalY = 0;
 	if(this->eaten) {
-		Ghost::decidePath(posGoalX, posGoalY);
-	}else if(Ghost::mode == CHASE) {
+		Logic::Ghost::decidePath(posGoalX, posGoalY);
+	}else if(Logic::Ghost::mode == CHASE) {
 		//distance  to entity < 8
 		if(sqrt(pow((entity.getPositionX() - this->position.x), 2.0) + pow((entity.getPositionY() - this->position.y), 2.0)) < 8) {
 			//scatter
@@ -40,14 +40,14 @@ void Clyde::findPath(const MovingEntity& entity) {
 			posGoalX = entity.getPositionX();
 			posGoalY = entity.getPositionY();
 		}
-		Ghost::decidePath(posGoalX, posGoalY);
+		Logic::Ghost::decidePath(posGoalX, posGoalY);
 
 	} else if(Ghost::mode == SCATTER) {
 		posGoalX = 1;
 		posGoalY = 10000;
-		Ghost::decidePath(posGoalX, posGoalY);
-	} else if(Ghost::mode == FRIGHTENED) {
-		Ghost::frighten();
+		Logic::Ghost::decidePath(posGoalX, posGoalY);
+	} else if(Logic::Ghost::mode == FRIGHTENED) {
+		Logic::Ghost::frighten();
 	}
 
 }

@@ -35,7 +35,7 @@
 
 
 using namespace std;
-
+namespace SDL {
 
 SDLFactory::SDLFactory() {
 	if(!init()) {
@@ -69,7 +69,7 @@ SDLFactory::~SDLFactory() {
 	close();
 }
 
-shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type, shared_ptr<WorldObjects> world) {
+shared_ptr<Logic::Ghost> SDLFactory::createGhost(int posX, int posY, int type, shared_ptr<Logic::WorldObjects> world) {
 	switch(type) {
 	case RGHOST:
 		return make_shared<SDL::SDLBlinky>(config.searchElement("Blinky"), gRenderer, spriteSheet, posX, posY, world);
@@ -88,23 +88,23 @@ shared_ptr<Ghost> SDLFactory::createGhost(int posX, int posY, int type, shared_p
 	return NULL;
 }
 
-shared_ptr<Pacman> SDLFactory::createPacman(int posX, int posY) {
-	return make_shared<SDLPacman>(config.searchElement("Pacman"), gRenderer, spriteSheet, posX, posY);
+shared_ptr<Logic::Pacman> SDLFactory::createPacman(int posX, int posY) {
+	return make_shared<SDL::SDLPacman>(config.searchElement("Pacman"), gRenderer, spriteSheet, posX, posY);
 }
 
-shared_ptr<Wall> SDLFactory::createWall(int posX, int posY, int type) {
-	return make_shared<SDLWall>(config.searchElement("Wall"), gRenderer, spriteSheet, posX, posY,type);
+shared_ptr<Logic::Wall> SDLFactory::createWall(int posX, int posY, int type) {
+	return make_shared<SDL::SDLWall>(config.searchElement("Wall"), gRenderer, spriteSheet, posX, posY,type);
 }
 
-shared_ptr<Dot> SDLFactory::createDot(int posX, int posY) {
-	return make_shared<SDLDot>(config.searchElement("Dot"), gRenderer, spriteSheet, posX, posY);
+shared_ptr<Logic::Dot> SDLFactory::createDot(int posX, int posY) {
+	return make_shared<SDL::SDLDot>(config.searchElement("Dot"), gRenderer, spriteSheet, posX, posY);
 }
 
-shared_ptr<Logic::PowerUp> SDLFactory::createPowerUp(int posX, int posY, shared_ptr<Timer> timer) {
+shared_ptr<Logic::PowerUp> SDLFactory::createPowerUp(int posX, int posY, shared_ptr<Logic::Timer> timer) {
 	return make_shared<SDL::SDLPowerUp>(config.searchElement("PowerUp"), gRenderer, spriteSheet, posX, posY, timer);
 }
 
-shared_ptr<Logic::Cherry> SDLFactory::createCherry(int posX, int posY, shared_ptr<ScoreHandler> score) {
+shared_ptr<Logic::Cherry> SDLFactory::createCherry(int posX, int posY, shared_ptr<Logic::ScoreHandler> score) {
 	return make_shared<SDL::SDLCherry>(config.searchElement("Cherry"), gRenderer, spriteSheet, posX, posY, score);
 }
 
@@ -233,29 +233,29 @@ void SDLFactory::close() {
 	SDL_Quit();
 }
 
-unique_ptr<Timer> SDLFactory::createTimer() {
-	return make_unique<SDLTimer>();
+unique_ptr<Logic::Timer> SDLFactory::createTimer() {
+	return make_unique<SDL::SDLTimer>();
 }
 
-unique_ptr<InputHandler> SDLFactory::createInputHandler(shared_ptr<Pacman> handleObject) {
-	return make_unique<SDLInputHandler>(handleObject);
+unique_ptr<Logic::InputHandler> SDLFactory::createInputHandler(shared_ptr<Logic::Pacman> handleObject) {
+	return make_unique<SDL::SDLInputHandler>(handleObject);
 }
 
-unique_ptr<ScoreHandler> SDLFactory::createScoreHandler() {
+unique_ptr<Logic::ScoreHandler> SDLFactory::createScoreHandler() {
 	return make_unique<SDL::SDLScoreHandler>(gRenderer, config.getScreenSize());
 }
 
-unique_ptr<Menu> SDLFactory::createMenu(shared_ptr<AbstractFactory> F) {
+unique_ptr<Logic::Menu> SDLFactory::createMenu(shared_ptr<Logic::AbstractFactory> F) {
 	return make_unique<SDL::SDLMenu>(gRenderer, F, config.getScreenSize());
 }
 
-shared_ptr<WorldObjects> SDLFactory::createWorld(int width, int height) {
+shared_ptr<Logic::WorldObjects> SDLFactory::createWorld(int width, int height) {
 	//first sets the tile width and height for every entity;
 	int tileWidth = config.getScreenSize().width/width;
 	int tileHeight = (config.getScreenSize().height - 50)/height;
-	SDLEntity::setTileDimensions(tileWidth, tileHeight);
+	SDL::SDLEntity::setTileDimensions(tileWidth, tileHeight);
 
-	return make_shared<SDLWorldObjects>(gRenderer);
+	return make_shared<SDL::SDLWorldObjects>(gRenderer);
 }
 
 unique_ptr<Logic::SoundManager> SDLFactory::createSoundManager() {
@@ -264,4 +264,5 @@ unique_ptr<Logic::SoundManager> SDLFactory::createSoundManager() {
 
 unique_ptr<Logic::TextHandler> SDLFactory::createTextHandler() {
 	return make_unique<SDL::SDLTextHandler>(gRenderer, config.getScreenSize());
+}
 }

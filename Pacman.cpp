@@ -7,12 +7,13 @@
 
 #include "Pacman.h"
 #include "MovingEntity.h"
-
-Pacman::Pacman(int posX,int posY): MovingEntity(posX, posY, 1, 1) {
+namespace Logic {
+Pacman::Pacman(int posX,int posY): Logic::MovingEntity(posX, posY, 1, 1) {
 
 }
 
 Pacman::~Pacman() {
 
+}
 }
 

@@ -23,6 +23,8 @@
 #include "TextHandler.h"
 
 //needed to break cyclic redundancy
+
+namespace Logic {
 class Menu;
 
 class AbstractFactory {
@@ -43,8 +45,8 @@ public:
 	virtual unique_ptr<ScoreHandler> createScoreHandler() = 0;
 	virtual unique_ptr<Logic::SoundManager> createSoundManager() = 0;
 	virtual unique_ptr<Logic::TextHandler> createTextHandler() = 0;
-	virtual unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) = 0;
+	virtual unique_ptr<Logic::Menu> createMenu(shared_ptr<Logic::AbstractFactory> F) = 0;
 	virtual shared_ptr<WorldObjects> createWorld(int width, int height) = 0;
 };
-
+}
 #endif /* ABSTRACTFACTORY_H_ */

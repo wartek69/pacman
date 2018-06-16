@@ -6,7 +6,7 @@
  */
 
 #include "ScoreHandler.h"
-
+namespace Logic {
 ScoreHandler::ScoreHandler() {
 	score = 0;
 }
@@ -29,4 +29,5 @@ int ScoreHandler::getScore() {
 
 void ScoreHandler::add(int amount) {
 	score = score + amount;
+}
 }

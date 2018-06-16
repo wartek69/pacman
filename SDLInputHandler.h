@@ -10,10 +10,10 @@
 
 #include "InputHandler.h"
 #include <memory>
-
-class SDLInputHandler: public InputHandler {
+namespace SDL {
+class SDLInputHandler: public Logic::InputHandler {
 public:
-	SDLInputHandler(std::shared_ptr<Pacman> handleObject);
+	SDLInputHandler(std::shared_ptr<Logic::Pacman> handleObject);
 	virtual ~SDLInputHandler();
 	void handleInput(bool& quit, int& direction,int& velocity);
 	void handleEndScreen(bool& quit, bool& repeat);
@@ -21,5 +21,5 @@ public:
 private:
 
 };
-
+}
 #endif /* SDLINPUTHANDLER_H_ */

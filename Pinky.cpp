@@ -10,7 +10,7 @@
 
 namespace Logic {
 
-Pinky::Pinky(int posX, int posY, shared_ptr<WorldObjects> world) : Ghost(posX, posY, world){
+Pinky::Pinky(int posX, int posY, shared_ptr<WorldObjects> world) : Logic::Ghost(posX, posY, world){
 
 }
 
@@ -20,7 +20,7 @@ Pinky::~Pinky() {
  * pinky targets a tile 4 tiles before pacman
  * in scatter mode he goes to the left upper corner
  */
-void Pinky::findPath(const MovingEntity& entity) {
+void Pinky::findPath(const Logic::MovingEntity& entity) {
 	int posGoalX = 0;
 	int posGoalY = 0;
 	if(this->eaten) {

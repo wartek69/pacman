@@ -14,11 +14,11 @@ namespace Logic {
 /**
  * orange ghost
  */
-class Clyde: public Ghost {
+class Clyde: public Logic::Ghost {
 public:
-	Clyde(int posX, int posY, shared_ptr<WorldObjects> world);
+	Clyde(int posX, int posY, shared_ptr<Logic::WorldObjects> world);
 	virtual ~Clyde();
-	void findPath(const MovingEntity& entity) override;
+	void findPath(const Logic::MovingEntity& entity) override;
 };
 
 } /* namespace Logic */

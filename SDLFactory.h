@@ -17,28 +17,28 @@
 #include <memory>
 #include "ConfigParser.h"
 
-
-class SDLFactory: public AbstractFactory {
+namespace SDL {
+class SDLFactory: public Logic::AbstractFactory {
 public:
 	SDLFactory();
 	virtual ~SDLFactory();
-	shared_ptr<Ghost> createGhost(int posX, int posY, int type, shared_ptr<WorldObjects> world) override;
-	shared_ptr<Pacman> createPacman(int posX, int posY) override;
-	unique_ptr<Timer> createTimer() override;
-	shared_ptr<Wall> createWall(int posX, int posY, int type) override;
-	shared_ptr<Dot> createDot(int posX, int posY) override;
-	unique_ptr<ScoreHandler> createScoreHandler() override;
-	unique_ptr<Menu> createMenu(shared_ptr<AbstractFactory> F) override;
-	shared_ptr<WorldObjects> createWorld(int width, int height) override;
-	shared_ptr<Logic::PowerUp> createPowerUp(int posX, int posY, shared_ptr<Timer> timer) override;
-	shared_ptr<Logic::Cherry> createCherry(int posX, int posY, shared_ptr<ScoreHandler> score) override;
+	shared_ptr<Logic::Ghost> createGhost(int posX, int posY, int type, shared_ptr<Logic::WorldObjects> world) override;
+	shared_ptr<Logic::Pacman> createPacman(int posX, int posY) override;
+	unique_ptr<Logic::Timer> createTimer() override;
+	shared_ptr<Logic::Wall> createWall(int posX, int posY, int type) override;
+	shared_ptr<Logic::Dot> createDot(int posX, int posY) override;
+	unique_ptr<Logic::ScoreHandler> createScoreHandler() override;
+	unique_ptr<Logic::Menu> createMenu(shared_ptr<Logic::AbstractFactory> F) override;
+	shared_ptr<Logic::WorldObjects> createWorld(int width, int height) override;
+	shared_ptr<Logic::PowerUp> createPowerUp(int posX, int posY, shared_ptr<Logic::Timer> timer) override;
+	shared_ptr<Logic::Cherry> createCherry(int posX, int posY, shared_ptr<Logic::ScoreHandler> score) override;
 	bool createWindow();
 	bool loadSpriteSheet();
 	bool loadFromFile(string path);
 	void close();
 	void clearScreen() override;
 	void showScreen() override;
-	unique_ptr<InputHandler> createInputHandler(shared_ptr<Pacman> handleObject) override;
+	unique_ptr<Logic::InputHandler> createInputHandler(shared_ptr<Logic::Pacman> handleObject) override;
 	unique_ptr<Logic::SoundManager> createSoundManager() override;
 	unique_ptr<Logic::TextHandler> createTextHandler() override;
 
@@ -52,5 +52,5 @@ private:
 	SDL_Texture* spriteSheet;
 	Config::ConfigParser config;
 };
-
+}
 #endif /* SDLFACTORY_H_ */

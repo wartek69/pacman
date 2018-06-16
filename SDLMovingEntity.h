@@ -11,7 +11,7 @@
 #include "SDLEntity.h"
 
 namespace SDL {
-class SDLMovingEntity: public SDLEntity {
+class SDLMovingEntity: public SDL::SDLEntity {
 public:
 	SDLMovingEntity(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet);
 	virtual ~SDLMovingEntity();

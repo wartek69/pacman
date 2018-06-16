@@ -10,12 +10,12 @@
 
 #include "MovingEntity.h"
 
-
-class Pacman: public MovingEntity {
+namespace Logic {
+class Pacman: public Logic::MovingEntity {
 public:
 	Pacman(int posX, int posY);
 	virtual ~Pacman();
 	virtual bool die() = 0;
 };
-
+}
 #endif /* PACMAN_H_ */

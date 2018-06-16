@@ -10,7 +10,7 @@
 
 #include "Pacman.h"
 #include <memory>
-
+namespace Logic {
 class InputHandler {
 public:
 	InputHandler(std::shared_ptr<Pacman> handleObject);
@@ -20,5 +20,5 @@ public:
 protected:
 	std::shared_ptr<Pacman> handleObject;
 };
-
+}
 #endif /* INPUTHANDLER_H_ */

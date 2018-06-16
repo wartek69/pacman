@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Types.h"
 using namespace std;
-
+namespace SDL {
 Size SDLEntity::tileDimensions = {};
 
 
@@ -49,3 +49,4 @@ void SDLEntity::setTileDimensions(int width, int height) {
 	SDLEntity::tileDimensions.height = height;
 }
 
+}

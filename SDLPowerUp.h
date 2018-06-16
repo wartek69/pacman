@@ -13,9 +13,9 @@
 
 namespace SDL {
 
-class SDLPowerUp: public Logic::PowerUp, public SDLEntity {
+class SDLPowerUp: public Logic::PowerUp, public SDL::SDLEntity {
 public:
-	SDLPowerUp(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<Timer> timer);
+	SDLPowerUp(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<Logic::Timer> timer);
 	virtual ~SDLPowerUp();
 	void visualize(int frame) override;
 private:

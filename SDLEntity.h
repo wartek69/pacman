@@ -11,6 +11,7 @@
 #include "Entity.h"
 #include <SDL2/SDL.H>
 #include "Data.h"
+namespace SDL {
 /**
  * every sdl instance will make use of a renderer and spritesheet
  * the currentsprite is needed to make
@@ -33,5 +34,5 @@ protected:
 	static Size tileDimensions;
 
 };
-
+}
 #endif /* SDLENTITY_H_ */

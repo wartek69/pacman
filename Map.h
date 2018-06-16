@@ -9,7 +9,7 @@
 #define MAP_H_
 #include <string>
 #include <vector>
-
+namespace Logic {
 class Map {
 public:
 	Map();
@@ -27,5 +27,5 @@ private:
 	int cols;
 
 };
-
+}
 #endif /* MAP_H_ */

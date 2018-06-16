@@ -16,7 +16,7 @@ class WorldObjects;
 
 using namespace std;
 
-
+namespace Logic {
 class Ghost: public MovingEntity {
 public:
 	Ghost(int posX, int posY, shared_ptr<WorldObjects> world);
@@ -50,5 +50,5 @@ private:
 	Ghost();
 
 };
-
+}
 #endif /* GHOST_H_ */

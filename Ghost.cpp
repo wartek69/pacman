@@ -18,7 +18,7 @@
 #include <Time.h>
 
 using namespace std;
-
+namespace Logic {
 int Ghost::mode = SCATTER;
 bool Ghost::blink = false;
 
@@ -196,4 +196,5 @@ void Ghost::isSpawning(bool flag) {
 
 bool Ghost::getSpawnStatus() {
 	return spawnStatus;
+}
 }

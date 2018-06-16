@@ -16,9 +16,9 @@
 
 namespace SDL {
 
-class SDLMenu: public Menu {
+class SDLMenu: public Logic::Menu {
 public:
-	SDLMenu(SDL_Renderer *gRenderer, shared_ptr<AbstractFactory> F, Size screenSize);
+	SDLMenu(SDL_Renderer *gRenderer, shared_ptr<Logic::AbstractFactory> F, Size screenSize);
 	virtual ~SDLMenu();
 	void loadFont();
 	void visualize();

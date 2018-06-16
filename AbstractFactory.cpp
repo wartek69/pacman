@@ -7,12 +7,13 @@
 
 #include "AbstractFactory.h"
 
-
+namespace Logic {
 AbstractFactory::AbstractFactory() {
 
 }
 
 AbstractFactory::~AbstractFactory() {
 
+}
 }
 

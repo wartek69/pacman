@@ -9,11 +9,11 @@
 #define DOT_H_
 
 #include "Entity.h"
-
+namespace Logic {
 class Dot: public Entity {
 public:
 	Dot(int posX, int posY);
 	virtual ~Dot();
 };
-
+}
 #endif /* DOT_H_ */

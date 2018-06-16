@@ -13,7 +13,7 @@
 
 namespace SDL {
 
-SDLMenu::SDLMenu(SDL_Renderer* gRenderer, shared_ptr<AbstractFactory> F, Size screenSize): Menu(F) {
+SDLMenu::SDLMenu(SDL_Renderer* gRenderer, shared_ptr<Logic::AbstractFactory> F, Size screenSize): Logic::Menu(F) {
 	currentSelection = 0;
 	this->gRenderer = gRenderer;
 	loadFont();

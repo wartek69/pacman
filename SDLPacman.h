@@ -13,8 +13,8 @@
 #include "SDLEntity.h"
 #include "SDLMovingEntity.h"
 #include "Entity.h"
-
-class SDLPacman:public Pacman,public SDL::SDLMovingEntity {
+namespace SDL {
+class SDLPacman:public Logic::Pacman,public SDL::SDLMovingEntity {
 public:
 	SDLPacman(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLPacman();
@@ -32,5 +32,5 @@ private:
 
 
 };
-
+}
 #endif /* SDLPACMAN_H_ */

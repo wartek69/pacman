@@ -10,7 +10,7 @@
 
 namespace SDL {
 
-SDLCherry::SDLCherry(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<ScoreHandler> score):
+SDLCherry::SDLCherry(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<Logic::ScoreHandler> score):
 	Logic::Cherry(posX, posY, score), SDLEntity(data, gRenderer, spriteSheet) {
 
 }

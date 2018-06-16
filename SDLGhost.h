@@ -13,7 +13,7 @@
 #include "SDLMovingEntity.h"
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
-
+namespace SDL {
 class SDLGhost: public SDL::SDLMovingEntity {
 public:
 	SDLGhost(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet);
@@ -26,5 +26,5 @@ private:
 	// j is used to swap animations
 	int frameCounter, j;
 };
-
+}
 #endif /* SDLGHOST_H_ */

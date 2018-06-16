@@ -10,9 +10,9 @@
 #include <iostream>
 
 using namespace std;
-
+namespace Logic {
 MovingEntity::MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight)
-: Entity(posX, posY, collisionWidth, collisionHeight) {
+: Logic::Entity(posX, posY, collisionWidth, collisionHeight) {
 	vel = 1;
 	dir = 100;
 
@@ -110,4 +110,5 @@ int MovingEntity::getDirection() const {
 
 int MovingEntity::getVelocity() const {
 	return vel;
+}
 }

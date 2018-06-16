@@ -8,7 +8,7 @@
 #include "InputHandler.h"
 #include "Pacman.h"
 #include <memory>
-
+namespace Logic {
 InputHandler::InputHandler(std::shared_ptr<Pacman> handleObject):handleObject(handleObject) {
 
 }
@@ -16,4 +16,4 @@ InputHandler::InputHandler(std::shared_ptr<Pacman> handleObject):handleObject(ha
 InputHandler::~InputHandler() {
 
 }
-
+}

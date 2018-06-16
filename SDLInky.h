@@ -15,11 +15,11 @@ namespace SDL {
 
 class SDLInky: public Logic::Inky, public SDLGhost {
 public:
-	SDLInky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world);
+	SDLInky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<Logic::WorldObjects> world);
 	virtual ~SDLInky();
 	void move(int direction, int velocity) override;
 	void visualize(int frame) override;
-	void findPath(const MovingEntity& entity) override;
+	void findPath(const Logic::MovingEntity& entity) override;
 };
 
 } /* namespace SDL */

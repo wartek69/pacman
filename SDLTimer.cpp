@@ -11,7 +11,7 @@
 
 
 using namespace std;
-
+namespace SDL {
 SDLTimer::SDLTimer(): startTime(0), isStarted(false), passedTime(0), isPaused(false){
 }
 
@@ -57,4 +57,4 @@ void SDLTimer::resume() {
 		cout << "can't resume, timer wasn't paused" << endl;
 	isPaused = false;
 }
-
+}

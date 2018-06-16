@@ -18,17 +18,17 @@
 #include "SoundManager.h"
 #include "Map.h"
 
-
+namespace Logic {
 class Game {
 public:
-	Game(shared_ptr<AbstractFactory> F);
+	Game(shared_ptr<Logic::AbstractFactory> F);
 	virtual ~Game();
 	void start(bool& repeat);
 private:
 	shared_ptr<WorldObjects> world;
 	const int DELAY = 60;
 	const int SCREEN_TICKS_PER_FRAME = 1000/DELAY;
-	shared_ptr<AbstractFactory> F;
+	shared_ptr<Logic::AbstractFactory> F;
 	shared_ptr<Ghost> blueGhost;
 	shared_ptr<Ghost> redGhost;
 	shared_ptr<Ghost> orangeGhost;
@@ -46,5 +46,5 @@ private:
 	Game();
 	void loadMap(Map mapController);
 };
-
+}
 #endif /* GAME_H_ */

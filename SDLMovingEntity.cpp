@@ -12,7 +12,7 @@
 namespace SDL {
 
 SDLMovingEntity::SDLMovingEntity(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet)
-	:SDLEntity(data, gRenderer, spriteSheet)	{
+	:SDL::SDLEntity(data, gRenderer, spriteSheet)	{
 
 }
 
@@ -56,7 +56,7 @@ void SDLMovingEntity::visualize(int posX, int posY, int vel, int dir, int frame)
 			SDLY = posY * tileDimensions.height;
 			break;
 	}
-	SDLEntity::visualize();
+	SDL::SDLEntity::visualize();
 
 }
 

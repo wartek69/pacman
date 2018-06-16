@@ -11,6 +11,9 @@
 #include <algorithm>
 #include "Ghost.h"
 #include "Blinky.h"
+
+namespace Logic {
+
 WorldObjects::WorldObjects() {
 
 }
@@ -19,33 +22,33 @@ WorldObjects::~WorldObjects() {
 
 }
 
-void WorldObjects::add(std::shared_ptr<Entity> entity) {
+void WorldObjects::add(std::shared_ptr<Logic::Entity> entity) {
 	objects.push_back(entity);
 }
 
-void WorldObjects::remove(std::shared_ptr<Entity> entity) {
+void WorldObjects::remove(std::shared_ptr<Logic::Entity> entity) {
 	auto it = find(objects.begin(), objects.end(), entity);
 	objects.erase(it);
 
 }
 
-void WorldObjects::addWall(std::shared_ptr<Wall> wall) {
+void WorldObjects::addWall(std::shared_ptr<Logic::Wall> wall) {
 	walls.push_back(wall);
 }
 
-void WorldObjects::addDot(std::shared_ptr<Dot> dot) {
+void WorldObjects::addDot(std::shared_ptr<Logic::Dot> dot) {
 	dots.push_back(dot);
 }
 
-void WorldObjects::addPacman(std::shared_ptr<Pacman> pacman) {
+void WorldObjects::addPacman(std::shared_ptr<Logic::Pacman> pacman) {
 	this->pacman = pacman;
 }
 
-void WorldObjects::addGhost(std::shared_ptr<Ghost> ghost) {
+void WorldObjects::addGhost(std::shared_ptr<Logic::Ghost> ghost) {
 	ghosts.push_back(ghost);
 }
 
-void WorldObjects::addBlinky(std::shared_ptr<Ghost> blinky) {
+void WorldObjects::addBlinky(std::shared_ptr<Logic::Ghost> blinky) {
 	this->blinky = blinky;
 }
 
@@ -53,7 +56,7 @@ void WorldObjects::addConsumable(std::shared_ptr<Logic::Consumable> cons) {
 	consumables.push_back(cons);
 }
 
-void WorldObjects::addGate(shared_ptr<Wall> wall) {
+void WorldObjects::addGate(shared_ptr<Logic::Wall> wall) {
 	gate.push_back(wall);
 }
 std::vector<std::shared_ptr<Logic::Consumable>>& WorldObjects::getConsumables() {
@@ -67,20 +70,20 @@ const std::vector<std::shared_ptr<Wall>>& WorldObjects::getWalls() {
 	return walls;
 }
 
-std::vector<std::shared_ptr<Dot>>& WorldObjects::getDots() {
+std::vector<std::shared_ptr<Logic::Dot>>& WorldObjects::getDots() {
 	return dots;
 }
 
-std::vector<std::shared_ptr<Ghost>>& WorldObjects::getGhosts() {
+std::vector<std::shared_ptr<Logic::Ghost>>& WorldObjects::getGhosts() {
 	return ghosts;
 }
 
-const Wall& WorldObjects::getGate() {
-	shared_ptr<Wall> temp = gate[0];
+const Logic::Wall& WorldObjects::getGate() {
+	shared_ptr<Logic::Wall> temp = gate[0];
 	return *temp;
 }
 
-const Ghost& WorldObjects::getBlinky() {
+const Logic::Ghost& WorldObjects::getBlinky() {
 	return *blinky;
 }
 /*
@@ -98,4 +101,4 @@ void WorldObjects::moveGhosts() {
 			ghost->isSpawning(false);
 	}
 }
-
+}

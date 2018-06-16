@@ -7,7 +7,7 @@
 
 #include "Entity.h"
 #include <iostream>
-
+namespace Logic {
 Entity::Entity(int posX, int posY, int collisionWidth, int collisionHeight) {
 	position.x = posX;
 	position.y = posY;
@@ -36,4 +36,5 @@ int Entity::getPositionY() const {
 
 void Entity::print() const {
 	std::cout << "I'm an entity" << std::endl;
+}
 }

@@ -7,7 +7,7 @@
 
 #ifndef SCOREHANDLER_H_
 #define SCOREHANDLER_H_
-
+namespace Logic {
 class ScoreHandler {
 public:
 	ScoreHandler();
@@ -20,5 +20,5 @@ public:
 protected:
 	int score;
 };
-
+}
 #endif /* SCOREHANDLER_H_ */

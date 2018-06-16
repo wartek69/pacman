@@ -12,9 +12,9 @@
 
 using namespace std;
 
-
+namespace SDL {
 SDLGhost::SDLGhost(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet):
-		SDLMovingEntity(data, gRenderer, spriteSheet) {
+		SDL::SDLMovingEntity(data, gRenderer, spriteSheet) {
 		loadSprites();
 		frameCounter = 0;
 		j = 0;
@@ -60,7 +60,7 @@ void SDLGhost::animation(int direction, int velocity, bool eaten) {
 	//switching sprites, every picture gets displayed for multiplyFactor frames
 	if(eaten) {
 		currentSprite = sprites[EATEN + direction];
-	} else if(Ghost::getMode() == CHASE || Ghost::getMode() == SCATTER) {
+	} else if(Logic::Ghost::getMode() == CHASE || Logic::Ghost::getMode() == SCATTER) {
 		if(frameCounter > 2*(multiplyFactor/velocity)) {
 			j = 1;
 			frameCounter = 0;
@@ -73,7 +73,7 @@ void SDLGhost::animation(int direction, int velocity, bool eaten) {
 		} else {
 				currentSprite = sprites[direction + 4];
 		}
-	} else if (Ghost::getMode() == FRIGHTENED && Ghost::getBlink() == true) {
+	} else if (Logic::Ghost::getMode() == FRIGHTENED && Logic::Ghost::getBlink() == true) {
 		//animations when ghost are frightened and time is running out
 		if(frameCounter > 4*(multiplyFactor/velocity)) {
 			j = 3;
@@ -95,7 +95,7 @@ void SDLGhost::animation(int direction, int velocity, bool eaten) {
 		} else if(j == 0) {
 			currentSprite = sprites[BLUE+1];
 		}
-	} else if(Ghost::getMode() == FRIGHTENED){
+	} else if(Logic::Ghost::getMode() == FRIGHTENED){
 		if(frameCounter > 2*(multiplyFactor/velocity)) {
 			j = 1;
 			frameCounter = 0;
@@ -114,4 +114,4 @@ void SDLGhost::animation(int direction, int velocity, bool eaten) {
 
 
 }
-
+}

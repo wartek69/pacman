@@ -9,8 +9,8 @@
 #define SDLTIMER_H_
 
 #include "Timer.h"
-
-class SDLTimer: public Timer {
+namespace SDL {
+class SDLTimer: public Logic::Timer {
 public:
 	SDLTimer();
 	virtual ~SDLTimer();
@@ -27,5 +27,5 @@ private:
 	int passedTime;
 	bool isPaused;
 };
-
+}
 #endif /* SDLTIMER_H_ */

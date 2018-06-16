@@ -9,8 +9,8 @@
 #define WALL_H_
 
 #include "Entity.h"
-
-class Wall: public Entity {
+namespace Logic {
+class Wall: public Logic::Entity {
 public:
 	Wall(int posX, int posY);
 	virtual ~Wall();
@@ -18,5 +18,5 @@ public:
 private:
 	Wall(); 		//default constructor shouldn't be used
 };
-
+}
 #endif /* WALL_H_ */

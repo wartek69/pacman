@@ -7,7 +7,7 @@
 
 #ifndef ENTITY_H_
 #define ENTITY_H_
-
+namespace Logic {
 class Entity {
 public:
 	Entity(int posX, int posY, int collisionWidth, int collisionHeight);
@@ -28,5 +28,5 @@ protected:
 	int collisionWidth;
 	int collisionHeight;
 };
-
+}
 #endif /* ENTITY_H_ */

@@ -10,8 +10,8 @@
 
 namespace SDL {
 
-SDLPowerUp::SDLPowerUp(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<Timer> timer) :
-	PowerUp(posX, posY, timer), SDLEntity(data, gRenderer, spriteSheet){
+SDLPowerUp::SDLPowerUp(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, std::shared_ptr<Logic::Timer> timer) :
+	Logic::PowerUp(posX, posY, timer), SDL::SDLEntity(data, gRenderer, spriteSheet){
 	frameCounter = 0;
 	toggle = 0;
 }
@@ -32,7 +32,7 @@ void SDLPowerUp::visualize(int frame) {
 			toggle = 0;
 	}
 	if(toggle == 1)
-		SDLEntity::visualize();
+		SDL::SDLEntity::visualize();
 
 	frameCounter++;
 	//prevent overflow

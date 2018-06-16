@@ -10,8 +10,8 @@
 
 #include "SDLEntity.h"
 #include "Wall.h"
-
-class SDLWall: public Wall, public SDLEntity {
+namespace SDL {
+class SDLWall: public Logic::Wall, public SDL::SDLEntity {
 public:
 	SDLWall(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, int type);
 	virtual ~SDLWall();
@@ -22,5 +22,5 @@ private:
 	void loadSprites();
 	SDL_Rect sprites[7];
 };
-
+}
 #endif /* SDLWALL_H_ */

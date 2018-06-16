@@ -7,7 +7,7 @@
 
 #ifndef TIMER_H_
 #define TIMER_H_
-
+namespace Logic {
 class Timer {
 public:
 	Timer();
@@ -20,5 +20,5 @@ public:
 	virtual void resume() = 0;
 	virtual bool isRunning() = 0;
 };
-
+}
 #endif /* TIMER_H_ */

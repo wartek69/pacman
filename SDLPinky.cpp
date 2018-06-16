@@ -9,8 +9,8 @@
 
 namespace SDL {
 
-SDLPinky::SDLPinky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
-	Pinky(posX, posY, world), SDLGhost(data, gRenderer, spriteSheet) {
+SDLPinky::SDLPinky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<Logic::WorldObjects> world):
+	Logic::Pinky(posX, posY, world), SDL::SDLGhost(data, gRenderer, spriteSheet) {
 
 }
 
@@ -19,18 +19,18 @@ SDLPinky::~SDLPinky() {
 
 void SDLPinky::move(int direction, int velocity) {
 	//first replace the ghost in the game
-	Ghost::move(direction, velocity);
+	Logic::Ghost::move(direction, velocity);
 	//Do the animation
-	SDLGhost::animation(dir, vel, this->eaten);
+	SDL::SDLGhost::animation(dir, vel, this->eaten);
 }
 
 void SDLPinky::visualize(int frame) {
-	SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
+	SDL::SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
 }
 
-void SDLPinky::findPath(const MovingEntity& entity) {
+void SDLPinky::findPath(const Logic::MovingEntity& entity) {
 	Logic::Pinky::findPath(entity);
-	SDLPinky::move(dir, vel);
+	SDL::SDLPinky::move(dir, vel);
 
 }
 

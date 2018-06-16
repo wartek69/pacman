@@ -11,8 +11,8 @@
 #include "Entity.h"
 #include "WorldObjects.h"
 
-
-class MovingEntity:public Entity {
+namespace Logic {
+class MovingEntity:public Logic::Entity {
 public:
 	MovingEntity(int posX, int posY, int collisionWidth, int collisionHeight);
 	virtual ~MovingEntity();
@@ -25,5 +25,5 @@ protected:
 	int dir;
 	int vel;
 };
-
+}
 #endif /* MOVINGENTITY_H_ */

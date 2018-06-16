@@ -6,10 +6,10 @@
  */
 
 #include "Timer.h"
-
+namespace Logic  {
 Timer::Timer() {
 }
 
 Timer::~Timer() {
 }
-
+}

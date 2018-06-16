@@ -8,8 +8,8 @@
 #include "Menu.h"
 #include "Game.h"
 #include <memory>
-
-Menu::Menu(shared_ptr<AbstractFactory> F): F(F) {
+namespace Logic {
+Menu::Menu(shared_ptr<Logic::AbstractFactory> F): F(F) {
 
 }
 
@@ -20,8 +20,9 @@ void Menu::startGame() {
 	bool repeat;
 	do {
 		repeat = false;
-		unique_ptr<Game> game = make_unique<Game>(F);
+		unique_ptr<Logic::Game> game = make_unique<Logic::Game>(F);
 		game->start(repeat);
 	}while(repeat);
 
+}
 }

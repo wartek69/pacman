@@ -9,9 +9,9 @@
 #include "Types.h"
 #include <iostream>
 using namespace std;
-
+namespace SDL {
 SDLWall::SDLWall(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, int type) :
-Wall(posX,posY), SDLEntity(data, gRenderer, spriteSheet) {
+Logic::Wall(posX,posY), SDL::SDLEntity(data, gRenderer, spriteSheet) {
 	//loads all wall sprites
 	//cout << rectY << endl;
 	loadSprites();
@@ -29,7 +29,7 @@ void SDLWall::setActiveSprite(int type) {
 void SDLWall::visualize(int frame) {
 	SDLX = position.x * tileDimensions.width;
 	SDLY = position.y * tileDimensions.height;
-	SDLEntity::visualize();
+	SDL::SDLEntity::visualize();
 }
 /**
  * loads up all the sprites that are needed for the walls
@@ -45,4 +45,5 @@ void SDLWall::loadSprites() {
 	sprites[GATE-1] = temp;
 	//set default value
 	currentSprite = sprites [HWALL-1];
+}
 }

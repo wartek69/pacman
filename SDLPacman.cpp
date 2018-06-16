@@ -12,9 +12,9 @@
 #include "Types.h"
 #include <iostream>
 using namespace std;
-
+namespace SDL {
 SDLPacman::SDLPacman(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Pacman(posX, posY), SDL::SDLMovingEntity(data, gRenderer, spriteSheet) {
+Logic::Pacman(posX, posY), SDL::SDLMovingEntity(data, gRenderer, spriteSheet) {
 	loadSprites();
 	frameCounter = 0;
 	j = 0;
@@ -52,7 +52,7 @@ void SDLPacman::loadSprites() {
 }
 void SDLPacman::move(int direction, int velocity) {
 	//call base class move
-	MovingEntity::move(direction, velocity);
+	Logic::MovingEntity::move(direction, velocity);
 	//animations
 	int temp;
 	float multiplyFactor = 0.8f;
@@ -114,4 +114,4 @@ bool SDLPacman::die() {
 	} else
 		return false;
 }
-
+}

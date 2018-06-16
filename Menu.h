@@ -13,18 +13,18 @@
 
 //this is needed to break cyclic redundancy of header files
 // Menu needs abstractF and the latter needs the former
+namespace Logic {
 class AbstractFactory;
-
 
 class Menu {
 public:
-	Menu(shared_ptr<AbstractFactory> F);
+	Menu(shared_ptr<Logic::AbstractFactory> F);
 	virtual ~Menu();
 	void startGame();
 	virtual void interact(bool& quit) = 0;
 	virtual void visualize() = 0;
 protected:
-	shared_ptr<AbstractFactory> F;
+	shared_ptr<Logic::AbstractFactory> F;
 };
-
+}
 #endif /* MENU_H_ */

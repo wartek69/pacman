@@ -13,7 +13,7 @@
 #include <limits>
 #include <vector>
 using namespace std;
-
+namespace Logic {
 Map::Map() {
 	//just max value, the value gets changed when loading in the map
 	cols = numeric_limits<int>::max();
@@ -87,4 +87,4 @@ int Map::getCols() {
 int Map::getRows() {
 	return rows;
 }
-
+}

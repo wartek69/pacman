@@ -10,9 +10,9 @@
 #include "Types.h"
 #include <iostream>
 using namespace std;
+namespace SDL {
 
-
-SDLInputHandler::SDLInputHandler(shared_ptr<Pacman> handleObject): InputHandler(handleObject) {
+SDLInputHandler::SDLInputHandler(shared_ptr<Logic::Pacman> handleObject): Logic::InputHandler(handleObject) {
 
 }
 
@@ -79,4 +79,5 @@ void SDLInputHandler::handleEndScreen(bool& quit, bool& repeat) {
 			}
 		}
 	}
+}
 }

@@ -10,12 +10,12 @@
 
 #include "Dot.h"
 #include "SDLEntity.h"
-
-class SDLDot: public Dot, public SDLEntity {
+namespace SDL {
+class SDLDot: public Logic::Dot, public SDLEntity {
 public:
 	SDLDot(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLDot();
 	void visualize(int frame) override;
 };
-
+}
 #endif /* SDLDOT_H_ */

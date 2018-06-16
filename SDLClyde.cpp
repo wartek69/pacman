@@ -9,8 +9,8 @@
 
 namespace SDL {
 
-SDLClyde::SDLClyde(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<WorldObjects> world):
-	Clyde(posX, posY, world), SDLGhost(data, gRenderer, spriteSheet) {
+SDLClyde::SDLClyde(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<Logic::WorldObjects> world):
+	Logic::Clyde(posX, posY, world), SDL::SDLGhost(data, gRenderer, spriteSheet) {
 
 }
 
@@ -19,13 +19,13 @@ SDLClyde::~SDLClyde() {
 
 void SDLClyde::move(int direction, int velocity) {
 	//first replace the ghost in the game
-	Ghost::move(direction, velocity);
+	Logic::Ghost::move(direction, velocity);
 	//Do the animation
-	SDLGhost::animation(dir, vel, this->eaten);
+	SDL::SDLGhost::animation(dir, vel, this->eaten);
 }
 
 void SDLClyde::visualize(int frame) {
-	SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
+	SDL::SDLGhost::showOnScreen(position.x, position.y, vel, dir, frame);
 }
 
 void SDLClyde::findPath(const MovingEntity& entity) {
