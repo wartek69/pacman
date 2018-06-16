@@ -14,13 +14,13 @@
 
 namespace Logic {
 
-class PowerUp: public Consumable {
+class PowerUp: public Logic::Consumable {
 public:
-	PowerUp(int posX, int posY, std::shared_ptr<Timer>);
+	PowerUp(int posX, int posY, std::shared_ptr<Logic::Timer>);
 	virtual ~PowerUp();
 	void action() override;
 protected:
-	std::shared_ptr<Timer> frightenedTimer;
+	std::shared_ptr<Logic::Timer> frightenedTimer;
 };
 
 

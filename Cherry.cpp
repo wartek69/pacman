@@ -10,7 +10,7 @@
 
 namespace Logic {
 
-Cherry::Cherry(int posX, int posY, std::shared_ptr<ScoreHandler> score): Consumable(posX, posY) {
+Cherry::Cherry(int posX, int posY, std::shared_ptr<Logic::ScoreHandler> score): Logic::Consumable(posX, posY) {
 	this->score = score;
 
 }

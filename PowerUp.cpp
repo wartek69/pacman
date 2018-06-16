@@ -12,7 +12,7 @@
 #include "Timer.h"
 namespace Logic {
 
-PowerUp::PowerUp(int posX, int posY, shared_ptr<Timer> timer ): Consumable(posX, posY) {
+PowerUp::PowerUp(int posX, int posY, shared_ptr<Logic::Timer> timer ): Logic::Consumable(posX, posY) {
 	this->frightenedTimer = timer;
 }
 
@@ -20,7 +20,7 @@ PowerUp::~PowerUp() {
 }
 
 void PowerUp::action() {
-	Ghost::setMode(FRIGHTENED);
+	Logic::Ghost::setMode(FRIGHTENED);
 	frightenedTimer->startTimer();
 }
 } /* namespace Logic */

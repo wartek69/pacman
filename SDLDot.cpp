@@ -10,7 +10,7 @@
 #include "Dot.h"
 namespace SDL {
 SDLDot::SDLDot(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY):
-Logic::Dot(posX, posY), SDLEntity(data, gRenderer, spriteSheet) {
+Logic::Dot(posX, posY), SDL::SDLEntity(data, gRenderer, spriteSheet) {
 }
 
 SDLDot::~SDLDot() {
@@ -21,6 +21,6 @@ void SDLDot::visualize(int frame) {
 	//TODO param
 	SDLX = position.x * tileDimensions.width;
 	SDLY = position.y * tileDimensions.height;
-	SDLEntity::visualize();
+	SDL::SDLEntity::visualize();
 }
 }

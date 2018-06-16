@@ -10,7 +10,7 @@
 
 namespace Logic {
 
-Inky::Inky(int posX, int posY, shared_ptr<WorldObjects> world): Ghost(posX, posY, world) {
+Inky::Inky(int posX, int posY, shared_ptr<Logic::WorldObjects> world): Logic::Ghost(posX, posY, world) {
 
 }
 
@@ -20,12 +20,12 @@ Inky::~Inky() {
  * inky uses a vector to calculate the position it should go to
  * when inky scatters he goes to the right lower corner
  */
-void Inky::findPath(const MovingEntity& entity) {
+void Inky::findPath(const Logic::MovingEntity& entity) {
 	int posGoalX = 0;
 	int posGoalY = 0;
 	if(this->eaten) {
-		Ghost::decidePath(posGoalX, posGoalY);
-	}else if(Ghost::mode == CHASE) {
+		Logic::Ghost::decidePath(posGoalX, posGoalY);
+	}else if(Logic::Ghost::mode == CHASE) {
 		//first determine 2tiles in front of pacman
 
 		switch(entity.getDirection()) {
@@ -51,15 +51,15 @@ void Inky::findPath(const MovingEntity& entity) {
 		//this formula can be easily derived with vector math
 		posGoalX = 2*posGoalX - blinky.getPositionX();
 		posGoalY = 2*posGoalY - blinky.getPositionY();
-		Ghost::decidePath(posGoalX, posGoalY);
+		Logic::Ghost::decidePath(posGoalX, posGoalY);
 
-	} else if(Ghost::mode == SCATTER) {
+	} else if(Logic::Ghost::mode == SCATTER) {
 		posGoalX = 15;
 		posGoalY = 15;
-		Ghost::decidePath(posGoalX, posGoalY);
+		Logic::Ghost::decidePath(posGoalX, posGoalY);
 
-	} else if(Ghost::mode == FRIGHTENED ) {
-		Ghost::frighten();
+	} else if(Logic::Ghost::mode == FRIGHTENED ) {
+		Logic::Ghost::frighten();
 	}
 
 

@@ -14,7 +14,7 @@ namespace Logic {
 
 class Pinky: public Ghost {
 public:
-	Pinky(int posX, int posY, shared_ptr<WorldObjects> world);
+	Pinky(int posX, int posY, shared_ptr<Logic::WorldObjects> world);
 	virtual ~Pinky();
 	void findPath(const Logic::MovingEntity& entity) override;
 

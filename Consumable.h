@@ -12,7 +12,7 @@
 
 namespace Logic {
 
-class Consumable: public Entity {
+class Consumable: public Logic::Entity {
 public:
 	Consumable(int posX, int posY);
 	virtual ~Consumable();

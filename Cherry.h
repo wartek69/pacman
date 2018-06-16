@@ -14,13 +14,13 @@
 
 namespace Logic {
 
-class Cherry: public Consumable {
+class Cherry: public Logic::Consumable {
 public:
-	Cherry(int posX, int posY, std::shared_ptr<ScoreHandler> score);
+	Cherry(int posX, int posY, std::shared_ptr<Logic::ScoreHandler> score);
 	virtual ~Cherry();
 	void action() override;
 protected:
-	std::shared_ptr<ScoreHandler> score;
+	std::shared_ptr<Logic::ScoreHandler> score;
 };
 
 } /* namespace Logic */

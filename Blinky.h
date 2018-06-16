@@ -14,11 +14,11 @@ namespace Logic {
  /**
   * red Ghost
   */
-class Blinky: public Ghost {
+class Blinky: public Logic::Ghost {
 public:
-	Blinky(int posX, int posY, shared_ptr<WorldObjects> world);
+	Blinky(int posX, int posY, shared_ptr<Logic::WorldObjects> world);
 	virtual ~Blinky();
-	void findPath(const MovingEntity& entity) override;
+	void findPath(const Logic::MovingEntity& entity) override;
 
 };
 

@@ -22,7 +22,7 @@ ConfigParser::ConfigParser() {
 ConfigParser::~ConfigParser() {
 }
 
-Data ConfigParser::searchElement(std::string query) {
+Config::Data ConfigParser::searchElement(std::string query) {
 	Data data;
 	tinyxml2::XMLElement *pRoot;
 	pRoot = doc.FirstChildElement(query.c_str());

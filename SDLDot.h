@@ -11,7 +11,7 @@
 #include "Dot.h"
 #include "SDLEntity.h"
 namespace SDL {
-class SDLDot: public Logic::Dot, public SDLEntity {
+class SDLDot: public Logic::Dot, public SDL::SDLEntity {
 public:
 	SDLDot(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY);
 	virtual ~SDLDot();

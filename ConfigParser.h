@@ -19,7 +19,7 @@ namespace Config {
 class ConfigParser {
 public:
 	ConfigParser();
-	Data searchElement(std::string query);
+	Config::Data searchElement(std::string query);
 	Size getScreenSize();
 	virtual ~ConfigParser();
 private:

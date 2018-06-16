@@ -12,11 +12,11 @@
 
 namespace Logic {
 
-class Inky: public Ghost {
+class Inky: public Logic::Ghost {
 public:
-	Inky(int posX, int posY, shared_ptr<WorldObjects> world);
+	Inky(int posX, int posY, shared_ptr<Logic::WorldObjects> world);
 	virtual ~Inky();
-	void findPath(const MovingEntity& entity) override;
+	void findPath(const Logic::MovingEntity& entity) override;
 
 };
 

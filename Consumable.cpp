@@ -11,7 +11,7 @@
 
 namespace Logic {
 
-Consumable::Consumable(int posX, int posY): Entity(posX, posY, 1, 1) {
+Consumable::Consumable(int posX, int posY): Logic::Entity(posX, posY, 1, 1) {
 
 }
 

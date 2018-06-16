@@ -13,7 +13,7 @@
 
 namespace SDL {
 
-class SDLInky: public Logic::Inky, public SDLGhost {
+class SDLInky: public Logic::Inky, public SDL::SDLGhost {
 public:
 	SDLInky(Config::Data data, SDL_Renderer* gRenderer, SDL_Texture* spriteSheet, int posX, int posY, shared_ptr<Logic::WorldObjects> world);
 	virtual ~SDLInky();

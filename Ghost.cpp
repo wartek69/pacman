@@ -22,7 +22,7 @@ namespace Logic {
 int Ghost::mode = SCATTER;
 bool Ghost::blink = false;
 
-Ghost::Ghost(int posX, int posY, shared_ptr<WorldObjects> world): MovingEntity(posX, posY, 24, 24) {
+Ghost::Ghost(int posX, int posY, shared_ptr<Logic::WorldObjects> world): Logic::MovingEntity(posX, posY, 24, 24) {
 	this->world = world;
 	//init random num generator
 	srand(time(NULL));
@@ -40,10 +40,10 @@ Ghost::~Ghost() {
  */
 
 bool Ghost::isCrossRoad() {
-	for(shared_ptr<Wall> wall: world->getWalls()) {
+	for(shared_ptr<Logic::Wall> wall: world->getWalls()) {
 		for(int i = 0;i < 4; i++) {
 			//move the ghost without animation
-			MovingEntity::place(i,1);
+			Logic::MovingEntity::place(i,1);
 			if(checkCollision(*wall)) {
 				MovingEntity::place(i,-1);
 				return false;
@@ -57,11 +57,11 @@ bool Ghost::isCrossRoad() {
 
 bool Ghost::doesCollideWall(int direction) {
 
-	MovingEntity::place(direction, 1);
+	Logic::MovingEntity::place(direction, 1);
 
-	for(shared_ptr<Wall> wall: world->getWalls()) {
+	for(shared_ptr<Logic::Wall> wall: world->getWalls()) {
 		if(checkCollision(*wall)) {
-			MovingEntity::place(direction, -1);
+			Logic::MovingEntity::place(direction, -1);
 			return true;
 		}
 	}
@@ -93,9 +93,9 @@ void Ghost::decidePath(int posGoalX, int posGoalY) {
 		for(int i = 0;i < 4; i++) {
 			MovingEntity::place(i,1);
 			if(checkCollision(gate)) {
-				Ghost::setEaten(false);
+				Logic::Ghost::setEaten(false);
 			}
-			MovingEntity::place(i,-1);
+			Logic::MovingEntity::place(i,-1);
 
 		}
 	}
@@ -103,10 +103,10 @@ void Ghost::decidePath(int posGoalX, int posGoalY) {
 	multimap<int, int> shortestD;
 	for(int i = 0; i < 4; i++) {
 		//TODO parametrize the velocity
-		MovingEntity::place(i,1);
+		Logic::MovingEntity::place(i,1);
 		int temp = pow((posGoalX - this->position.x), 2.0) + pow((posGoalY - this->position.y), 2.0);
-		MovingEntity::place(i,-1);
-		if(!(Ghost::doesCollideWall(i))) {
+		Logic::MovingEntity::place(i,-1);
+		if(!(Logic::Ghost::doesCollideWall(i))) {
 			shortestD.insert(make_pair(temp, i));
 		}
 
@@ -175,15 +175,15 @@ bool Ghost::getSpawned() {
 bool Ghost::spawn() {
 	//first check where the gate of the ghost house is
 	for(int i = 0; i < 4; i++) {
-		MovingEntity::place(i, 1);
+		Logic::MovingEntity::place(i, 1);
 		if(checkCollision(world->getGate())) {
 			//spawn the ghost
-			MovingEntity::place(i, -1);
+			Logic::MovingEntity::place(i, -1);
 			move(i, 1);
 			vel = 1;
 			return true;
 		}
-		MovingEntity::place(i, -1);
+		Logic::MovingEntity::place(i, -1);
 	}
 	return false;
 

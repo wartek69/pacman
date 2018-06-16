@@ -34,7 +34,7 @@ public:
 	shared_ptr<Logic::Cherry> createCherry(int posX, int posY, shared_ptr<Logic::ScoreHandler> score) override;
 	bool createWindow();
 	bool loadSpriteSheet();
-	bool loadFromFile(string path);
+	bool loadFromFile(std::string path);
 	void close();
 	void clearScreen() override;
 	void showScreen() override;

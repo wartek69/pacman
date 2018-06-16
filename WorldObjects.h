@@ -33,7 +33,7 @@ public:
 	virtual void visualize(const std::shared_ptr<Logic::ScoreHandler>& score) = 0;
 	virtual void add(std::shared_ptr<Logic::Entity>);
 	virtual void addWall(std::shared_ptr<Logic::Wall>);
-	virtual const Pacman& getPacman();
+	virtual const Logic::Pacman& getPacman();
 	virtual const std::vector<std::shared_ptr<Logic::Wall>>& getWalls();
 	virtual void remove(std::shared_ptr<Logic::Entity>);
 	virtual void addPacman(std::shared_ptr<Logic::Pacman>);

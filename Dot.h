@@ -10,7 +10,7 @@
 
 #include "Entity.h"
 namespace Logic {
-class Dot: public Entity {
+class Dot: public Logic::Entity {
 public:
 	Dot(int posX, int posY);
 	virtual ~Dot();

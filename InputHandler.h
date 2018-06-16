@@ -13,12 +13,12 @@
 namespace Logic {
 class InputHandler {
 public:
-	InputHandler(std::shared_ptr<Pacman> handleObject);
+	InputHandler(std::shared_ptr<Logic::Pacman> handleObject);
 	virtual ~InputHandler();
 	virtual void handleInput(bool& quit,int& direction, int& velocity) = 0;
 	virtual void handleEndScreen(bool& quit, bool& repeat) = 0;
 protected:
-	std::shared_ptr<Pacman> handleObject;
+	std::shared_ptr<Logic::Pacman> handleObject;
 };
 }
 #endif /* INPUTHANDLER_H_ */

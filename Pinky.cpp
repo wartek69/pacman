@@ -10,7 +10,7 @@
 
 namespace Logic {
 
-Pinky::Pinky(int posX, int posY, shared_ptr<WorldObjects> world) : Logic::Ghost(posX, posY, world){
+Pinky::Pinky(int posX, int posY, shared_ptr<Logic::WorldObjects> world) : Logic::Ghost(posX, posY, world){
 
 }
 

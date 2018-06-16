@@ -10,7 +10,7 @@
 #include "Entity.h"
 namespace Logic {
 
-Dot::Dot(int posX, int posY): Entity(posX, posY, 1, 1) {
+Dot::Dot(int posX, int posY): Logic::Entity(posX, posY, 1, 1) {
 
 }
 

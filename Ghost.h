@@ -17,12 +17,12 @@ class WorldObjects;
 using namespace std;
 
 namespace Logic {
-class Ghost: public MovingEntity {
+class Ghost: public Logic::MovingEntity {
 public:
-	Ghost(int posX, int posY, shared_ptr<WorldObjects> world);
+	Ghost(int posX, int posY, shared_ptr<Logic::WorldObjects> world);
 	virtual ~Ghost();
 	virtual bool isCrossRoad();
-	virtual void findPath(const MovingEntity& entity) = 0;
+	virtual void findPath(const Logic::MovingEntity& entity) = 0;
 	virtual void decidePath(int, int);
 	virtual void setSpawned(bool);
 	virtual bool doesCollidePac();
@@ -39,7 +39,7 @@ public:
 	virtual bool getSpawned();
 	virtual bool getSpawnStatus();
 protected:
-	std::shared_ptr<WorldObjects> world;
+	std::shared_ptr<Logic::WorldObjects> world;
 	static int mode;
 	static bool blink;
 	bool eaten;

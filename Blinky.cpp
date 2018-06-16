@@ -14,7 +14,7 @@
 
 namespace Logic {
 
-Blinky::Blinky(int posX, int posY, shared_ptr<WorldObjects> world): Ghost(posX, posY, world) {
+Blinky::Blinky(int posX, int posY, shared_ptr<Logic::WorldObjects> world): Logic::Ghost(posX, posY, world) {
 
 }
 
@@ -24,22 +24,22 @@ Blinky::~Blinky() {
 /**
  * Blinky chases pacman, if he is in scatter mode he goes to the upper right corner
  */
-void Blinky::findPath(const MovingEntity& entity) {
+void Blinky::findPath(const Logic::MovingEntity& entity) {
 	int posX = 0;
 	int posY = 0;
 	if(this->eaten) {
-		Ghost::decidePath(posX, posY);
-	}else if(Ghost::mode == CHASE) {
+		Logic::Ghost::decidePath(posX, posY);
+	}else if(Logic::Ghost::mode == CHASE) {
 		posX = entity.getPositionX();
 		posY = entity.getPositionY();
-		Ghost::decidePath(posX, posY);
-	} else if(Ghost::mode == SCATTER) {
+		Logic::Ghost::decidePath(posX, posY);
+	} else if(Logic::Ghost::mode == SCATTER) {
 		//right top corner
 		posX = 10000;
 		posY = 1;
-		Ghost::decidePath(posX, posY);
-	} else if(Ghost::mode == FRIGHTENED) {
-		Ghost::frighten();
+		Logic::Ghost::decidePath(posX, posY);
+	} else if(Logic::Ghost::mode == FRIGHTENED) {
+		Logic::Ghost::frighten();
 	}
 }
 

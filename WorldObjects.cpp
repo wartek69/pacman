@@ -63,10 +63,10 @@ std::vector<std::shared_ptr<Logic::Consumable>>& WorldObjects::getConsumables() 
 	return consumables;
 }
 
-const Pacman& WorldObjects::getPacman() {
+const Logic::Pacman& WorldObjects::getPacman() {
 	return *pacman;
 }
-const std::vector<std::shared_ptr<Wall>>& WorldObjects::getWalls() {
+const std::vector<std::shared_ptr<Logic::Wall>>& WorldObjects::getWalls() {
 	return walls;
 }
 
